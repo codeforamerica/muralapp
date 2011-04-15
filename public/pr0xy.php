@@ -5,13 +5,14 @@
 // Author: Jason Levitt
 // December 7th, 2005
 //
+include 'xml2json/xml2json.php';
 
 // Allowed hostname (api.local and api.travel are also possible here)
 define ('HOSTNAME', 'http://www.muralfarm.org/Muralfarm/RssFeed.ashx');
 
 // Get the REST call path from the AJAX application
 // Is it a POST or a GET?
-$path = ($_POST['yws_path']) ? $_POST['yws_path'] : $_GET['yws_path'];
+$path = ($_POST['yws_path']) ? $_POST['yws_path'] : '?'.$_SERVER['QUERY_STRING'];  // Yeah, dangerous, I know. #todo
 $url = HOSTNAME.$path;
 
 // Open the Curl session
@@ -35,9 +36,16 @@ curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 // Make the call
 $xml = curl_exec($session);
 
+error_log(gettype($xml));
+
 // The web service returns XML. Set the Content-Type appropriately
 header("Content-Type: text/xml");
 
+//$arr = simplexml_load_string($xml);
+//error_log(print_r($arr->channel->item[0]->georss, true));
+//$json = '('.json_encode($arr).');';
+//error_log(print_r($json, true));
+//error_log(print_r($jsonContent, true));
 echo $xml;
 curl_close($session);
 

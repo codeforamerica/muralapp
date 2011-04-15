@@ -44,6 +44,26 @@ Ext.setup({
 			
 		}
 		
+		function dirtyXML2JsonConversion(node) {
+			var coords = node.getElementsByTagNameNS('http://www.georss.org/georss/','point');
+
+			if(coords.length && coords.textContent != '') {
+				coords = coords[0].textContent.split(' ');
+			}
+//console.log(coords);
+
+			var mural = {
+				'title': node.getElementsByTagName('title')[0].textContent,
+				'description': node.getElementsByTagName('description')[0].textContent,
+				'link': node.getElementsByTagName('link')[0].textContent,
+				'pubDate': node.getElementsByTagName('pubDate')[0].textContent,
+				'coordinates': coords
+			}
+//console.log(mural);
+//console.log(arr);
+			return mural; 
+		}
+		
 		listing = new Ext.Component({
 			title: "Listing",
 			scroll: 'vertical',
@@ -72,8 +92,8 @@ Ext.setup({
 			items: [mapPanel, listing]
 		});
 		
-		addMarker = function(tweet) {
-			var latLng = new google.maps.LatLng(tweet.geo.coordinates[0], tweet.geo.coordinates[1]);
+		addMarker = function(mural) {
+			var latLng = new google.maps.LatLng(mural.coordinates[0], mural.coordinates[1]);
 
 			var marker = new google.maps.Marker({
 				map: mapPanel.map,
@@ -83,7 +103,7 @@ Ext.setup({
 			markers.push(marker);
 
 			google.maps.event.addListener(marker, "click", function() {
-				tweetBubble.setContent(tweet.text);
+				tweetBubble.setContent(mural.title);
 				tweetBubble.open(mapPanel.map, marker);
 			});
 		};
@@ -102,9 +122,9 @@ Ext.setup({
 			// Get a random coordinate in Philly
 			var coords = getCoorInPhilly();
 			
-			//console.log(coords);
+//console.log(coords);
 			var testMap = mapPanel;
-			console.log(testMap);
+//console.log(testMap);
 			
 			// Figure out the bounding box for the query
 			var f = 0.015;
@@ -113,7 +133,7 @@ Ext.setup({
 					'maxx': (coords.longitude+f),
 					'maxy': (coords.latitude+f)
 					};
-//			console.log(bbox);
+//console.log(bbox);
 			
 			// Change the projection
 			// creating source and destination Proj4js objects
@@ -128,75 +148,46 @@ Ext.setup({
 			var se = new Proj4js.Point(bbox.maxx,bbox.miny);
 			Proj4js.transform(source, dest, se); 
 			
-			console.log(nw);
-			console.log(se);
-			/*
-			// create the Data Store
-			var store = new Ext.data.Store({
-				// load using HTTP
-				proxy: new Ext.data.HttpProxy
-				({
-					url: 'pr0xy.php',
-					params: {
-						type: 'area',
-						minx: nw.x,
-						miny: se.y,
-						maxx: se.x,
-						maxy: nw.y
-					}
-				}),
-				autoLoad: true,
-
-				// the return will be XML, so lets set up a reader
-				reader: new Ext.data.XmlReader({
-					   // records will have an "Item" tag
-					   root: 'channel',
-					   record: 'item'
-				   }, [
-					   // set up the fields mapping into the xml doc
-					   // The first needs mapping, the others are very basic
-					   'title','link','description','pubDate','georss:point']),
-			   listeners: 
-			   {
-					'load': function(data) { console.log(data); }
-			   }
-			});
-			*/
-		
+//console.log(nw);
+//console.log(se);
 			
-			
+			// Ask for the mural data from muralfarm.org (via our proxy php script)
 			Ext.Ajax.request({
-				url: 'pr0xy.php',
-				params: {
-					type: 'area',
-					minx: nw.x,
-					miny: se.y,
-					maxx: se.x,
-					maxy: nw.y
-				},
+				url: 'pr0xy.php?type=area&minx='+nw.x+'&miny='+se.y+'&maxx='+se.x+'&maxy='+nw.y,
 				success: function(data, opts) {
-					console.log(data);
+//console.log(data);
 					
 					xml = data.responseXML;
-				console.log(xml);
-					var murals = xml.DomQuery("channel item");
-					console.log(murals);
-					console.log(murals.length);
 					
-					/*
-					var tweetList = data.results;
-					listing.update(tweetList);
+//console.log(murals);					
+					
+//console.log(xml);
+					var murals = Ext.DomQuery.select("channel item", xml);
+//console.log(murals);
+console.log(murals.length);
+					
+					
+					//var tweetList = data.results;
+					//listing.update(tweetList);
 					
 					clearMarkers();
 					
 					// Add points to the map
-					for(var i=0, ln = tweetList.length; i < ln; i++){
-						var tweet = tweetList[i];
+					for(var i=0, ln = murals.length; i < ln; i++){
+						var mural = dirtyXML2JsonConversion(murals[i]);
+						
+console.log(mural);
+						if(mural && mural.coordinates) {
+							addMarker(mural);
+						}
+//console.log(point);
+						/*
 						if(tweet.geo && tweet.geo.coordinates) {
 							addMarker(tweet);
 						}
+						*/
 					}
-					*/
+					
 					
 				},
 				failure: function(response, opts) {
