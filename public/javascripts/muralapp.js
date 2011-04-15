@@ -99,20 +99,91 @@ Ext.setup({
 		refresh = function() {
 			// Un comment the line below to actually use the GPS on the phone;
 			//var coords = mapPanel.geo.coords;
+			// Get a random coordinate in Philly
 			var coords = getCoorInPhilly();
-			console.log(coords);
+			
+			//console.log(coords);
 			var testMap = mapPanel;
 			console.log(testMap);
 			
-			Ext.util.JSONP.request({
-				url: 'http://search.twitter.com/search.json',
-				callbackKey: 'callback',
+			// Figure out the bounding box for the query
+			var f = 0.015;
+			bbox = {'minx': (coords.longitude-f),
+					'miny': (coords.latitude-f),
+					'maxx': (coords.longitude+f),
+					'maxy': (coords.latitude+f)
+					};
+//			console.log(bbox);
+			
+			// Change the projection
+			// creating source and destination Proj4js objects
+			var source = new Proj4js.Proj('WGS84');    //source coordinates will be in Longitude/Latitude
+			var dest = new Proj4js.Proj('EPSG:900913');     //destination coordinates in Google Mercator
+
+			// transforming point coordinates
+			var nw = new Proj4js.Point(bbox.minx,bbox.maxy); 
+			Proj4js.transform(source, dest, nw);     
+			
+			// transforming point coordinates
+			var se = new Proj4js.Point(bbox.maxx,bbox.miny);
+			Proj4js.transform(source, dest, se); 
+			
+			console.log(nw);
+			console.log(se);
+			/*
+			// create the Data Store
+			var store = new Ext.data.Store({
+				// load using HTTP
+				proxy: new Ext.data.HttpProxy
+				({
+					url: 'pr0xy.php',
+					params: {
+						type: 'area',
+						minx: nw.x,
+						miny: se.y,
+						maxx: se.x,
+						maxy: nw.y
+					}
+				}),
+				autoLoad: true,
+
+				// the return will be XML, so lets set up a reader
+				reader: new Ext.data.XmlReader({
+					   // records will have an "Item" tag
+					   root: 'channel',
+					   record: 'item'
+				   }, [
+					   // set up the fields mapping into the xml doc
+					   // The first needs mapping, the others are very basic
+					   'title','link','description','pubDate','georss:point']),
+			   listeners: 
+			   {
+					'load': function(data) { console.log(data); }
+			   }
+			});
+			*/
+		
+			
+			
+			Ext.Ajax.request({
+				url: 'pr0xy.php',
 				params: {
-					geocode: coords.latitude + ',' + coords.longitude + ',5mi',
-					rpp: 30,
-					uniqueify: Math.random()
+					type: 'area',
+					minx: nw.x,
+					miny: se.y,
+					maxx: se.x,
+					maxy: nw.y
 				},
-				callback: function(data) {
+				success: function(data, opts) {
+					console.log(data);
+					
+					xml = data.responseXML;
+				console.log(xml);
+					var murals = xml.DomQuery("channel item");
+					console.log(murals);
+					console.log(murals.length);
+					
+					/*
 					var tweetList = data.results;
 					listing.update(tweetList);
 					
@@ -125,8 +196,14 @@ Ext.setup({
 							addMarker(tweet);
 						}
 					}
+					*/
+					
+				},
+				failure: function(response, opts) {
+					console.log('server-side failure with status code ' + response.status);
 				}
-			})			
+			})	
+					
 		}
 		
 		panel.getTabBar().add([
