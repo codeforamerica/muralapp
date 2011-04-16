@@ -37,9 +37,9 @@ Ext.setup({
 				latitude: 39.969819000030895,
 				longitude: -75.13936042785645
 			});
-			console.log(allCoords);
+//console.log(allCoords);
 			var randomNumber = parseInt(Math.random() * allCoords.length);
-			console.log(randomNumber);
+//console.log(randomNumber);
 			return allCoords[randomNumber];
 			
 		}
@@ -49,14 +49,15 @@ Ext.setup({
 
 			if(coords.length && coords.textContent != '') {
 				coords = coords[0].textContent.split(' ');
+				coords = fixLatLng(coords);
 			}
 //console.log(coords);
 
 			var mural = {
 				'title': node.getElementsByTagName('title')[0].textContent,
 				'description': node.getElementsByTagName('description')[0].textContent,
-				'link': node.getElementsByTagName('link')[0].textContent,
-				'pubDate': node.getElementsByTagName('pubDate')[0].textContent,
+				'link': (node.getElementsByTagName('link')[0]) ? node.getElementsByTagName('link')[0].textContent : '',
+				'pubDate': (node.getElementsByTagName('pubDate')[0]) ? node.getElementsByTagName('pubDate')[0].textContent : '',
 				'coordinates': coords
 			}
 //console.log(mural);
@@ -64,16 +65,24 @@ Ext.setup({
 			return mural; 
 		}
 		
+		// It seems like we are getting slightly dodgey data, so this function should fix the latlng points
+		function fixLatLng(latlng) {
+			latlng[0] = latlng[0] * 2.6232 - 80.1968;
+			latlng[1] = latlng[1] * 1.964 + 159.8395;
+			return latlng;
+		}
+		
 		listing = new Ext.Component({
 			title: "Listing",
 			scroll: 'vertical',
 			tpl: [
 			  '<tpl for=".">',
-			  '	<div class="tweet">',
-			  '		<div class="avatar"><img src="{profile_image_url}" /></div>',
-			  '		<div class="tweet-content">',
-			  '			<h2>{from_user}</h2>',
-			  '			<p>{text}</p>',
+			  '	<div class="mural">',
+			  '		<div class="mural_title">{title}</div>',
+			  '		<div class="mural_description">',
+			  '			{description}',
+			  '			<a href="{link}" target="_blank">learn more...</a>',
+			  ' 		<span class="pubdate">{pubDate}</span>',
 			  '		</div>',
 			  '	</div>',
 			  '</tpl>'
@@ -103,7 +112,10 @@ Ext.setup({
 			markers.push(marker);
 
 			google.maps.event.addListener(marker, "click", function() {
-				tweetBubble.setContent(mural.title);
+				var bubbleHtml = '<h3>'+mural.title+'</h3>';
+				bubbleHtml += ''+mural.description+'';
+				bubbleHtml += '<a href="'+mural.link+'">learn more...</a>';
+				tweetBubble.setContent(bubbleHtml);
 				tweetBubble.open(mapPanel.map, marker);
 			});
 		};
@@ -162,33 +174,26 @@ Ext.setup({
 //console.log(murals);					
 					
 //console.log(xml);
+					var xmurals = [];
 					var murals = Ext.DomQuery.select("channel item", xml);
+				
 //console.log(murals);
 console.log(murals.length);
-					
-					
-					//var tweetList = data.results;
-					//listing.update(tweetList);
 					
 					clearMarkers();
 					
 					// Add points to the map
 					for(var i=0, ln = murals.length; i < ln; i++){
-						var mural = dirtyXML2JsonConversion(murals[i]);
+						murals[i] = dirtyXML2JsonConversion(murals[i]);
 						
-console.log(mural);
-						if(mural && mural.coordinates) {
-							addMarker(mural);
+//console.log(murals[i]);
+						if(murals[i] && murals[i].coordinates) {
+							addMarker(murals[i]);
 						}
 //console.log(point);
-						/*
-						if(tweet.geo && tweet.geo.coordinates) {
-							addMarker(tweet);
-						}
-						*/
 					}
-					
-					
+console.log(murals);
+					listing.update(murals);
 				},
 				failure: function(response, opts) {
 					console.log('server-side failure with status code ' + response.status);
