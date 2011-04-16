@@ -1,8 +1,8 @@
-h1. Philly Mural Mobile App
+h1. Philly Mural Finder
 
 h2. Description
 
-The Mural App (better names welcome) is a mobile application which ads an interaction layer to the thousands of murals from the City of Philadelphia Mural Arts Program.
+The Philly Mural Finder is a mobile application which ads an interaction layer to the thousands of murals from the City of Philadelphia Mural Arts Program.
 
 h2. Data
 
@@ -10,11 +10,21 @@ The base mural data comes from "http://www.muralfarm.org":http://www.muralfarm.o
 
 h2. Roadmap
 
-This project is new a liable to change quickly, but here is the vision for the first few iterations.
+This project is new and liable to change quickly, but here is the vision for the first few iterations.
 * A map loads in a mobile browser showing murals near them.
 * A user can select a mural and find out more information on it (photo, description, etc.).
 * A user can favorite a mural.
 * A user can comment on a mural.
-* A user can 'share' a mural.
+* A user can 'share' a mural. (e.g. facebook/twitter)
+* Data collection capabilities -  
+-> Research and understand needs of mural art community
+-> Research public wall spaces in Philadelphia
+* Make separate native app versions of web app
+-> iphone platform
+-> Android platform
+-> Use titanium for conversion http://www.appcelerator.com/products/titanium-cross-platform-application-development/
+
+Future versions:
+* Expand upon the types of art mapped
 
 
