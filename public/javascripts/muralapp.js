@@ -53,14 +53,19 @@ Ext.setup({
 			}
 //console.log(coords);
 
+			//var imgTag = Ext.DomQuery.select("img", node.getElementsByTagName('description')[0]);
+			var pieces = node.getElementsByTagName('description')[0].textContent.split('&nbsp;',2);
+//console.log(node.getElementsByTagName('description')[0].textContent);
 			var mural = {
 				'title': node.getElementsByTagName('title')[0].textContent,
-				'description': node.getElementsByTagName('description')[0].textContent,
+				//'description': node.getElementsByTagName('description')[0].textContent,
+				'description': (pieces[1]) ? pieces[1] : '',
+				'image': (pieces[0].indexOf('img') != -1) ? pieces[0] : '',
 				'link': (node.getElementsByTagName('link')[0]) ? node.getElementsByTagName('link')[0].textContent : '',
 				'pubDate': (node.getElementsByTagName('pubDate')[0]) ? node.getElementsByTagName('pubDate')[0].textContent : '',
 				'coordinates': coords
 			}
-//console.log(mural);
+console.log(mural);
 //console.log(arr);
 			return mural; 
 		}
@@ -112,6 +117,7 @@ Ext.setup({
 			markers.push(marker);
 
 			google.maps.event.addListener(marker, "click", function() {
+//console.log(mural.description);			
 				var bubbleHtml = '<h3>'+mural.title+'</h3>';
 				bubbleHtml += ''+mural.description+'';
 				bubbleHtml += '<a href="'+mural.link+'">learn more...</a>';
@@ -167,7 +173,7 @@ Ext.setup({
 			Ext.Ajax.request({
 				url: 'pr0xy.php?type=area&minx='+nw.x+'&miny='+se.y+'&maxx='+se.x+'&maxy='+nw.y,
 				success: function(data, opts) {
-//console.log(data);
+console.log(data);
 					
 					xml = data.responseXML;
 					
@@ -178,7 +184,7 @@ Ext.setup({
 					var murals = Ext.DomQuery.select("channel item", xml);
 				
 //console.log(murals);
-console.log(murals.length);
+//console.log(murals.length);
 					
 					clearMarkers();
 					
@@ -192,7 +198,7 @@ console.log(murals.length);
 						}
 //console.log(point);
 					}
-console.log(murals);
+//console.log(murals);
 					listing.update(murals);
 				},
 				failure: function(response, opts) {
