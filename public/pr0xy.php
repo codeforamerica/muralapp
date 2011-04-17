@@ -5,21 +5,21 @@
 // Author: Jason Levitt
 // December 7th, 2005
 //
-include 'xml2json/xml2json.php';
 
 // Allowed hostname (api.local and api.travel are also possible here)
 define ('HOSTNAME', 'http://www.muralfarm.org/Muralfarm/RssFeed.ashx');
 
 // Get the REST call path from the AJAX application
 // Is it a POST or a GET?
-$path = ($_POST['yws_path']) ? $_POST['yws_path'] : '?'.$_SERVER['QUERY_STRING'];  // Yeah, dangerous, I know. #todo
+$path = '?'.$_SERVER['QUERY_STRING'];  // Yeah, dangerous, I know. #todo
 $url = HOSTNAME.$path;
 
 // Open the Curl session
 $session = curl_init($url);
 
 // If it's a POST, put the POST data in the body
-if ($_POST['yws_path']) {
+//if ($_POST['yws_path']) {
+if(in_array('yws_path', array_keys($_POST))) {
 	$postvars = '';
 	while ($element = current($_POST)) {
 		$postvars .= urlencode(key($_POST)).'='.urlencode($element).'&';
