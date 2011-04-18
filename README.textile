@@ -8,6 +8,12 @@ h2. Data
 
 The base mural data comes from "http://www.muralfarm.org":http://www.muralfarm.org
 
+h2. Getting up and running locally
+
+# Setup a local webserver ("MAMP":http://www.mamp.info/en/index.html, "XAMPP":http://www.apachefriends.org/en/xampp.html, etc.)
+# Fork this repository into a folder that is accessible by your webserver (i.e. /Applications/MAMP/htdocs/)
+# View the app in a webkit broswer by going to http://localhost/{path to muralapp}/public/index.html
+
 h2. Roadmap
 
 This project is new and liable to change quickly, but here is the vision for the first few iterations.
@@ -16,13 +22,13 @@ This project is new and liable to change quickly, but here is the vision for the
 * A user can favorite a mural.
 * A user can comment on a mural.
 * A user can 'share' a mural. (e.g. facebook/twitter)
-* Data collection capabilities -  
+* Data collection capabilities 
 -> Research and understand needs of mural art community
 -> Research public wall spaces in Philadelphia
 * Make separate native app versions of web app
--> iphone platform
+-> iPhone platform
 -> Android platform
--> Use titanium for conversion http://www.appcelerator.com/products/titanium-cross-platform-application-development/
+-> Use "PhoneGap":http://www.phonegap.com/ for conversion
 
 Future versions:
 * Expand upon the types of art mapped
