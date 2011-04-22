@@ -1,4 +1,14 @@
 /*Stylesheet for geotweets.*/
+
+#map-wrapper { position:relative; }
+#map-target { 
+  position:absolute;
+  top:40px;
+  bottom:0;
+  left:0;
+  right:0;
+}
+
 .mural {
 	border: 1px solid #000;
 	clear:both;
@@ -14,3 +24,4 @@
   clear:both;
   font-size:0.8em;
 }
+*/

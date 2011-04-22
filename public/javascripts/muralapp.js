@@ -3,19 +3,17 @@ var Mural = {};
 (function(m){
   m.App = function(options) {
     var _options = $.extend({
-      mapContent: 'map-content',
-      listContent: 'list-content',
-      detailContent: 'detail-content'
+      mapTarget: '#map-target'
     }, options),
     _mapOptions = {
       zoom: 8,
       center: new google.maps.LatLng(39.98, -75.155),
       mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
+    },
     _map;
         
     var _initMap = function() {
-      _map = new google.maps.Map(document.getElementById(mapContent), _mapOptions);
+      _map = new google.maps.Map($(_options.mapTarget).get(0), _mapOptions);
       
       
     };
@@ -28,6 +26,8 @@ var Mural = {};
 })(Mural);
 
 //Go go go go go!!
-$(document).bind("mobileinit", function(){
-  Mural.App();
+$(document).bind("mobileinit", function(){  
+  $('#map-page').live('pagecreate',function(event){
+    Mural.App();
+  });  
 });
