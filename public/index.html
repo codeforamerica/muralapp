@@ -1,16 +1,55 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Mural App</title>
-		<link rel="stylesheet" href="sencha/sencha-touch.css" type="text/css" media="screen" title="no title" charset="utf-8">
-		<link rel="stylesheet" href="stylesheets/muralapp.css" type="text/css" media="screen" title="no title" charset="utf-8">
-		
-		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-		<script src="proj4js/proj4js-combined.js" type="text/javascript" charset="utf-8"></script>
-		<script src="sencha/sencha-touch.js" type="text/javascript" charset="utf-8"></script>
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	    <title>Mural Guide</title> 
+    	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" />
 
-		<script src="javascripts/muralapp.js" type="text/javascript" charset="utf-8"></script>
-		
-	</head>
-	<body></body>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"</script>
+        <script type="text/javascript" src="javascripts/app.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
+
+    </head> 
+<body> 
+
+<!-- Map -->
+<div data-role="page" id="map">
+	<div data-role="header">
+		<h1>Mural Guide</h1>
+		<a href="#list">List</a>
+	</div>    
+
+	<div data-role="content" id="map-content">
+
+	</div>    
+</div>    
+
+
+<!-- List -->
+<div data-role="page" id="list">
+	<div data-role="header">
+		<h1>Mural Guide</h1>
+	</div>    
+
+	<div data-role="content" id="list-content">	
+        <ul data-role="listview">
+			<li><img src="mural.png" alt="test mural" class="ul-li-icon">
+			    <a data-muralid="5" href="#detail">Description and stuff here</a>
+        	</li>
+		</ul>
+	</div>    
+</div>    
+
+<!-- Details -->
+<div data-role="page" id="detail">
+	<div data-role="header">
+		<h1>Mural Guide</h1>
+	</div>    
+
+	<div data-role="content" id="detail-content">	
+        Details!
+	</div>    
+</div>    
+
+</body>
 </html>
