@@ -53,13 +53,18 @@ Ext.setup({
 			}
 //console.log(coords);
 
-			//var imgTag = Ext.DomQuery.select("img", node.getElementsByTagName('description')[0]);
+			// Most of these descriptions have an img tag in the html.
+			// We want to put ou
 			var pieces = node.getElementsByTagName('description')[0].textContent.split('&nbsp;',2);
+			// SUPERHACK! We need to strip out the annoying align="left" attribute from the img tag
+			pieces[0] = pieces[0].replace(/align="left"/ig,"");
+			
+//console.log(pieces[0].replace(/align="left"/ig,""));			
 //console.log(node.getElementsByTagName('description')[0].textContent);
 			var mural = {
 				'title': node.getElementsByTagName('title')[0].textContent,
 				//'description': node.getElementsByTagName('description')[0].textContent,
-				'description': (pieces[1]) ? pieces[1] : '',
+				'description': (pieces[1]) ? pieces[1].replace(/<br \/><br \/>/ig,"") : pieces[0],
 				'image': (pieces[0].indexOf('img') != -1) ? pieces[0] : '',
 				'link': (node.getElementsByTagName('link')[0]) ? node.getElementsByTagName('link')[0].textContent : '',
 				'pubDate': (node.getElementsByTagName('pubDate')[0]) ? node.getElementsByTagName('pubDate')[0].textContent : '',
@@ -83,12 +88,16 @@ console.log(mural);
 			tpl: [
 			  '<tpl for=".">',
 			  '	<div class="mural">',
-			  '		<div class="mural_title">{title}</div>',
-			  '		<div class="mural_description">',
-			  '			{description}',
-			  '			<a href="{link}" target="_blank">learn more...</a>',
-			  ' 		<span class="pubdate">{pubDate}</span>',
-			  '		</div>',
+			  '		<div class="mural_image">{image}</div>',
+			  '		<div class="mural_text">',
+			  '			<div class="mural_title">{title}</div>',
+			  '			<div class="mural_description">',
+			  '				{description}',
+			  '				<a href="{link}" target="_blank">learn more...</a>',
+			  ' 			<span class="pubdate">{pubDate}</span>',
+			  '			</div>',
+			  ' 	</div>',
+			  '		<div class="breaker"></div>',
 			  '	</div>',
 			  '</tpl>'
 			]
@@ -189,9 +198,8 @@ console.log(data);
 					clearMarkers();
 					
 					// Add points to the map
-					for(var i=0, ln = murals.length; i < ln; i++){
+					for(var i=0, ln = murals.length-1; i < ln; i++){
 						murals[i] = dirtyXML2JsonConversion(murals[i]);
-						
 //console.log(murals[i]);
 						if(murals[i] && murals[i].coordinates) {
 							addMarker(murals[i]);

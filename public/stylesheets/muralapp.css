@@ -1,16 +1,25 @@
 /*Stylesheet for geotweets.*/
+body { 
+	font-size: 12px; 
+	font-family: Helvetica, Arial, sans-serif;
+}
 .mural {
-	border: 1px solid #000;
-	clear:both;
+	/*border: 1px solid pink;*/
 	margin-bottom:10px;
 }
 .mural .mural_title {
-	font-size:1em;
+	font-size:1.2em;
+	font-weight: bold;
+	
 }
 .mural_description {
-  position: relative;
-  top: 0;
-  padding-right: 80px;
-  clear:both;
-  font-size:0.8em;
+  	font-size:0.8em;
+ 	font-family: Georgia, serif;
 }
+
+.mural_image {
+	float: right;
+}
+
+.breaker { clear: both; }
+.pubdate { display: none; }
