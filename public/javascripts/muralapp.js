@@ -51,22 +51,25 @@ Ext.setup({
 				coords = coords[0].textContent.split(' ');
 				coords = fixLatLng(coords);
 			}
-//console.log(coords);
+console.log(node);
+	
+			var link = (node.getElementsByTagName('link')[0]) ? node.getElementsByTagName('link')[0].textContent : '';
 
 			// Most of these descriptions have an img tag in the html.
-			// We want to put ou
+			// We want to pull the image tag out, clean it, and put it in its own var.
 			var pieces = node.getElementsByTagName('description')[0].textContent.split('&nbsp;',2);
 			// SUPERHACK! We need to strip out the annoying align="left" attribute from the img tag
 			pieces[0] = pieces[0].replace(/align="left"/ig,"");
-			
-//console.log(pieces[0].replace(/align="left"/ig,""));			
-//console.log(node.getElementsByTagName('description')[0].textContent);
+	
+			var assetId = link.match(/assetId=(\d)*/gi);
+			assetId = assetId[0].replace(/assetId=/gi, '');
+
 			var mural = {
+				'assetId':assetId,
 				'title': node.getElementsByTagName('title')[0].textContent,
-				//'description': node.getElementsByTagName('description')[0].textContent,
-				'description': (pieces[1]) ? pieces[1].replace(/<br \/><br \/>/ig,"") : pieces[0],
+				'description': (pieces[1]) ? pieces[1].replace(/<br \/><br \/>/ig,"").trim() : pieces[0],
 				'image': (pieces[0].indexOf('img') != -1) ? pieces[0] : '',
-				'link': (node.getElementsByTagName('link')[0]) ? node.getElementsByTagName('link')[0].textContent : '',
+				'link': link,
 				'pubDate': (node.getElementsByTagName('pubDate')[0]) ? node.getElementsByTagName('pubDate')[0].textContent : '',
 				'coordinates': coords
 			}
@@ -222,7 +225,7 @@ console.log(data);
 					listing.update(murals);
 					/*
 					Ext.Ajax.request({
-						url: 'pr0xy.php?'
+						url: 'pr0xy.php?page=Kml.ashx?assetId='+murals[0].
 					})*/
 					details.update(murals[0]);
 					
