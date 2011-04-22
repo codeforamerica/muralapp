@@ -7,12 +7,18 @@
 //
 
 // Allowed hostname (api.local and api.travel are also possible here)
-define ('HOSTNAME', 'http://www.muralfarm.org/Muralfarm/RssFeed.ashx');
+define ('HOSTNAME', 'http://www.muralfarm.org/Muralfarm/');
 
 // Get the REST call path from the AJAX application
 // Is it a POST or a GET?
-$path = '?'.$_SERVER['QUERY_STRING'];  // Yeah, dangerous, I know. #todo
+$proxy_params = explode('&',$_SERVER['QUERY_STRING']);
+error_log('prox_params = ' . print_r($proxy_params, true));
+$page_url = explode('=',array_shift($proxy_params));
+$page_url = $page_url[1];
+$path = $page_url .'?'.implode('&',$proxy_params);
 $url = HOSTNAME.$path;
+
+error_log($url);
 
 // Open the Curl session
 $session = curl_init($url);

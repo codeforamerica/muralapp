@@ -4,7 +4,7 @@ Ext.setup({
 	icon: 'icon.png',
 	glossOnIcon: false,
 	onReady: function() {
-		var panel, listing, mapPanel, markers = [];
+		var panel, listing, mapPanel, details, markers = [];
 		
 		function getCoorInPhilly () {
 			var allCoords = [];
@@ -91,17 +91,29 @@ console.log(mural);
 			  '		<div class="mural_image">{image}</div>',
 			  '		<div class="mural_text">',
 			  '			<div class="mural_title">{title}</div>',
-			  '			<div class="mural_description">',
-			  '				{description}',
-			  '				<a href="{link}" target="_blank">learn more...</a>',
-			  ' 			<span class="pubdate">{pubDate}</span>',
-			  '			</div>',
 			  ' 	</div>',
 			  '		<div class="breaker"></div>',
 			  '	</div>',
 			  '</tpl>'
 			]
 		});
+		
+		details = new Ext.Component({
+			title: "Details",
+			scroll: 'vertical',
+			tpl: [
+			  '	<div class="mural details">',
+			  '		<div class="mural_image">{image}</div>',
+			  '		<div class="mural_text">',
+			  '			<div class="mural_title">{title}</div>',
+			  '			<div calss="mural_description">{description}</div>',
+			  ' 	</div>',
+			  '		<div class="breaker"></div>',
+			  '	</div>',
+			]
+		});
+		
+		
 		
 		mapPanel = new Ext.Map({
 			title: "Map",
@@ -112,7 +124,7 @@ console.log(mural);
 			fullscreen: true,
 			cardSwitchAnimation: 'slide',
 			ui: 'light',
-			items: [mapPanel, listing]
+			items: [mapPanel, listing, details]
 		});
 		
 		addMarker = function(mural) {
@@ -180,7 +192,7 @@ console.log(mural);
 			
 			// Ask for the mural data from muralfarm.org (via our proxy php script)
 			Ext.Ajax.request({
-				url: 'pr0xy.php?type=area&minx='+nw.x+'&miny='+se.y+'&maxx='+se.x+'&maxy='+nw.y,
+				url: 'pr0xy.php?page=RssFeed.ashx&type=area&minx='+nw.x+'&miny='+se.y+'&maxx='+se.x+'&maxy='+nw.y,
 				success: function(data, opts) {
 console.log(data);
 					
@@ -208,6 +220,12 @@ console.log(data);
 					}
 //console.log(murals);
 					listing.update(murals);
+					/*
+					Ext.Ajax.request({
+						url: 'pr0xy.php?'
+					})*/
+					details.update(murals[0]);
+					
 				},
 				failure: function(response, opts) {
 					console.log('server-side failure with status code ' + response.status);
