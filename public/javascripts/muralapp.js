@@ -51,7 +51,7 @@ Ext.setup({
 				coords = coords[0].textContent.split(' ');
 				coords = fixLatLng(coords);
 			}
-console.log(node);
+//console.log(node);
 	
 			var link = (node.getElementsByTagName('link')[0]) ? node.getElementsByTagName('link')[0].textContent : '';
 
@@ -73,7 +73,7 @@ console.log(node);
 				'pubDate': (node.getElementsByTagName('pubDate')[0]) ? node.getElementsByTagName('pubDate')[0].textContent : '',
 				'coordinates': coords
 			}
-console.log(mural);
+//console.log(mural);
 //console.log(arr);
 			return mural; 
 		}
@@ -197,7 +197,7 @@ console.log(mural);
 			Ext.Ajax.request({
 				url: 'pr0xy.php?page=RssFeed.ashx&type=area&minx='+nw.x+'&miny='+se.y+'&maxx='+se.x+'&maxy='+nw.y,
 				success: function(data, opts) {
-console.log(data);
+//console.log(data);
 					
 					xml = data.responseXML;
 					
@@ -223,10 +223,18 @@ console.log(data);
 					}
 //console.log(murals);
 					listing.update(murals);
-					/*
+				
 					Ext.Ajax.request({
-						url: 'pr0xy.php?page=Kml.ashx?assetId='+murals[0].
-					})*/
+						url: 'pr0xy.php?page=Kml.ashx?assetId='+murals[0].assetId,
+						success: function(data, opts) {
+							var mural_deets = Ext.DomQuery.select("Placemark", data.responseXML);
+							console.log(mural_deets);
+
+						},
+						failure: function(response, opts) {
+							console.log('server-side failure with status code ' + response.status);							
+						}
+					})
 					details.update(murals[0]);
 					
 				},
