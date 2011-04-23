@@ -5,7 +5,8 @@ var Mural = {};
     var _options = $.extend({
       mapTarget: '#map-target',
       listTarget: '#list-container',
-      detailTarget: '#detail-container'
+      detailTarget: '#detail-container',
+      detailHeader: '#detail-header'
     }, options),
     _mapOptions = {
       zoom: 14,
@@ -96,16 +97,16 @@ var Mural = {};
     };
     
     var _refreshDetail = function(id){
+        var $detailTarget = $(_options.detailTarget).html('Loading...');
+        
         $.ajax({
             url: 'pr0xy.php?page=Kml.ashx&assetId=' + id,
             dataType: 'xml',
             success: function(xml, status, xhr) {
-                var $detail = $('Placemark', xml),
-                    $detailTarget = $(_options.detailTarget).empty();
-                    
-                $detailTarget.html('<h2>' + $('name', $detail).text() + '</h2>' + 
-                    '<h3>' + $('address', $detail).text() + '</h3>' +
-                    $('description', $detail).text());
+                var $detail = $('Placemark', xml);
+                
+                $(_options.detailHeader).html($('name', $detail).text());
+                $detailTarget.html($('description', $detail).text());
             },
             error: function(xhr, status, error) {
                 console.log('server-side failure with status code ' + status);
