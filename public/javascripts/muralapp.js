@@ -139,9 +139,18 @@ var Mural = {};
                 $("channel item", xml).each(function(i, node){
                    _murals.push(_dirtyXML2JsonConversion(node)); 
                 });
+                
+                // HACK 
+                _murals.pop();
 
-                //_refreshMarkers();
-                //_refreshDetails();
+                _refreshMarkers();
+                _refreshDetails();
+                
+                // Look up details on a mural
+                // This function needs to move to another location.  Its just here for testing
+                $.ajax({
+                    url: 'pr0xy.php?page=Kml.ashx'
+                })
             },
             error: function(xhr, status, error) {
                 console.log('server-side failure with status code ' + status);
