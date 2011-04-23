@@ -4,7 +4,7 @@ var Mural = {};
   m.App = function(options) {
     var _options = $.extend({
       mapTarget: '#map-target',
-      listTarget: '#list-content'
+      listTarget: '#list-container'
     }, options),
     _mapOptions = {
       zoom: 14,
@@ -17,11 +17,11 @@ var Mural = {};
     _infoWindow = new google.maps.InfoWindow();
 
     // It seems like we are getting slightly dodgey data, so this function should fix the latlng points
-	var _fixLatLng = function(latlng) {
-		latlng[0] = latlng[0] * 2.6232 - 80.1968;
-		latlng[1] = latlng[1] * 1.964 + 159.8395;
-		return latlng;
-	};
+    var _fixLatLng = function(latlng) {
+        latlng[0] = latlng[0] * 2.6232 - 80.1968;
+        latlng[1] = latlng[1] * 1.964 + 159.8395;
+        return latlng;
+    };
 
     var _dirtyXML2JsonConversion = function(node) {
         var coords = node.getElementsByTagNameNS('http://www.georss.org/georss/','point');
@@ -31,20 +31,20 @@ var Mural = {};
             coords = _fixLatLng(coords);
         }
 
-		var link = (node.getElementsByTagName('link')[0]) ? node.getElementsByTagName('link')[0].textContent : '';
+        var link = (node.getElementsByTagName('link')[0]) ? node.getElementsByTagName('link')[0].textContent : '';
 
         // Most of these descriptions have an img tag in the html.
-		// We want to pull the image tag out, clean it, and put it in its own var.
+        // We want to pull the image tag out, clean it, and put it in its own var.
         var pieces = node.getElementsByTagName('description')[0].textContent.split('&nbsp;',2);
         // SUPERHACK! We need to strip out the annoying align="left" attribute from the img tag
         pieces[0] = pieces[0].replace(/align="left"/ig,"");
 
-		// Pull the assetId off of the end of the link
-		var assetId = link.match(/assetId=(\d)*/gi);
-		assetId = (assetId) ? assetId[0].replace(/assetId=/gi, '') : '';
+        // Pull the assetId off of the end of the link
+        var assetId = link.match(/assetId=(\d)*/gi);
+        assetId = (assetId) ? assetId[0].replace(/assetId=/gi, '') : '';
 
         var mural = {
-			'assetId':assetId,
+            'assetId':assetId,
             'title': node.getElementsByTagName('title')[0].textContent,
             'description': (pieces[1]) ? pieces[1].replace(/<br \/><br \/>/ig,"").trim() : pieces[0],
             'image': (pieces[0].indexOf('img') != -1) ? pieces[0] : '',
@@ -99,7 +99,7 @@ var Mural = {};
         html = '<ul data-role="listview">';
       
       $.each(_murals, function(i, mural){
-          html += '<li><img src="'+mural.image+'" alt="'+mural.title+'" class="ul-li-icon">' +
+          html += '<li><img src="'+$(mural.image).attr('src')+'" alt="'+mural.title+'" class="ul-li-icon">' +
               '<a data-muralid="'+ mural.assetId +'" href="#detail-page">'+mural.title+'</a></li>';          
       });
       html += '</ul>';
@@ -114,7 +114,7 @@ var Mural = {};
                 'miny': (latLng.lat()-f),
                 'maxx': (latLng.lng()+f),
                 'maxy': (latLng.lat()+f)
-                };
+        };
 
         // Change the projection
         // creating source and destination Proj4js objects
@@ -140,8 +140,8 @@ var Mural = {};
                    _murals.push(_dirtyXML2JsonConversion(node)); 
                 });
 
-                //_refreshMarkers();
-                //_refreshDetails();
+                _refreshMarkers();
+                _refreshDetails();
             },
             error: function(xhr, status, error) {
                 console.log('server-side failure with status code ' + status);
