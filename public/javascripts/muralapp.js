@@ -4,7 +4,8 @@ var Mural = {};
   m.App = function(options) {
     var _options = $.extend({
       mapTarget: '#map-target',
-      listTarget: '#list-content'
+      listTarget: '#list-container',
+      detailTarget: '#detail-container'
     }, options),
     _mapOptions = {
       zoom: 14,
@@ -94,17 +95,41 @@ var Mural = {};
         });
     };
     
-    var _refreshDetails = function() {
+    var _refreshDetail = function(id){
+        $.ajax({
+            url: 'pr0xy.php?page=Kml.ashx&assetId=' + id,
+            dataType: 'xml',
+            success: function(xml, status, xhr) {
+                var $detail = $('Placemark', xml),
+                    $detailTarget = $(_options.detailTarget).empty();
+                    
+                $detailTarget.html('<h2>' + $('name', $detail).text() + '</h2>' + 
+                    '<h3>' + $('address', $detail).text() + '</h3>' +
+                    $('description', $detail).text());
+            },
+            error: function(xhr, status, error) {
+                console.log('server-side failure with status code ' + status);
+            }
+        });
+        
+    };
+    
+    var _refreshDetailList = function() {
       var $list = $(_options.listTarget).empty(),
         html = '<ul data-role="listview">';
       
       $.each(_murals, function(i, mural){
-          html += '<li><img src="'+mural.image+'" alt="'+mural.title+'" class="ul-li-icon">' +
-              '<a data-muralid="'+ mural.assetId +'" href="#detail-page">'+mural.title+'</a></li>';          
+          html += '<li data-muralid="'+ mural.assetId +'"><img src="'+$(mural.image).attr('src')+'" alt="'+mural.title+'" class="ul-li-icon">' +
+              '<a href="#detail-page">'+mural.title+'</a></li>';          
       });
       html += '</ul>';
       
-      $list.append(html);
+      $list
+        .append(html)
+        .find('li')
+        .bind('tap', function(){
+            _refreshDetail($(this).attr('data-muralid'));
+        });
     };
     
     var _refresh = function(latLng) {
@@ -114,7 +139,7 @@ var Mural = {};
                 'miny': (latLng.lat()-f),
                 'maxx': (latLng.lng()+f),
                 'maxy': (latLng.lat()+f)
-                };
+        };
 
         // Change the projection
         // creating source and destination Proj4js objects
@@ -144,13 +169,7 @@ var Mural = {};
                 _murals.pop();
 
                 _refreshMarkers();
-                _refreshDetails();
-                
-                // Look up details on a mural
-                // This function needs to move to another location.  Its just here for testing
-                $.ajax({
-                    url: 'pr0xy.php?page=Kml.ashx'
-                })
+                _refreshDetailList();
             },
             error: function(xhr, status, error) {
                 console.log('server-side failure with status code ' + status);
