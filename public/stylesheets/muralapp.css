@@ -1,10 +1,20 @@
 /*Stylesheet for geotweets.*/
+
+#map-target { 
+  position:absolute;
+  top:40px;
+  bottom:0;
+  left:0;
+  right:0;
+}
+
+/*
 body { 
 	font-size: 12px; 
 	font-family: Helvetica, Arial, sans-serif;
 }
+
 .mural {
-	/*border: 1px solid pink;*/
 	margin-bottom:10px;
 }
 .mural .mural_title {
@@ -23,3 +33,6 @@ body {
 
 .breaker { clear: both; }
 .pubdate { display: none; }
+
+*/
+
