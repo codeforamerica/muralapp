@@ -189,6 +189,8 @@ var Mural = {};
     //Init the app
     (function init() {
       _initMap();
+      
+       _refresh(_map.getCenter());
     })();
   };
 })(Mural);
