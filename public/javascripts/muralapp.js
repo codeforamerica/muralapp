@@ -38,7 +38,7 @@ var Mural = {};
 
 		// Pull the assetId off of the end of the link
 		var assetId = link.match(/assetId=(\d)*/gi);
-		assetId = assetId[0].replace(/assetId=/gi, '');
+		assetId = (assetId) ? assetId[0].replace(/assetId=/gi, '') : '';
 
         var mural = {
 			'assetId':assetId,
@@ -73,8 +73,8 @@ var Mural = {};
             var bubbleHtml = '<h3>'+mural.title+'</h3>';
             bubbleHtml += ''+mural.description+'';
             bubbleHtml += '<a href="'+mural.link+'">learn more...</a>';
-            tweetBubble.setContent(bubbleHtml);
-            tweetBubble.open(mapPanel.map, marker);
+            //tweetBubble.setContent(bubbleHtml);
+            //tweetBubble.open(mapPanel.map, marker);
         });
     };
 
