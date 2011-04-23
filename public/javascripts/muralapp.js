@@ -140,7 +140,7 @@ var Mural = {};
                    _murals.push(_dirtyXML2JsonConversion(node)); 
                 });
                 
-                // HACK 
+                // HACK - the last element in the array need
                 _murals.pop();
 
                 _refreshMarkers();
