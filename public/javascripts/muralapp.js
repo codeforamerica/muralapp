@@ -3,15 +3,18 @@ var Mural = {};
 (function(m){
   m.App = function(options) {
     var _options = $.extend({
-      mapTarget: '#map-target'
+      mapTarget: '#map-target',
+      listTarget: '#list-content'
     }, options),
     _mapOptions = {
-      zoom: 12,
+      zoom: 14,
       center: new google.maps.LatLng(39.98, -75.155),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     },
     _map,
-    _markers = [];
+    _markers = [],
+    _murals = [],
+    _infoWindow = new google.maps.InfoWindow();
 
     // It seems like we are getting slightly dodgey data, so this function should fix the latlng points
 	var _fixLatLng = function(latlng) {
@@ -67,30 +70,36 @@ var Mural = {};
             var bubbleHtml = '<h3>'+mural.title+'</h3>';
             bubbleHtml += ''+mural.description+'';
             bubbleHtml += '<a href="'+mural.link+'">learn more...</a>';
-            tweetBubble.setContent(bubbleHtml);
-            tweetBubble.open(mapPanel.map, marker);
+            _infoWindow.setContent(bubbleHtml);
+            _infoWindow.open(_map, marker);
         });
     };
 
-    var _refreshMarkers = function(murals){
+    var _refreshMarkers = function(){
         _clearMarkers();
 
         // Add points to the map
-        for(var i=0, ln = murals.length-1; i < ln; i++){
-            if(murals[i] && murals[i].coordinates) {
-                _addMarker(murals[i]);
-            }
-        }
+        $.each(_murals, function(i, mural){
+            if(mural && mural.coordinates) {
+                _addMarker(mural);
+            }            
+        });
     };
     
     var _refreshDetails = function() {
+      var $list = $(_options.listTarget).empty(),
+        html = '<ul data-role="listview">';
       
+      $.each(_murals, function(i, mural){
+          html += '<li><img src="'+mural.image+'" alt="'+mural.title+'" class="ul-li-icon">' +
+              '<a data-muralid="'+ mural.assetId +'" href="#detail-page">'+mural.title+'</a></li>';          
+      });
+      html += '</ul>';
+      
+      $list.append(html);
     };
     
     var _refresh = function(latLng) {
-        console.log(latLng);
-      
-
         // Figure out the bounding box for the query
         var f = 0.015;
         bbox = {'minx': (latLng.lng()-f),
@@ -117,17 +126,14 @@ var Mural = {};
             url: 'pr0xy.php?page=RssFeed.ashx&type=area&minx='+nw.x+'&miny='+se.y+'&maxx='+se.x+'&maxy='+nw.y,
             dataType: 'xml',
             success: function(xml, status, xhr) {
-                console.log(xml);
-                var murals = [];
+                _murals = [];
                 
                 $("channel item", xml).each(function(i, node){
-                   murals.push(_dirtyXML2JsonConversion(node)); 
+                   _murals.push(_dirtyXML2JsonConversion(node)); 
                 });
 
-                console.log(murals);
-
-                _refreshMarkers(murals);
-                //_refreshDetails(murals);
+                //_refreshMarkers();
+                //_refreshDetails();
             },
             error: function(xhr, status, error) {
                 console.log('server-side failure with status code ' + status);
