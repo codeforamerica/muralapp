@@ -141,8 +141,15 @@ var Mural = {};
                 // NOTE: If we wanted to start dumping the data into a CouchDB we could now.  We have
                 //       an object with geojson coordinates.
                 $.couch.urlPrefix = 'couchdb/couch_proxy.php?db=';
-//                $.couch.db('assets').view('assets/assetid',{})
-                $.couch.db('assets').saveDoc(details);
+                
+                $.couch.db('assets').view('assets/assetid',{ 
+                    keys: [details.assetId], 
+                    success: function(data, status, xhr) {
+                        if(data.rows.length === 0) {
+                            $.couch.db('assets').saveDoc(details);
+                        }
+                    }
+                });
 console.log(details);
                 
                 $detailTarget.html($('description', $detail).text());
