@@ -103,9 +103,48 @@ var Mural = {};
             url: 'pr0xy.php?page=Kml.ashx&assetId=' + id,
             dataType: 'xml',
             success: function(xml, status, xhr) {
+                // All the stuff we want is in the <Placemark>
                 var $detail = $('Placemark', xml);
                 
+                // Set the page title
                 $(_options.detailHeader).html($('name', $detail).text());
+                
+                // The <description> field contains a big html table of asset properties, 
+                // their values and one or more images.
+                var $description = $($('description', $detail).text());
+                
+                // Get an array of all of the images
+                var $images = $('img', $description);
+                
+                // Iterate through all the table rows & if they have two <td>s, we assume the first on
+                // is a property and the second is its value.
+                var $detail_rows = $('tr', $description);
+                var details = {};
+                details.assetId = id;
+                $detail_rows.each(function(idx, el) {
+                    $tds = $('td',$(el));
+                    if($tds.length == 2) {
+                        details[$($tds[0]).text().replace(/:/,'').trim()] = $($tds[1]).text().trim();
+                    }                  
+                });
+                
+                // And just for fun, lets grab the lat/lng
+                coords = $('coordinates', $detail).text().split(',');
+                if(coords.length > 1) {
+                    var point = {
+                        type:"Point",
+                        coordinates: [coords[0], coords[1]]
+                    }
+                    details.geometry = point;
+                }
+                
+                // NOTE: If we wanted to start dumping the data into a CouchDB we could now.  We have
+                //       an object with geojson coordinates.
+                $.couch.urlPrefix = 'couchdb/couch_proxy.php?db=';
+//                $.couch.db('assets').view('assets/assetid',{})
+                $.couch.db('assets').saveDoc(details);
+console.log(details);
+                
                 $detailTarget.html($('description', $detail).text());
             },
             error: function(xhr, status, error) {
