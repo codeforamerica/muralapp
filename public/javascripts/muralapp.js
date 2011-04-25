@@ -134,7 +134,7 @@ var Mural = {};
                     var point = {
                         type:"Point",
                         coordinates: [coords[0], coords[1]]
-                    }
+                    };
                     details.geometry = point;
                 }
                 
@@ -166,8 +166,8 @@ console.log(details);
         html = '<ul data-role="listview">';
       
       $.each(_murals, function(i, mural){
-          html += '<li data-muralid="'+ mural.assetId +'"><img src="'+$(mural.image).attr('src')+'" alt="'+mural.title+'" class="ul-li-icon">' +
-              '<a href="#detail-page">'+mural.title+'</a></li>';          
+          html += '<li><img src="'+$(mural.image).attr('src')+'" alt="'+mural.title+'" class="ul-li-icon">' +
+              '<a href="details.html?id='+ mural.assetId +'">'+mural.title+'</a></li>';          
       });
       html += '</ul>';
       
