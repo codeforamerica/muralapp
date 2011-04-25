@@ -164,7 +164,7 @@ console.log(details);
     
     var _refreshDetailList = function() {
       var $list = $(_options.listTarget).empty(),
-        html = '<ul data-role="listview">';
+        html = '<ul data-role="listview" data-inset="true" data-theme="d">';
       
       $.each(_murals, function(i, mural){
           html += '<li><img src="'+$(mural.image).attr('src')+'" alt="'+mural.title+'" class="ul-li-icon">' +
@@ -173,6 +173,8 @@ console.log(details);
       html += '</ul>';
       
       $list.append(html);
+      
+      $list.find('ul').listview();
     };
     
     _self.refresh = function(latLng) {
