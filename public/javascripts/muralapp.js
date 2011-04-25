@@ -171,12 +171,7 @@ console.log(details);
       });
       html += '</ul>';
       
-      $list
-        .append(html)
-        .find('li')
-        .bind('tap', function(){
-            _refreshDetail($(this).attr('data-muralid'));
-        });
+      $list.append(html);
     };
     
     var _refresh = function(latLng) {

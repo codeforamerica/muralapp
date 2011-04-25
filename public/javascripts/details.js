@@ -68,7 +68,6 @@
                 console.log('server-side failure with status code ' + status);
             }
         });
-        
     };
     
     //http://stackoverflow.com/questions/901115/get-querystring-values-in-javascript
