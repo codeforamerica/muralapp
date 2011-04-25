@@ -16,7 +16,8 @@ var Mural = {};
     _map,
     _markers = [],
     _murals = [],
-    _infoWindow = new google.maps.InfoWindow();
+    _infoWindow = new google.maps.InfoWindow(),
+    _self = {};
 
     // It seems like we are getting slightly dodgey data, so this function should fix the latlng points
 	var _fixLatLng = function(latlng) {
@@ -174,9 +175,10 @@ console.log(details);
       $list.append(html);
     };
     
-    var _refresh = function(latLng) {
+    _self.refresh = function(latLng) {
         // Figure out the bounding box for the query
         var f = 0.015;
+        latLng = latLng || _map.getCenter();
         bbox = {'minx': (latLng.lng()-f),
                 'miny': (latLng.lat()-f),
                 'maxx': (latLng.lng()+f),
@@ -223,23 +225,25 @@ console.log(details);
       _map = new google.maps.Map($(_options.mapTarget).get(0), _mapOptions);
       
       google.maps.event.addListener(_map, 'dragend', function() {
-        _refresh(_map.getCenter());
+        _self.refresh();
       });
     };
     
     //Init the app
-    (function init() {
-      _initMap();
-      
-       _refresh(_map.getCenter());
-    })();
+    _initMap();       
+
+    return _self;
   };
 })(Mural);
 
 //Go go go go go!!
-$(document).bind("mobileinit", function(){  
+var app;
+$('#map-page').live('pagecreate',function(event){
+    app = app || Mural.App();
+    app.refresh();
 });
 
-$('#map-page').live('pagecreate',function(event){
-    Mural.App();
+$('#list-page').live('pageshow',function(event){
+    app = app || Mural.App();
+    app.refresh();
 });
