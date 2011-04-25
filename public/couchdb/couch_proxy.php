@@ -6,8 +6,8 @@ define ('HOSTNAME', 'http://muralapp.iriscouch.com');
 // Is it a POST or a GET?
 $proxy_params = explode('&',$_SERVER['QUERY_STRING']);
 //error_log('prox_params = ' . print_r($proxy_params, true));
-error_log(print_r($proxy_params, true));
-error_log(count($proxy_params));
+//error_log(print_r($proxy_params, true));
+//error_log(count($proxy_params));
 if(count($proxy_params) > 0) {
     $page_url = explode('=',array_shift($proxy_params));
     $page_url = $page_url[1];
@@ -15,21 +15,21 @@ if(count($proxy_params) > 0) {
     $url = HOSTNAME.$path;
 }
 
-error_log($url);
+//error_log($url);
 
 // Open the Curl session
 $session = curl_init($url);
 
-error_log(print_r($_REQUEST, true));
+//error_log(print_r($_REQUEST, true));
 
 // We have to pull our document from the php://input - yeah, I'd never heard of it either.
 $post_body = file_get_contents('php://input');
 
-error_log($post_body);
+//error_log($post_body);
 // If it's a POST, put the POST data in the body
 //if ($_POST['yws_path']) {
 if($post_body != '') {
-error_log('herro');
+//error_log('herro');
 	curl_setopt ($session, CURLOPT_POST, true);
 	curl_setopt ($session, CURLOPT_POSTFIELDS, $post_body);
 }
@@ -41,7 +41,7 @@ curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 // Make the call
 $json = curl_exec($session);
 
-error_log($json);
+//error_log($json);
 // The web service returns XML. Set the Content-Type appropriately
 header("Content-Type: application/json");
 

@@ -16,7 +16,7 @@ var Mural = {};
     _map,
     _markers = [],
     _murals = [],
-    _infoWindow = new google.maps.InfoWindow(),
+    _infoWindow = new google.maps.InfoWindow({ maxWidth: 500}),
     _self = {};
 
     // It seems like we are getting slightly dodgey data, so this function should fix the latlng points
@@ -76,12 +76,14 @@ var Mural = {};
         _markers.push(marker);
 
         google.maps.event.addListener(marker, "click", function() {
-            var bubbleHtml = '<h3>'+mural.title+'</h3>';
-            bubbleHtml += ''+mural.description+'';
-            bubbleHtml += '<a href="'+mural.link+'">learn more...</a>';
+            var bubbleHtml = '<strong>'+mural.title+'</strong>';
+            bubbleHtml += '<a href="details.html?id='+mural.assetId+'"><img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.assetId+'&SC=1" /></a>';
 
+            bubbleHtml = '<div class="infoBubbs">'+bubbleHtml+'</div>';
             _infoWindow.setContent(bubbleHtml);
             _infoWindow.open(_map, marker);
+            
+            $('.infoBubbs').parent().css('overflow','visible');
 
         });
     };
@@ -151,7 +153,6 @@ var Mural = {};
                         }
                     }
                 });
-console.log(details);
                 
                 $detailTarget.html($('description', $detail).text());
             },

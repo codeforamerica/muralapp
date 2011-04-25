@@ -8,6 +8,10 @@
   right:0;
 }
 
+.infoBubbs strong {
+    display:block;
+}
+
 /*
 body { 
 	font-size: 12px; 
