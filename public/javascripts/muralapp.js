@@ -192,7 +192,6 @@ var Mural = {};
     _self.findMe = function() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition( function(position) {
-                console.log(position.coords);
                 var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 _myLocationMarker = new google.maps.Marker({
                     map: _map,
@@ -201,6 +200,8 @@ var Mural = {};
                 
                 if (_maxExtent.contains(latLng)) {
                     _map.setCenter(latLng);                    
+                } else {
+                    alert('We couldn\'t locate you inside of Philly.');
                 }
             }, 
             function(msg){
@@ -264,8 +265,15 @@ var Mural = {};
         });
     };
     
+    var _initFindMe = function() {
+      $('.find-me').live('click', function(){
+          _self.findMe();
+      });  
+    };
+    
     //Init the app
     _initMap();
+    _initFindMe();
     _self.findMe();   
 
     return _self;
