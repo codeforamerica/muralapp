@@ -88,14 +88,23 @@ var Mural = {};
             bubbleHtml += '<strong><a href="details.html?id='+mural.assetId+'">'+mural.title+'</a></strong>';            
 
             bubbleHtml = '<div class="infoBubbs" style="background-image: url(http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.assetId+'&SC=1)">'+bubbleHtml+'</div><br style="clear:both" />';
+            
+            /*
+            $(bubbleHtml).bind('tap',function(ev) {
+                console.log('herro');                
+                console.log(ev); 
+            });
+            */
             var bubbleOptions = {
                 alignBottom : true,
-                content: bubbleHtml
+                content: bubbleHtml,
+                enableEventPropagation: true
             };
             _infoWindow.setOptions(bubbleOptions);
             _infoWindow.open(_map, marker);
             
             $('.infoBubbs').parent().css('overflow','visible');
+            
 
         });
     };
