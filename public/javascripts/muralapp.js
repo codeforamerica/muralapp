@@ -10,11 +10,17 @@ var Mural = {};
     }, options),
     _mapOptions = {
       zoom: 14,
+      minZoom: 12,
       center: new google.maps.LatLng(39.98, -75.155),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     },
     _map,
+    _maxExtent = new google.maps.LatLngBounds(
+        new google.maps.LatLng(-75.2803, 39.8723), //-75.6396, 39.5959), 
+        new google.maps.LatLng(-74.9557, 40.1379) //-74.5964, 40.4121)
+    ),
     _markers = [],
+    _myLocationMarker,
     _murals = [],
     _infoWindow = new InfoBox(),
     _self = {};
@@ -165,7 +171,6 @@ var Mural = {};
                 console.log('server-side failure with status code ' + status);
             }
         });
-        
     };
     
     var _refreshDetailList = function() {
@@ -182,6 +187,29 @@ var Mural = {};
       
       $list.find('ul').listview();
     };
+    
+    // Where are we?
+    _self.findMe = function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition( function(position) {
+                var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                _myLocationMarker = new google.maps.Marker({
+                    map: _map,
+                    position: latLng
+                });
+                
+                if (_maxExtent.contains(latLng)) {
+                    _map.setCenter(latLng);                    
+                } else {
+                    alert('We couldn\'t locate you inside of Philly.');
+                }
+            }, 
+            function(msg){
+                console.log(msg);   
+            },
+            { enableHighAccuracy: true });
+        } 
+    };    
     
     _self.refresh = function(latLng) {
         // Figure out the bounding box for the query
@@ -230,15 +258,23 @@ var Mural = {};
     };
 
     var _initMap = function() {
-      _map = new google.maps.Map($(_options.mapTarget).get(0), _mapOptions);
-      
-      google.maps.event.addListener(_map, 'dragend', function() {
-        _self.refresh();
-      });
+        _map = new google.maps.Map($(_options.mapTarget).get(0), _mapOptions);
+
+        google.maps.event.addListener(_map, 'dragend', function() {
+            _self.refresh(); 
+        });
+    };
+    
+    var _initFindMe = function() {
+      $('.find-me').live('click', function(){
+          _self.findMe();
+      });  
     };
     
     //Init the app
-    _initMap();       
+    _initMap();
+    _initFindMe();
+    _self.findMe();   
 
     return _self;
   };
