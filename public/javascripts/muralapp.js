@@ -16,8 +16,8 @@ var Mural = {};
     },
     _map,
     _maxExtent = new google.maps.LatLngBounds(
-        new google.maps.LatLng(-75.2803, 39.8723), //-75.6396, 39.5959), 
-        new google.maps.LatLng(-74.9557, 40.1379) //-74.5964, 40.4121)
+        new google.maps.LatLng(39.8723, -75.2803), //-75.6396, 39.5959), 
+        new google.maps.LatLng(40.1379, -74.9557) //-74.5964, 40.4121)
     ),
     _markers = [],
     _myLocationMarker,
