@@ -10,6 +10,20 @@
 
 .infoBubbs strong {
     display:block;
+    float:left;
+    width:70px;
+    padding-left: 5px;
+}
+.infoBubbs {
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    color: #efefef;
+    text-shadow: 2px 2px 2px #000;
+}
+.infoBubbs a {
+    color: #efefef;
+    text-decoration: none;
 }
 
 /*

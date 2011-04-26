@@ -61,7 +61,7 @@
                         }
                     }
                 });
-                                
+
                 $detailTarget.html($('description', $detail).text());
             },
             error: function(xhr, status, error) {

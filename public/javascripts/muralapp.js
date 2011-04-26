@@ -22,7 +22,7 @@ var Mural = {};
     _markers = [],
     _myLocationMarker,
     _murals = [],
-    _infoWindow = new google.maps.InfoWindow({ maxWidth: 500}),
+    _infoWindow = new InfoBox(),
     _self = {};
 
     // It seems like we are getting slightly dodgey data, so this function should fix the latlng points
@@ -82,11 +82,16 @@ var Mural = {};
         _markers.push(marker);
 
         google.maps.event.addListener(marker, "click", function() {
-            var bubbleHtml = '<strong>'+mural.title+'</strong>';
-            bubbleHtml += '<a href="details.html?id='+mural.assetId+'"><img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.assetId+'&SC=1" /></a>';
+            var bubbleHtml = '';
+            //bubbleHtml += '<a href="details.html?id='+mural.assetId+'"><img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.assetId+'&SC=1" /></a>';
+            bubbleHtml += '<strong><a href="#details.html?id='+mural.assetId+'">'+mural.title+'</a></strong>';            
 
-            bubbleHtml = '<div class="infoBubbs">'+bubbleHtml+'</div>';
-            _infoWindow.setContent(bubbleHtml);
+            bubbleHtml = '<div class="infoBubbs" style="background-image: url(http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.assetId+'&SC=1)">'+bubbleHtml+'</div><br style="clear:both" />';
+            var bubbleOptions = {
+                alignBottom : true,
+                content: bubbleHtml
+            };
+            _infoWindow.setOptions(bubbleOptions);
             _infoWindow.open(_map, marker);
             
             $('.infoBubbs').parent().css('overflow','visible');
@@ -200,7 +205,8 @@ var Mural = {};
             }, 
             function(msg){
                 console.log(msg);   
-            });
+            },
+            { enableHighAccuracy: true });
         } 
     };    
     
