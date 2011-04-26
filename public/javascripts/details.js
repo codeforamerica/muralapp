@@ -61,22 +61,7 @@
                         }
                     }
                 });
-                
-                // Where are we?
-                if (navigator.geolocation) {
-                   navigator.geolocation.getCurrentPosition(
-                       function(position) {
-                         var p1 = [position.coords.latitude, position.coords.longitude];
-                         var p2 = [coords[1], coords[0]];
-                         console.log(p1);
-                         console.log(p2);
-                       }, 
-                       function(msg){
-                         console.log(msg);
-                       }
-                   );
-                } 
-                
+                                
                 $detailTarget.html($('description', $detail).text());
             },
             error: function(xhr, status, error) {

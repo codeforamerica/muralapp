@@ -19,9 +19,10 @@
 
 <!-- Map -->
 <div data-role="page" id="map-page">
-    <div data-role="header">
-        <h1>Mural Guide</h1>
+    <div data-role="header" data-position="inline" data-backbtn="false">
         <a href="#list-page">List</a>
+        <h1>Mural Guide</h1>
+        <a href="javascript:void(0);" class="find-me">Find Me</a>
     </div>    
 
     <div data-role="content" id="map-container">
@@ -32,9 +33,10 @@
 
 <!-- List -->
 <div data-role="page" id="list-page">
-    <div data-role="header">
+    <div data-role="header" data-position="inline" data-backbtn="false">
+        <a href="#map-page" data-rel="back">Map</a>
         <h1>Mural Guide</h1>
-        <a href="#map-page">Map</a>
+        <a href="javascript:void(0);" class="find-me">Find Me</a>
     </div>    
 
     <div data-role="content" id="list-container"></div>    
