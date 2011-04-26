@@ -76,7 +76,8 @@ var Mural = {};
         var latLng = new google.maps.LatLng(mural.coordinates[0], mural.coordinates[1]);
         var marker = new google.maps.Marker({
             map: _map,
-            position: latLng
+            position: latLng,
+            icon: 'mural-icon-32.png'
         });
 
         _markers.push(marker);
