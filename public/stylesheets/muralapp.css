@@ -10,6 +10,16 @@
 
 .infoBubbs strong {
     display:block;
+    float:left;
+    width:70px;
+    padding-left: 5px;
+}
+
+.infoBubbs a {
+    float: left;
+    width: 100px;
+    height: 74px;
+    overflow: hidden;
 }
 
 /*

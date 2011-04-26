@@ -76,10 +76,11 @@ var Mural = {};
         _markers.push(marker);
 
         google.maps.event.addListener(marker, "click", function() {
-            var bubbleHtml = '<strong>'+mural.title+'</strong>';
+            var bubbleHtml = '';
             bubbleHtml += '<a href="details.html?id='+mural.assetId+'"><img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.assetId+'&SC=1" /></a>';
+            bubbleHtml += '<strong>'+mural.title+'</strong>';            
 
-            bubbleHtml = '<div class="infoBubbs">'+bubbleHtml+'</div>';
+            bubbleHtml = '<div class="infoBubbs">'+bubbleHtml+'</div><br style="clear:both" />';
             _infoWindow.setContent(bubbleHtml);
             _infoWindow.open(_map, marker);
             
