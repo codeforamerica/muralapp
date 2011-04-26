@@ -62,6 +62,21 @@
                     }
                 });
                 
+                // Where are we?
+                if (navigator.geolocation) {
+                   navigator.geolocation.getCurrentPosition(
+                       function(position) {
+                         var p1 = [position.coords.latitude, position.coords.longitude];
+                         var p2 = [coords[1], coords[0]];
+                         console.log(p1);
+                         console.log(p2);
+                       }, 
+                       function(msg){
+                         console.log(msg);
+                       }
+                   );
+                } 
+                
                 $detailTarget.html($('description', $detail).text());
             },
             error: function(xhr, status, error) {
@@ -82,6 +97,21 @@
       else
         return decodeURIComponent(results[1].replace(/\+/g, " "));
     }
+    
+    http://stackoverflow.com/questions/27928/how-do-i-calculate-distance-between-two-latitude-longitude-points
+    function _calcDistance(point1, point2) {
+        var R = 6371; // Radius of the earth in km
+        var dLat = (point2[0]-point1[0]).toRad();  // Javascript functions in radians
+        var dLon = (point2[1]-point1[1]).toRad(); 
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(point1[0].toRad()) * Math.cos(point2[0].toRad()) * 
+                Math.sin(dLon/2) * Math.sin(dLon/2); 
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        var d = R * c; // Distance in km
+        
+        return d;
+    }
+    
     
     //Init the app
     (function init() {
