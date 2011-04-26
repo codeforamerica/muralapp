@@ -85,7 +85,7 @@ var Mural = {};
         google.maps.event.addListener(marker, "click", function() {
             var bubbleHtml = '';
             //bubbleHtml += '<a href="details.html?id='+mural.assetId+'"><img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.assetId+'&SC=1" /></a>';
-            bubbleHtml += '<strong><a href="#details.html?id='+mural.assetId+'">'+mural.title+'</a></strong>';            
+            bubbleHtml += '<strong><a href="details.html?id='+mural.assetId+'">'+mural.title+'</a></strong>';            
 
             bubbleHtml = '<div class="infoBubbs" style="background-image: url(http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.assetId+'&SC=1)">'+bubbleHtml+'</div><br style="clear:both" />';
             var bubbleOptions = {
