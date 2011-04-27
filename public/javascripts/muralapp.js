@@ -119,6 +119,7 @@ var Mural = {};
 
     var _refreshMarkers = function(){
         _clearMarkers();
+        _infoWindow.close();
 
         // Add points to the map
         $.each(_murals, function(i, mural){
