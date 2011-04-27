@@ -244,7 +244,7 @@ var Mural = {};
 
         // Ask for the mural data from muralfarm.org (via our proxy php script)
         $.ajax({
-            url: 'http://muralapp.iriscouch.com/murals/_design/geo/_spatiallist/geojson/pointsFull?bbox='+bbox.minx+','+bbox.miny+','+bbox.maxx+','+bbox.maxy,
+            url: 'http://muralapp.iriscouch.com/murals/_design/geo/_spatiallist/geojson/full?bbox='+bbox.minx+','+bbox.miny+','+bbox.maxx+','+bbox.maxy,
             crossDomain: true,
             dataType: 'jsonp',
             success: function (data, textStatus, jqXHR) {
