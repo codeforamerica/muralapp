@@ -6,7 +6,9 @@ var Mural = {};
       mapTarget: '#map-target',
       listTarget: '#list-container',
       detailTarget: '#detail-container',
-      detailHeader: '#detail-header'
+      detailHeader: '#detail-header',
+      muralIcon: 'mural-icon-32.png',
+      locationIcon: 'location-icon-pin-32.png'
     }, options),
     _mapOptions = {
       zoom: 14,
@@ -77,7 +79,7 @@ var Mural = {};
         var marker = new google.maps.Marker({
             map: _map,
             position: latLng,
-            icon: 'mural-icon-32.png'
+            icon: _options.muralIcon
         });
 
         _markers.push(marker);
@@ -91,7 +93,7 @@ var Mural = {};
             
             // Evidently we need to create the div the old fashioned way
             // for the infoWindow.
-            var bubbs = document.createElement("div")
+            var bubbs = document.createElement("div");
             bubbs.className = 'bubbleWrap';
             bubbs.innerHTML = bubbleHtml;
 
@@ -212,7 +214,8 @@ var Mural = {};
                 var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 _myLocationMarker = new google.maps.Marker({
                     map: _map,
-                    position: latLng
+                    position: latLng,
+                    icon: _options.locationIcon
                 });
                 
                 if (_maxExtent.contains(latLng)) {
@@ -223,8 +226,7 @@ var Mural = {};
             }, 
             function(msg){
                 console.log(msg);   
-            },
-            { enableHighAccuracy: true });
+            });
         } 
     };    
     
