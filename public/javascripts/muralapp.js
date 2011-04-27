@@ -185,8 +185,9 @@ console.log('in refreshMarkers');
         html = '<ul data-role="listview" data-inset="true" data-theme="d">';
       
       $.each(_murals, function(i, mural){
-          html += '<li><img src="'+$(mural.image).attr('src')+'" alt="'+mural.title+'" class="ul-li-icon">' +
-              '<a href="details.html?id='+ mural.assetId +'">'+mural.title+'</a></li>';          
+console.log(mural);
+          html += '<li><img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.properties.assetId+'&SC=1" alt="'+mural.properties.Title+'" class="ul-li-icon">' +
+              '<a href="details.html?id='+ mural.properties.assetId +'">'+mural.properties.Title+'</a><span class="distance">'+mural.properties.distance+'</span></li>';          
       });
       html += '</ul>';
       
@@ -238,14 +239,13 @@ console.log('in refreshMarkers');
 
         // Ask for the mural data from muralfarm.org (via our proxy php script)
         $.ajax({
-            url: 'http://muralapp.iriscouch.com/murals/_design/geo/_spatiallist/geojson/pointsFull?bbox='+bbox.minx+','+bbox.miny+','+bbox.maxx+','+bbox.maxy,
+            url: 'http://muralapp.iriscouch.com/murals/_design/geo/_spatiallist/radius/full?radius=1000&bbox='+bbox.minx+','+bbox.miny+','+bbox.maxx+','+bbox.maxy,
             crossDomain: true,
             dataType: 'jsonp',
             success: function (data, textStatus, jqXHR) {
                 _murals = data.features;
-//console.log(_murals);
                 _refreshMarkers();
-                //_refreshDetailList();
+                _refreshDetailList();
             }
         });
     };
