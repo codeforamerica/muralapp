@@ -118,7 +118,6 @@ var Mural = {};
     };
 
     var _refreshMarkers = function(){
-console.log('in refreshMarkers');
         _clearMarkers();
 
         // Add points to the map
@@ -196,10 +195,10 @@ console.log('in refreshMarkers');
     };
     
     // Where are we?
-    _self.findMe = function() {
+    _self.findMe = function(latLng) {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition( function(position) {
-                var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                latLng = latLng || new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 
                 //Clear the marker if it exists
                 if(_myLocationMarker) {
@@ -215,7 +214,8 @@ console.log('in refreshMarkers');
                 
                 //If I'm in Philly, go to that location
                 if (_maxExtent.contains(latLng)) {
-                    _map.setCenter(latLng);                    
+                    _map.setCenter(latLng); 
+                    _self.refresh();                   
                 } else {
                     alert('We couldn\'t locate you inside of Philly.');
                 }
@@ -243,7 +243,7 @@ console.log('in refreshMarkers');
             dataType: 'jsonp',
             success: function (data, textStatus, jqXHR) {
                 _murals = data.features;
-//console.log(_murals);
+
                 _refreshMarkers();
                 //_refreshDetailList();
             }
@@ -254,7 +254,6 @@ console.log('in refreshMarkers');
         _map = new google.maps.Map($(_options.mapTarget).get(0), _mapOptions);
 
         google.maps.event.addListener(_map, 'dragend', function() {
-            console.log(_map.getCenter());
             _self.refresh(); 
         });
     };
