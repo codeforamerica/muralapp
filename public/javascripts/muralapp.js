@@ -10,11 +10,16 @@ var Mural = {};
       muralIcon: 'mural-icon-pin-32.png',
       locationIcon: 'location-icon-pin-32.png'
     }, options),
+    _mapTypeName = 'Map',
+    _mapTypeDef = [{featureType: "road",elementType: "all",stylers: [{ saturation: -99 },{ hue: "#0000ff" }]},{featureType: "all",elementType: "labels",stylers: [{ visibility: "simplified" }]},{featureType: "road",elementType: "geometry",stylers: [{ visibility: "simplified" }]},{featureType: "road.local",elementType: "labels",stylers: [{ visibility: "on" }]},{featureType: "all",elementType: "geometry",stylers: [{ saturation: -20 }]}],
     _mapOptions = {
       zoom: 14,
       minZoom: 12,
       center: new google.maps.LatLng(39.98, -75.155),
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: _mapTypeName,
+      mapTypeControlOptions: {
+         mapTypeIds: [_mapTypeName, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID]
+      }
     },
     _map,
     _maxExtent = new google.maps.LatLngBounds(
@@ -253,6 +258,11 @@ var Mural = {};
 
     var _initMap = function() {
         _map = new google.maps.Map($(_options.mapTarget).get(0), _mapOptions);
+
+        var mapType = new google.maps.StyledMapType(_mapTypeDef, { name: _mapTypeName});
+
+        _map.mapTypes.set(_mapTypeName, mapType);
+        _map.setMapTypeId(_mapTypeName);
 
         google.maps.event.addListener(_map, 'dragend', function() {
             _self.refresh(); 
