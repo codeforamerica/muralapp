@@ -73,21 +73,19 @@ var Mural = {};
     };
 
     var _addMarker = function(mural) {
-        var latLng = new google.maps.LatLng(mural.coordinates[0], mural.coordinates[1]);
+        var latLng = new google.maps.LatLng(mural.geometry.coordinates[1], mural.geometry.coordinates[0]);
         var marker = new google.maps.Marker({
             map: _map,
             position: latLng,
             icon: 'mural-icon-32.png'
         });
-
         _markers.push(marker);
 
         google.maps.event.addListener(marker, "click", function() {
+            // Build the html for our GMaps infoWindow
             var bubbleHtml = '';
-            //bubbleHtml += '<a href="details.html?id='+mural.assetId+'"><img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.assetId+'&SC=1" /></a>';
-            bubbleHtml += '<strong>'+mural.title+'</strong>';            
-
-            bubbleHtml = '<div id="mid-'+mural.assetId+'" class="infoBubbs" style="background-image: url(http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.assetId+'&SC=1)">'+bubbleHtml+'</div><br style="clear:both" />';
+            bubbleHtml += '<strong>'+mural.properties.Title+'</strong>';            
+            bubbleHtml = '<div id="mid-'+mural.properties.assetId+'" class="infoBubbs" style="background-image: url(http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.properties.assetId+'&SC=1)">'+bubbleHtml+'</div><br style="clear:both" />';
             
             // Evidently we need to create the div the old fashioned way
             // for the infoWindow.
@@ -114,14 +112,16 @@ var Mural = {};
             _infoWindow.setOptions(bubbleOptions);
             _infoWindow.open(_map, marker);
         });
+
     };
 
     var _refreshMarkers = function(){
+console.log('in refreshMarkers');
         _clearMarkers();
 
         // Add points to the map
         $.each(_murals, function(i, mural){
-            if(mural && mural.coordinates) {
+            if(mural && mural.geometry) {
                 _addMarker(mural);
             }            
         });
@@ -169,18 +169,6 @@ var Mural = {};
                     details.geometry = point;
                 }
                 
-                // NOTE: If we wanted to start dumping the data into a CouchDB we could now.  We have
-                //       an object with geojson coordinates.
-                $.couch.urlPrefix = 'couchdb/couch_proxy.php?db=';
-                
-                $.couch.db('assets').view('assets/assetid',{ 
-                    keys: [details.assetId], 
-                    success: function(data, status, xhr) {
-                        if(data.rows.length === 0) {
-                            $.couch.db('assets').saveDoc(details);
-                        }
-                    }
-                });
                 
                 $detailTarget.html($('description', $detail).text());
             },
@@ -238,38 +226,16 @@ var Mural = {};
                 'maxy': (latLng.lat()+f)
         };
 
-        // Change the projection
-        // creating source and destination Proj4js objects
-        var source = new Proj4js.Proj('WGS84');    //source coordinates will be in Longitude/Latitude
-        var dest = new Proj4js.Proj('EPSG:900913');     //destination coordinates in Google Mercator
-
-        // transforming point coordinates
-        var nw = new Proj4js.Point(bbox.minx,bbox.maxy); 
-        Proj4js.transform(source, dest, nw);     
-
-        // transforming point coordinates
-        var se = new Proj4js.Point(bbox.maxx,bbox.miny);
-        Proj4js.transform(source, dest, se); 
-
         // Ask for the mural data from muralfarm.org (via our proxy php script)
         $.ajax({
-            url: 'pr0xy.php?page=RssFeed.ashx&type=area&minx='+nw.x+'&miny='+se.y+'&maxx='+se.x+'&maxy='+nw.y,
-            dataType: 'xml',
-            success: function(xml, status, xhr) {
-                _murals = [];
-                
-                $("channel item", xml).each(function(i, node){
-                   _murals.push(_dirtyXML2JsonConversion(node)); 
-                });
-                
-                // HACK - the last element in the array need
-                _murals.pop();
-
+            url: 'http://muralapp.iriscouch.com/murals/_design/geo/_spatiallist/geojson/pointsFull?bbox='+bbox.minx+','+bbox.miny+','+bbox.maxx+','+bbox.maxy,
+            crossDomain: true,
+            dataType: 'jsonp',
+            success: function (data, textStatus, jqXHR) {
+                _murals = data.features;
+//console.log(_murals);
                 _refreshMarkers();
-                _refreshDetailList();
-            },
-            error: function(xhr, status, error) {
-                console.log('server-side failure with status code ' + status);
+                //_refreshDetailList();
             }
         });
     };
