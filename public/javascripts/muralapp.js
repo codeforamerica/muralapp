@@ -212,6 +212,11 @@ var Mural = {};
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition( function(position) {
                 var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                
+                if(_myLocationMarker) {
+                  _myLocationMarker.setMap(null);
+                }
+                
                 _myLocationMarker = new google.maps.Marker({
                     map: _map,
                     position: latLng,
