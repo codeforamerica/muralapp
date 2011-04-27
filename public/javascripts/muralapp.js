@@ -85,22 +85,24 @@ var Mural = {};
         google.maps.event.addListener(marker, "click", function() {
             var bubbleHtml = '';
             //bubbleHtml += '<a href="details.html?id='+mural.assetId+'"><img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.assetId+'&SC=1" /></a>';
-            bubbleHtml += '<strong id="mid-'+mural.assetId+'">'+mural.title+'</strong>';            
+            bubbleHtml += '<strong>'+mural.title+'</strong>';            
 
-            bubbleHtml = '<div class="infoBubbs" style="background-image: url(http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.assetId+'&SC=1)">'+bubbleHtml+'</div><br style="clear:both" />';
+            bubbleHtml = '<div id="mid-'+mural.assetId+'" class="infoBubbs" style="background-image: url(http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.assetId+'&SC=1)">'+bubbleHtml+'</div><br style="clear:both" />';
             
+            // Evidently we need to create the div the old fashioned way
+            // for the infoWindow.
             var bubbs = document.createElement("div")
-//            bubbs.style.cssText = "border: 1px solid black; margin-top: 8px; background: yellow; padding: 5px;";
             bubbs.className = 'bubbleWrap';
-            bubbs.id = mural.assetId;
             bubbs.innerHTML = bubbleHtml;
-console.log($(bubbs));        
-            $(bubbs).find('strong').bind('tap',function(ev) {
+
+            $(bubbs).find('.infoBubbs').bind('tap',function(ev) {
+                // The id of the element is in the form mid-XX where XX is the assetId.
                 var pieces = this.id.split('-');
                 
-                console.log($(ev));
+                // Build our url
                 var url = 'details.html?id='+pieces[1];
-console.log(url);
+                
+                // Manually change the page
                 $.mobile.changePage(url);
             });
             
@@ -111,10 +113,6 @@ console.log(url);
             };
             _infoWindow.setOptions(bubbleOptions);
             _infoWindow.open(_map, marker);
-            
-            $('.infoBubbs').parent().css('overflow','visible');
-            
-
         });
     };
 
