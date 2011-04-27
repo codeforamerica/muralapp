@@ -6,7 +6,9 @@ var Mural = {};
       mapTarget: '#map-target',
       listTarget: '#list-container',
       detailTarget: '#detail-container',
-      detailHeader: '#detail-header'
+      detailHeader: '#detail-header',
+      muralIcon: 'mural-icon-pin-32.png',
+      locationIcon: 'location-icon-pin-32.png'
     }, options),
     _mapOptions = {
       zoom: 14,
@@ -77,7 +79,7 @@ var Mural = {};
         var marker = new google.maps.Marker({
             map: _map,
             position: latLng,
-            icon: 'mural-icon-32.png'
+            icon: _options.muralIcon
         });
         _markers.push(marker);
 
@@ -89,7 +91,7 @@ var Mural = {};
             
             // Evidently we need to create the div the old fashioned way
             // for the infoWindow.
-            var bubbs = document.createElement("div")
+            var bubbs = document.createElement("div");
             bubbs.className = 'bubbleWrap';
             bubbs.innerHTML = bubbleHtml;
 
@@ -198,11 +200,20 @@ console.log('in refreshMarkers');
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition( function(position) {
                 var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                
+                //Clear the marker if it exists
+                if(_myLocationMarker) {
+                  _myLocationMarker.setMap(null);
+                }
+                
+                //Add a marker on my current location
                 _myLocationMarker = new google.maps.Marker({
                     map: _map,
-                    position: latLng
+                    position: latLng,
+                    icon: _options.locationIcon
                 });
                 
+                //If I'm in Philly, go to that location
                 if (_maxExtent.contains(latLng)) {
                     _map.setCenter(latLng);                    
                 } else {
@@ -211,8 +222,7 @@ console.log('in refreshMarkers');
             }, 
             function(msg){
                 console.log(msg);   
-            },
-            { enableHighAccuracy: true });
+            });
         } 
     };    
     
@@ -244,6 +254,7 @@ console.log('in refreshMarkers');
         _map = new google.maps.Map($(_options.mapTarget).get(0), _mapOptions);
 
         google.maps.event.addListener(_map, 'dragend', function() {
+            console.log(_map.getCenter());
             _self.refresh(); 
         });
     };

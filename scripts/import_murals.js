@@ -55,15 +55,16 @@
           });
           
           // And just for fun, lets grab the lat/lng
-          coords = $('coordinates', $detail).text().split(',');
+          var coords = $('coordinates', $detail).text().split(',');
           if(coords.length > 1) {
               var point = {
                   type:"Point",
-                  coordinates: [coords[0], coords[1]]
+                  coordinates: [parseFloat(coords[0]), parseFloat(coords[1])]
               };
               details.geometry = point;
           }
 
+          //Only add to the couch if we have 
           if (details.geometry) {
             addToCouch(details, 'murals');
           }
@@ -74,14 +75,14 @@
     });
   };
 
-  var i = 1;
+  var i = 1593;
   var id = setInterval(function(){
     console.log('Getting mural ' + i);
     getMuralDetails(i);
     
     i++;
-    if (i > 2000) {
+    if (i > 1800) {
       clearInterval(id);
     }
-  }, 500);
+  }, 800);
 })();
