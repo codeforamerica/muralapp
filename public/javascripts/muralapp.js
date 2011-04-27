@@ -85,19 +85,28 @@ var Mural = {};
         google.maps.event.addListener(marker, "click", function() {
             var bubbleHtml = '';
             //bubbleHtml += '<a href="details.html?id='+mural.assetId+'"><img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.assetId+'&SC=1" /></a>';
-            bubbleHtml += '<strong><a href="details.html?id='+mural.assetId+'">'+mural.title+'</a></strong>';            
+            bubbleHtml += '<strong id="mid-'+mural.assetId+'">'+mural.title+'</strong>';            
 
             bubbleHtml = '<div class="infoBubbs" style="background-image: url(http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.assetId+'&SC=1)">'+bubbleHtml+'</div><br style="clear:both" />';
             
-            /*
-            $(bubbleHtml).bind('tap',function(ev) {
-                console.log('herro');                
-                console.log(ev); 
+            var bubbs = document.createElement("div")
+//            bubbs.style.cssText = "border: 1px solid black; margin-top: 8px; background: yellow; padding: 5px;";
+            bubbs.className = 'bubbleWrap';
+            bubbs.id = mural.assetId;
+            bubbs.innerHTML = bubbleHtml;
+console.log($(bubbs));        
+            $(bubbs).find('strong').bind('tap',function(ev) {
+                var pieces = this.id.split('-');
+                
+                console.log($(ev));
+                var url = 'details.html?id='+pieces[1];
+console.log(url);
+                $.mobile.changePage(url);
             });
-            */
+            
             var bubbleOptions = {
                 alignBottom : true,
-                content: bubbleHtml,
+                content: bubbs,
                 enableEventPropagation: true
             };
             _infoWindow.setOptions(bubbleOptions);
