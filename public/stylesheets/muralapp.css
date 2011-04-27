@@ -26,6 +26,38 @@
     text-decoration: none;
 }
 
+.distance {
+    font-weight: normal;
+    font-size: 0.7em;
+    color: #aaaaaa;
+}
+
+.details_title {
+    font-style: italic;
+    font-size: 1.3em;
+}
+
+.details_wrapper ul {
+    margin-left: 0;
+    padding-left: 0;
+}
+.details_wrapper ul li {
+    list-style-type: none;
+    padding-bottom:7px;
+}
+
+.details_wrapper strong {
+    display: block;
+}
+
+.portrait .details_wrapper img {
+    width: 310px;
+}
+.landscape .details_wrapper img {
+    width: 470px;
+}
+
+.ui-content { padding: 5px; }
 /*
 body { 
 	font-size: 12px; 

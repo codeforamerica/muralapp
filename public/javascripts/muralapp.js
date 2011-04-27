@@ -94,57 +94,6 @@ var Mural = {};
         });
     };
     
-    var _refreshDetail = function(id){
-        var $detailTarget = $(_options.detailTarget).html('Loading...');
-        
-        $.ajax({
-            url: 'pr0xy.php?page=Kml.ashx&assetId=' + id,
-            dataType: 'xml',
-            success: function(xml, status, xhr) {
-                // All the stuff we want is in the <Placemark>
-                var $detail = $('Placemark', xml);
-                
-                // Set the page title
-                $(_options.detailHeader).html($('name', $detail).text());
-                
-                // The <description> field contains a big html table of asset properties, 
-                // their values and one or more images.
-                var $description = $($('description', $detail).text());
-                
-                // Get an array of all of the images
-                var $images = $('img', $description);
-                
-                // Iterate through all the table rows & if they have two <td>s, we assume the first on
-                // is a property and the second is its value.
-                var $detail_rows = $('tr', $description);
-                var details = {};
-                details.assetId = id;
-                $detail_rows.each(function(idx, el) {
-                    $tds = $('td',$(el));
-                    if($tds.length == 2) {
-                        details[$($tds[0]).text().replace(/:/,'').trim()] = $($tds[1]).text().trim();
-                    }                  
-                });
-                
-                // And just for fun, lets grab the lat/lng
-                coords = $('coordinates', $detail).text().split(',');
-                if(coords.length > 1) {
-                    var point = {
-                        type:"Point",
-                        coordinates: [coords[0], coords[1]]
-                    };
-                    details.geometry = point;
-                }
-                
-                
-                $detailTarget.html($('description', $detail).text());
-            },
-            error: function(xhr, status, error) {
-                console.log('server-side failure with status code ' + status);
-            }
-        });
-    };
-    
     var _refreshDetailList = function() {
       var $list = $(_options.listTarget).empty(),
         html = '<ul data-role="listview" data-inset="true" data-theme="d">';
@@ -152,7 +101,7 @@ var Mural = {};
       $.each(_murals, function(i, mural){
 console.log(mural);
           html += '<li><img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.properties.assetId+'&SC=1" alt="'+mural.properties.Title+'" class="ul-li-icon">' +
-              '<a href="details.html?id='+ mural.properties.assetId +'">'+mural.properties.Title+'</a><div class="distance">'+parseInt(mural.properties.distance * 3.2808399)+' feet away</div></li>';          
+              '<a href="details.html?id='+ mural.properties.assetId +'">'+mural.properties.Title+'<div class="distance">'+parseInt(mural.properties.distance * 3.2808399)+' feet away</div></a></li>';          
       });
       html += '</ul>';
       
