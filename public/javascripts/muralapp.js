@@ -32,46 +32,6 @@ var Mural = {};
     _infoWindow = new InfoBox(),
     _self = {};
 
-    // It seems like we are getting slightly dodgey data, so this function should fix the latlng points
-	var _fixLatLng = function(latlng) {
-		latlng[0] = latlng[0] * 2.6232 - 80.1968;
-		latlng[1] = latlng[1] * 1.964 + 159.8395;
-		return latlng;
-	};
-
-    var _dirtyXML2JsonConversion = function(node) {
-        var coords = node.getElementsByTagNameNS('http://www.georss.org/georss/','point');
-
-        if(coords.length && coords.textContent != '') {
-            coords = coords[0].textContent.split(' ');
-            coords = _fixLatLng(coords);
-        }
-
-		var link = (node.getElementsByTagName('link')[0]) ? node.getElementsByTagName('link')[0].textContent : '';
-
-        // Most of these descriptions have an img tag in the html.
-		// We want to pull the image tag out, clean it, and put it in its own var.
-        var pieces = node.getElementsByTagName('description')[0].textContent.split('&nbsp;',2);
-        // SUPERHACK! We need to strip out the annoying align="left" attribute from the img tag
-        pieces[0] = pieces[0].replace(/align="left"/ig,"");
-
-		// Pull the assetId off of the end of the link
-		var assetId = link.match(/assetId=(\d)*/gi);
-		assetId = (assetId) ? assetId[0].replace(/assetId=/gi, '') : '';
-
-        var mural = {
-			'assetId':assetId,
-            'title': node.getElementsByTagName('title')[0].textContent,
-            'description': (pieces[1]) ? pieces[1].replace(/<br \/><br \/>/ig,"").trim() : pieces[0],
-            'image': (pieces[0].indexOf('img') != -1) ? pieces[0] : '',
-            'link': link,
-            'pubDate': (node.getElementsByTagName('pubDate')[0]) ? node.getElementsByTagName('pubDate')[0].textContent : '',
-            'coordinates': coords
-        };
-
-        return mural; 
-    };
-
     var _clearMarkers = function() {
         for(var i=0; i < _markers.length; i++) {
             _markers[i].setMap(null);
@@ -192,7 +152,7 @@ var Mural = {};
       $.each(_murals, function(i, mural){
 console.log(mural);
           html += '<li><img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.properties.assetId+'&SC=1" alt="'+mural.properties.Title+'" class="ul-li-icon">' +
-              '<a href="details.html?id='+ mural.properties.assetId +'">'+mural.properties.Title+'</a><span class="distance">'+mural.properties.distance+'</span></li>';          
+              '<a href="details.html?id='+ mural.properties.assetId +'">'+mural.properties.Title+'</a><div class="distance">'+parseInt(mural.properties.distance * 3.2808399)+' feet away</div></li>';          
       });
       html += '</ul>';
       
@@ -250,6 +210,10 @@ console.log(mural);
             dataType: 'jsonp',
             success: function (data, textStatus, jqXHR) {
                 _murals = data.features;
+                // Sort the murals from closest to farthest
+                function compareDist(a, b) { return  a.properties.distance - b.properties.distance; }
+                _murals.sort(compareDist);
+                _murals = _murals.slice(0,10);
                 _refreshMarkers();
                 _refreshDetailList();
             }
