@@ -7,7 +7,7 @@ var Mural = {};
       listTarget: '#list-container',
       detailTarget: '#detail-container',
       detailHeader: '#detail-header',
-      muralIcon: 'mural-icon-32.png',
+      muralIcon: 'mural-icon-pin-32.png',
       locationIcon: 'location-icon-pin-32.png'
     }, options),
     _mapOptions = {
@@ -213,16 +213,19 @@ var Mural = {};
             navigator.geolocation.getCurrentPosition( function(position) {
                 var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 
+                //Clear the marker if it exists
                 if(_myLocationMarker) {
                   _myLocationMarker.setMap(null);
                 }
                 
+                //Add a marker on my current location
                 _myLocationMarker = new google.maps.Marker({
                     map: _map,
                     position: latLng,
                     icon: _options.locationIcon
                 });
                 
+                //If I'm in Philly, go to that location
                 if (_maxExtent.contains(latLng)) {
                     _map.setCenter(latLng);                    
                 } else {
@@ -285,6 +288,7 @@ var Mural = {};
         _map = new google.maps.Map($(_options.mapTarget).get(0), _mapOptions);
 
         google.maps.event.addListener(_map, 'dragend', function() {
+            console.log(_map.getCenter());
             _self.refresh(); 
         });
     };
