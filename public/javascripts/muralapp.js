@@ -29,7 +29,7 @@ var Mural = {};
     _markers = [],
     _myLocationMarker,
     _murals = [],
-    _infoWindow = new InfoBox(),
+    _infoWindow = new google.maps.InfoWindow(),
     _self = {};
 
     var _clearMarkers = function() {
@@ -50,6 +50,7 @@ var Mural = {};
 
         google.maps.event.addListener(marker, "click", function() {
             // Build the html for our GMaps infoWindow
+            /*
             var bubbleHtml = '';
             bubbleHtml += '<strong>'+mural.properties.Title+'</strong>';            
             bubbleHtml = '<div id="mid-'+mural.properties.assetId+'" class="infoBubbs" style="background-image: url(http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.properties.assetId+'&SC=1)">'+bubbleHtml+'</div><br style="clear:both" />';
@@ -70,16 +71,31 @@ var Mural = {};
                 // Manually change the page
                 $.mobile.changePage(url);
             });
+            */
+            var winContent = '<div class="win-content">' + 
+              '<div class="win-title">'+mural.properties.Title+'</div>' +
+              '<img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+
+                  mural.properties.assetId+'&SC=1" />' + 
+              '<a href="javascript:void(0);" data-assetid="'+mural.properties.assetId+
+                  '" class="win-details-link">More details...</a>' +  
+            '</div>';
             
-            var bubbleOptions = {
-                alignBottom : true,
-                content: bubbs,
+            var winOptions = {
+                content: winContent,
                 enableEventPropagation: true
             };
-            _infoWindow.setOptions(bubbleOptions);
+            
+            _infoWindow.setOptions(winOptions);
             _infoWindow.open(_map, marker);
-        });
+            
+            $('.win-details-link').bind('tap',function(ev) {
+                // Build our url
+                var url = 'details.html?id='+$(this).attr('data-assetid');
 
+                // Manually change the page
+                $.mobile.changePage(url);
+            });
+        });
     };
 
     var _refreshMarkers = function(){
@@ -152,7 +168,7 @@ var Mural = {};
       $.each(_murals, function(i, mural){
 console.log(mural);
           html += '<li><img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.properties.assetId+'&SC=1" alt="'+mural.properties.Title+'" class="ul-li-icon">' +
-              '<a href="details.html?id='+ mural.properties.assetId +'">'+mural.properties.Title+'</a><div class="distance">'+parseInt(mural.properties.distance * 3.2808399)+' feet away</div></li>';          
+              '<a href="details.html?id='+ mural.properties.assetId +'">'+mural.properties.Title+'</a><div class="distance">'+parseInt(mural.properties.distance * 3.2808399, 10)+' feet away</div></li>';          
       });
       html += '</ul>';
       
