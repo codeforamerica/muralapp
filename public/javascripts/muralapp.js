@@ -92,16 +92,14 @@ var Mural = {};
     
     var calcDistance = function(mural) {
       var request = {
-        origin:_mapOptions.center, 
-        destination: new google.maps.LatLng(mural.geometry.coordinates[0], mural.geometry.coordinates[1]),
-        travelMode: google.maps.DirectionsTravelMode.Walking
+        origin:_myLocationLatLng, 
+        destination: new google.maps.LatLng(mural.geometry.coordinates[1], mural.geometry.coordinates[0]),
+        travelMode: google.maps.DirectionsTravelMode.WALKING
       };
       
-      _directionsService.route(request, function(result, status) {
-        console.log(result);
-        
+      _directionsService.route(request, function(result, status) {        
         if (status == google.maps.DirectionsStatus.OK) {
-
+          $('.mural-dist-'+mural.properties.assetId).text('You are ' + result.routes[0].legs[0].distance.text + ' away.');
         }
       });
     };
@@ -115,19 +113,19 @@ var Mural = {};
               mural.properties.assetId+'&SC=1" alt="'+mural.properties.Title + '" class="ul-li-icon">' +
               '<a href="details.html?id='+ mural.properties.assetId +'">' + mural.properties.Title + '</a>';
 
-          //if (_myLocationLatLng) {
+          if (_myLocationLatLng) {
             html += '<div class="mural-dist-'+mural.properties.assetId + ' distance"></div>';
-          //}
+          }
           html += '</li>';
       });
       html += '</ul>';
       $list.append(html);
       
-      //if (_myLocationLatLng) {
+      if (_myLocationLatLng) {
         $.each(_murals, function(i, mural) {
           calcDistance(mural);
         });
-      //}      
+      }      
       
       $list.find('ul').listview();
     };
@@ -136,22 +134,24 @@ var Mural = {};
     _self.findMe = function() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition( function(position) {
-                _myLocationLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 
                 //Clear the marker if it exists
                 if(_myLocationMarker) {
                   _myLocationMarker.setMap(null);
                 }
                 
-                //Add a marker on my current location
-                _myLocationMarker = new google.maps.Marker({
-                    map: _map,
-                    position: _myLocationLatLng,
-                    icon: _options.locationIcon
-                });
-                
                 //If I'm in Philly, go to that location
-                if (_maxExtent.contains(_myLocationLatLng)) {
+                if (_maxExtent.contains(latLng)) {
+                    _myLocationLatLng = latLng;
+                    
+                    //Add a marker on my current location
+                    _myLocationMarker = new google.maps.Marker({
+                        map: _map,
+                        position: _myLocationLatLng,
+                        icon: _options.locationIcon
+                    });
+
                     _map.setCenter(_myLocationLatLng); 
                     _self.refresh();                   
                 } else {
