@@ -63,7 +63,7 @@
         return decodeURIComponent(results[1].replace(/\+/g, " "));
     }
     
-    http://stackoverflow.com/questions/27928/how-do-i-calculate-distance-between-two-latitude-longitude-points
+    //http://stackoverflow.com/questions/27928/how-do-i-calculate-distance-between-two-latitude-longitude-points
     function _calcDistance(point1, point2) {
         var R = 6371; // Radius of the earth in km
         var dLat = (point2[0]-point1[0]).toRad();  // Javascript functions in radians

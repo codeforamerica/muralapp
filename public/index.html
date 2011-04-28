@@ -7,7 +7,6 @@
 
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-        <script type="text/javascript" src="javascripts/infobox_packed.js" charset="utf-8"></script>
         <script type="text/javascript" src="javascripts/muralapp.js"></script>
         <script type="text/javascript" src="javascripts/details.js"></script>
         <script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
@@ -18,7 +17,7 @@
 <!-- Map -->
 <div data-role="page" id="map-page">
     <div data-role="header" data-position="inline" data-backbtn="false">
-        <a href="#list-page">List</a>
+        <a href="#list-page" data-transition="flip">List</a>
         <h1>Mural Guide</h1>
         <a href="javascript:void(0);" class="find-me">Find Me</a>
     </div>    
@@ -32,7 +31,7 @@
 <!-- List -->
 <div data-role="page" id="list-page">
     <div data-role="header" data-position="inline" data-backbtn="false">
-        <a href="#map-page" data-rel="back">Map</a>
+        <a href="#map-page" data-transition="flip">Map</a>
         <h1>Mural Guide</h1>
         <a href="javascript:void(0);" class="find-me">Find Me</a>
     </div>    
