@@ -29,7 +29,7 @@ var Mural = {};
     _markers = [],
     _myLocationMarker,
     _murals = [],
-    _infoWindow = new google.maps.InfoWindow(),
+    _infoWindow = new InfoBox(),
     _self = {};
 
     var _clearMarkers = function() {
@@ -50,6 +50,27 @@ var Mural = {};
 
         google.maps.event.addListener(marker, "click", function() {
             // Build the html for our GMaps infoWindow
+            var bubbleHtml = '';
+            bubbleHtml += '<strong>'+mural.properties.Title+'</strong>';            
+            bubbleHtml = '<div id="mid-'+mural.properties.assetId+'" class="infoBubbs" style="background-image: url(http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.properties.assetId+'&SC=1)">'+bubbleHtml+'</div><br style="clear:both" />';
+
+            // Evidently we need to create the div the old fashioned way
+            // for the infoWindow.
+            var bubbs = document.createElement("div");
+            bubbs.className = 'bubbleWrap';
+            bubbs.innerHTML = bubbleHtml;
+
+            $(bubbs).find('.infoBubbs').bind('tap',function(ev) {
+                // The id of the element is in the form mid-XX where XX is the assetId.
+                var pieces = this.id.split('-');
+
+                // Build our url
+                var url = 'details.html?id='+pieces[1];
+
+                // Manually change the page
+                $.mobile.changePage(url);
+            });
+            
             var winContent = '<div class="win-content">' + 
               '<div class="win-title">'+mural.properties.Title+'</div>' +
               '<img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+
@@ -58,9 +79,12 @@ var Mural = {};
                   '" class="win-details-link">More details...</a>' +  
             '</div>';
             
+            var newOffset = new google.maps.Size(-57,5,'px','px');
             var winOptions = {
-                content: winContent,
-                enableEventPropagation: true
+                content: bubbs,
+                enableEventPropagation: true,
+                position: latLng,
+                pixelOffset: newOffset
             };
             
             _infoWindow.setOptions(winOptions);
@@ -96,7 +120,7 @@ var Mural = {};
           html += '<li><img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+
               mural.properties.assetId+'&SC=1" alt="'+mural.properties.Title+'" class="ul-li-icon">' +
               '<a href="details.html?id='+ mural.properties.assetId +'">'+mural.properties.Title+
-              '</a><div class="distance">'+parseInt(mural.properties.distance * 3.2808399, 10)+' feet away</div></li>';          
+              '<div class="distance">'+parseInt(mural.properties.distance * 3.2808399, 10)+' feet away</div></a></li>';          
       });
       html += '</ul>';
       

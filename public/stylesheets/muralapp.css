@@ -42,3 +42,30 @@
 }
 
 .ui-content { padding: 5px; }
+
+.infoBubbs strong {
+    display:block;
+    float:left;
+    width:70px;
+    padding-left: 5px;
+}
+.infoBubbs {
+
+    width: 100px;
+    height: 60px;
+    background-repeat: no-repeat;
+    color: #efefef;
+    text-shadow: 2px 2px 2px #000;
+}
+.infoBubbs a {
+    color: #efefef;
+    text-decoration: none;
+}
+
+.infoBubbs {
+    /*border: 10px solid black;*/
+    border-width: 5px;
+    background-color: #FFF;
+    -webkit-border-image:url("../bubbleBorder4.png") 5 stretch;
+    /*border-image:url("border-image.png") 25 30 10 20 repeat;*/
+}
