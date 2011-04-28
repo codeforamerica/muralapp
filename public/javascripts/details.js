@@ -15,15 +15,20 @@
             crossDomain: true,
             dataType: 'jsonp',
             success: function (mural, textStatus, jqXHR) {
-console.log(mural);                
-            
                 // Set the page title
                 $(_options.detailHeader, $container).html(mural.Title);
                 
-                var detailsHtml = '';
+                var detailsHtml = imageHtml = '';
                 detailsHtml += '<div class="details_title">'+mural.Title+'</div>';
-                if(mural.mediaIds > 0) {
-                    detailsHtml += '<img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?mediaID='+mural.mediaIds[0]+'&.jpg" />'
+                
+                // This whole image handling code seems clunky
+                if(mural.mediaIds.length > 0) {
+                    detailsHtml += '<img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?mediaID='+mural.mediaIds[0]+'&.jpg" />';
+                    if(mural.mediaIds.length > 1) {
+                        for(var i=1; i < mural.mediaIds.length; i++) {
+                            imageHtml += '<img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?mediaID='+mural.mediaIds[i]+'&.jpg" />';
+                        }
+                    }
                 }
                 detailsHtml += '<ul>';
                 $.each(mural, function(i, n) {
@@ -33,6 +38,7 @@ console.log(mural);
                     }
                 });
                 detailsHtml += '<ul>';
+                detailsHtml += imageHtml;
                 detailsHtml = '<div class="details_wrapper">'+detailsHtml+'</div>';
                 $detailTarget.html(detailsHtml);
                 //$detailTarget.html($('description', $detail).text());
