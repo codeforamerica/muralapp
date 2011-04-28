@@ -51,8 +51,9 @@ var Mural = {};
         google.maps.event.addListener(marker, "click", function() {
             // Build the html for our GMaps infoWindow
             var bubbleHtml = '';
-            bubbleHtml += '<strong>'+mural.properties.Title+'</strong>';            
-            bubbleHtml = '<div id="mid-'+mural.properties.assetId+'" class="infoBubbs" style="background-image: url(http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.properties.assetId+'&SC=1)">'+bubbleHtml+'</div><br style="clear:both" />';
+            bubbleHtml += '<strong>'+mural.properties.Title+'</strong><br />';
+            bubbleHtml += '<img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.properties.assetId+'&SC=1" />';            
+            bubbleHtml = '<div id="mid-'+mural.properties.assetId+'" class="infoBubbs">'+bubbleHtml+'</div><br style="clear:both" />';
 
             // Evidently we need to create the div the old fashioned way
             // for the infoWindow.
@@ -79,12 +80,13 @@ var Mural = {};
                   '" class="win-details-link">More details...</a>' +  
             '</div>';
             
-            var newOffset = new google.maps.Size(-57,5,'px','px');
+            var newOffset = new google.maps.Size(-62,3,'px','px');
             var winOptions = {
                 content: bubbs,
                 enableEventPropagation: true,
                 position: latLng,
-                pixelOffset: newOffset
+                pixelOffset: newOffset,
+                closeBoxMargin: '18px 8px 2px 2px'
             };
             
             _infoWindow.setOptions(winOptions);
