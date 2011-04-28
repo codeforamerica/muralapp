@@ -11,58 +11,32 @@
             $detailTarget = $(_options.detailTarget, $container).html('Loading...');
         
         $.ajax({
-            url: 'pr0xy.php?page=Kml.ashx&assetId=' + id,
-            dataType: 'xml',
-            success: function(xml, status, xhr) {
-                // All the stuff we want is in the <Placemark>
-                var $detail = $('Placemark', xml);
-                
+            url: 'http://muralapp.iriscouch.com/murals/_design/assets/_list/asset/assetid?key='+id,
+            crossDomain: true,
+            dataType: 'jsonp',
+            success: function (mural, textStatus, jqXHR) {
+console.log(mural);                
+            
                 // Set the page title
-                $(_options.detailHeader, $container).html($('name', $detail).text());
+                $(_options.detailHeader, $container).html(mural.Title);
                 
-                // The <description> field contains a big html table of asset properties, 
-                // their values and one or more images.
-                var $description = $($('description', $detail).text());
-                
-                // Get an array of all of the images
-                var $images = $('img', $description);
-                
-                // Iterate through all the table rows & if they have two <td>s, we assume the first on
-                // is a property and the second is its value.
-                var $detail_rows = $('tr', $description);
-                var details = {};
-                details.assetId = id;
-                $detail_rows.each(function(idx, el) {
-                    $tds = $('td',$(el));
-                    if($tds.length == 2) {
-                        details[$($tds[0]).text().replace(/:/,'').trim()] = $($tds[1]).text().trim();
-                    }                  
-                });
-                
-                // And just for fun, lets grab the lat/lng
-                coords = $('coordinates', $detail).text().split(',');
-                if(coords.length > 1) {
-                    var point = {
-                        type:"Point",
-                        coordinates: [coords[0], coords[1]]
-                    };
-                    details.geometry = point;
+                var detailsHtml = '';
+                detailsHtml += '<div class="details_title">'+mural.Title+'</div>';
+                if(mural.mediaIds > 0) {
+                    detailsHtml += '<img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?mediaID='+mural.mediaIds[0]+'&.jpg" />'
                 }
-                
-                // NOTE: If we wanted to start dumping the data into a CouchDB we could now.  We have
-                //       an object with geojson coordinates.
-                $.couch.urlPrefix = 'couchdb/couch_proxy.php?db=';
-                
-                $.couch.db('assets').view('assets/assetid',{ 
-                    keys: [details.assetId], 
-                    success: function(data, status, xhr) {
-                        if(data.rows.length === 0) {
-                            $.couch.db('assets').saveDoc(details);
-                        }
+                detailsHtml += '<ul>';
+                $.each(mural, function(i, n) {
+                    // HACK - the following if could be done more gracefully
+                    if(n != '' && i != 'assetId' && i != 'geometry' && i != 'Title' && i != '_id' && i != '_rev' && i != 'mediaIds') {
+                        detailsHtml += '<li><strong>'+i+'</strong>'+n+'</li>';
                     }
                 });
-
-                $detailTarget.html($('description', $detail).text());
+                detailsHtml += '<ul>';
+                detailsHtml = '<div class="details_wrapper">'+detailsHtml+'</div>';
+                $detailTarget.html(detailsHtml);
+                //$detailTarget.html($('description', $detail).text());
+                
             },
             error: function(xhr, status, error) {
                 console.log('server-side failure with status code ' + status);
