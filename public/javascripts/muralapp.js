@@ -136,6 +136,7 @@ var Mural = {};
     
     // Where are we?
     _self.findMe = function() {
+      
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition( function(position) {
                 var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -159,12 +160,13 @@ var Mural = {};
                     _map.setCenter(_myLocationLatLng); 
                     _self.refresh(_myLocationLatLng);                   
                 } else {
-                    alert('We couldn\'t locate you inside of Philly.');
+                  alert('We couldn\'t locate you inside of Philly.');
                 }
             }, 
             function(msg){
-                console.log(msg);   
-            });
+              alert('We couldn\'t locate your position.');
+            },
+            { enableHighAccuracy: true, maximumAge: 90000 });
         } 
     };    
     
