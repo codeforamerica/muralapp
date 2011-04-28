@@ -14,7 +14,7 @@ var Mural = {};
     _mapTypeName = 'Map',
     _mapTypeDef = [{featureType: "road",elementType: "all",stylers: [{ saturation: -99 },{ hue: "#0000ff" }]},{featureType: "all",elementType: "labels",stylers: [{ visibility: "simplified" }]},{featureType: "road",elementType: "geometry",stylers: [{ visibility: "simplified" }]},{featureType: "road.local",elementType: "labels",stylers: [{ visibility: "on" }]},{featureType: "all",elementType: "geometry",stylers: [{ saturation: -20 }]}],
     _mapOptions = {
-      zoom: 14,
+      zoom: 16,
       minZoom: 12,
       center: new google.maps.LatLng(39.98, -75.155),
       mapTypeId: _mapTypeName,
