@@ -27,9 +27,11 @@ var Mural = {};
         new google.maps.LatLng(40.1379, -74.9557) //-74.5964, 40.4121)
     ),
     _markers = [],
+    _myLocationLatLng,
     _myLocationMarker,
     _murals = [],
     _infoWindow = new google.maps.InfoWindow(),
+    _directionsService = new google.maps.DirectionsService(),
     _self = {};
 
     var _clearMarkers = function() {
@@ -88,28 +90,53 @@ var Mural = {};
         });
     };
     
+    var calcDistance = function(mural) {
+      var request = {
+        origin:_mapOptions.center, 
+        destination: new google.maps.LatLng(mural.geometry.coordinates[0], mural.geometry.coordinates[1]),
+        travelMode: google.maps.DirectionsTravelMode.Walking
+      };
+      
+      _directionsService.route(request, function(result, status) {
+        console.log(result);
+        
+        if (status == google.maps.DirectionsStatus.OK) {
+
+        }
+      });
+    };
+    
     var _refreshDetailList = function() {
       var $list = $(_options.listTarget).empty(),
         html = '<ul data-role="listview" data-inset="true" data-theme="d">';
       
       $.each(_murals, function(i, mural){
-          html += '<li><img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+
-              mural.properties.assetId+'&SC=1" alt="'+mural.properties.Title+'" class="ul-li-icon">' +
-              '<a href="details.html?id='+ mural.properties.assetId +'">'+mural.properties.Title+
-              '</a><div class="distance">'+parseInt(mural.properties.distance * 3.2808399, 10)+' feet away</div></li>';          
+          html += '<li><img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId=' +
+              mural.properties.assetId+'&SC=1" alt="'+mural.properties.Title + '" class="ul-li-icon">' +
+              '<a href="details.html?id='+ mural.properties.assetId +'">' + mural.properties.Title + '</a>';
+
+          //if (_myLocationLatLng) {
+            html += '<div class="mural-dist-'+mural.properties.assetId + ' distance"></div>';
+          //}
+          html += '</li>';
       });
       html += '</ul>';
-      
       $list.append(html);
+      
+      //if (_myLocationLatLng) {
+        $.each(_murals, function(i, mural) {
+          calcDistance(mural);
+        });
+      //}      
       
       $list.find('ul').listview();
     };
     
     // Where are we?
-    _self.findMe = function(latLng) {
+    _self.findMe = function() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition( function(position) {
-                latLng = latLng || new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                _myLocationLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 
                 //Clear the marker if it exists
                 if(_myLocationMarker) {
@@ -119,13 +146,13 @@ var Mural = {};
                 //Add a marker on my current location
                 _myLocationMarker = new google.maps.Marker({
                     map: _map,
-                    position: latLng,
+                    position: _myLocationLatLng,
                     icon: _options.locationIcon
                 });
                 
                 //If I'm in Philly, go to that location
-                if (_maxExtent.contains(latLng)) {
-                    _map.setCenter(latLng); 
+                if (_maxExtent.contains(_myLocationLatLng)) {
+                    _map.setCenter(_myLocationLatLng); 
                     _self.refresh();                   
                 } else {
                     alert('We couldn\'t locate you inside of Philly.');
@@ -149,7 +176,8 @@ var Mural = {};
 
         // Ask for the mural data from muralfarm.org (via our proxy php script)
         $.ajax({
-            url: 'http://muralapp.iriscouch.com/murals/_design/geo/_spatiallist/radius/full?radius=1000&bbox='+bbox.minx+','+bbox.miny+','+bbox.maxx+','+bbox.maxy,
+            url: 'http://muralapp.iriscouch.com/murals/_design/geo/_spatiallist/radius/full?radius=1000&bbox='+
+                bbox.minx+','+bbox.miny+','+bbox.maxx+','+bbox.maxy,
             crossDomain: true,
             dataType: 'jsonp',
             success: function (data, textStatus, jqXHR) {
@@ -158,6 +186,7 @@ var Mural = {};
                 function compareDist(a, b) { return  a.properties.distance - b.properties.distance; }
                 _murals.sort(compareDist);
                 _murals = _murals.slice(0,10);
+                
                 _refreshMarkers();
                 _refreshDetailList();
             }
