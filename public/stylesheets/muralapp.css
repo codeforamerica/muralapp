@@ -52,8 +52,9 @@
 .infoBubbs {
 
     width: 100px;
-    height: 60px;
+    height: 100px;
     background-repeat: no-repeat;
+    background-position: center center;
     color: #efefef;
     text-shadow: 2px 2px 2px #000;
 }
@@ -67,5 +68,6 @@
     border-width: 5px;
     background-color: #FFF;
     -webkit-border-image:url("../bubbleBorder4.png") 5 stretch;
+    padding: 10px;
     /*border-image:url("border-image.png") 25 30 10 20 repeat;*/
 }
