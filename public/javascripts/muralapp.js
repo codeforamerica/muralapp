@@ -10,6 +10,7 @@ var Mural = {};
       muralIcon: 'mural-icon-pin-32.png',
       locationIcon: 'location-icon-pin-32.png'
     }, options),
+    //Map Styles
     _mapTypeName = 'Map',
     _mapTypeDef = [{featureType: "road",elementType: "all",stylers: [{ saturation: -99 },{ hue: "#0000ff" }]},{featureType: "all",elementType: "labels",stylers: [{ visibility: "simplified" }]},{featureType: "road",elementType: "geometry",stylers: [{ visibility: "simplified" }]},{featureType: "road.local",elementType: "labels",stylers: [{ visibility: "on" }]},{featureType: "all",elementType: "geometry",stylers: [{ saturation: -20 }]}],
     _mapOptions = {
@@ -21,17 +22,20 @@ var Mural = {};
          mapTypeIds: [_mapTypeName, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID]
       }
     },
+    //Map objects
     _map,
     _maxExtent = new google.maps.LatLngBounds(
         new google.maps.LatLng(39.8723, -75.2803), //-75.6396, 39.5959), 
         new google.maps.LatLng(40.1379, -74.9557) //-74.5964, 40.4121)
     ),
     _markers = [],
+    _lastSearchLatLng,
     _myLocationLatLng,
     _myLocationMarker,
-    _murals = [],
     _infoWindow = new google.maps.InfoWindow(),
     _directionsService = new google.maps.DirectionsService(),
+    //Mural cache
+    _murals = [],
     _self = {};
 
     var _clearMarkers = function() {
@@ -153,7 +157,7 @@ var Mural = {};
                     });
 
                     _map.setCenter(_myLocationLatLng); 
-                    _self.refresh();                   
+                    _self.refresh(_myLocationLatLng);                   
                 } else {
                     alert('We couldn\'t locate you inside of Philly.');
                 }
@@ -167,12 +171,14 @@ var Mural = {};
     _self.refresh = function(latLng) {
         // Figure out the bounding box for the query
         var f = 0.015;
-        latLng = latLng || _map.getCenter();
+        latLng = latLng || _lastSearchLatLng || _map.getCenter();
         bbox = {'minx': (latLng.lng()-f),
                 'miny': (latLng.lat()-f),
                 'maxx': (latLng.lng()+f),
                 'maxy': (latLng.lat()+f)
         };
+
+        _lastSearchLatLng = latLng;
 
         // Ask for the mural data from muralfarm.org (via our proxy php script)
         $.ajax({
@@ -202,7 +208,7 @@ var Mural = {};
         _map.setMapTypeId(_mapTypeName);
 
         google.maps.event.addListener(_map, 'dragend', function() {
-            _self.refresh(); 
+            _self.refresh(_map.getCenter()); 
         });
     };
     
@@ -228,7 +234,7 @@ $('#map-page').live('pagecreate',function(event){
     app.refresh();
 });
 
-$('#list-page').live('pageshow',function(event){
+$('#list-page').live('pagecreate',function(event){
     app = app || Mural.App();
     app.refresh();
 });
