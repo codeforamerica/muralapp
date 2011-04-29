@@ -16,7 +16,7 @@ var Mural = {};
     _mapOptions = {
       zoom: 16,
       minZoom: 12,
-      center: new google.maps.LatLng(39.98, -75.155),
+      center: new google.maps.LatLng(39.95185, -75.16382),
       mapTypeId: _mapTypeName,
       mapTypeControlOptions: {
          mapTypeIds: [_mapTypeName, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID]
