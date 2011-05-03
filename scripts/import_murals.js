@@ -3,11 +3,12 @@
     $ = require('jquery'),
     _options = {
       muralUrl: 'http://www.muralfarm.org/Muralfarm/Kml.ashx', //&assetId=
-      couchUrl: 'http://muralapp.iriscouch.com/'
+      couchUrl: 'http://x.iriscouch.com/'
     };
   
   //add a json object to couch
   var addToCouch = function(doc, db) {    
+    console.log('Adding doc to couch.');
     request({
         method: 'POST', 
         uri: _options.couchUrl + db,
@@ -18,6 +19,8 @@
     }, function (error, response, xml) {
       if (error) {
         console.log('Error adding doc to couch.' + error);
+      } else {
+        console.log('Successfully saved doc to couch.');  
       }
     });  
   };
@@ -25,11 +28,12 @@
   //go get the list of projects for the specified page, parse the xml, and handle with the 'end' event above  
   var getMuralDetails = function (id) {
     var url = _options.muralUrl+'?assetId='+id;
-    
+    console.log('Requesting '+url);
     request({uri:url}, function (error, response, xml) {
       if (!error && response.statusCode === 200) {        
+        console.log('Back from the farm (MuralFarm that is).');
         var details = {},
-          mediaRegex = /=(\d+)&.jpg$/,
+          mediaRegex = /=(\d+)&amp;.jpg$/,
           $detail = $('Placemark', xml);
         
         // The <description> field contains a big html table of asset properties, 
@@ -41,8 +45,10 @@
         
         details.mediaIds = [];
         $images.each(function(i, imgEl) {
-          var mediaId = mediaRegex.exec($(imgEl).attr('src'))[1];
-          details.mediaIds.push(mediaId);
+          var mediaId = mediaRegex.exec($(imgEl).attr('src'));
+          if(mediaId && mediaId.length > 0){
+              details.mediaIds.push(mediaId[1]);
+          }
         });
         
         // Iterate through all the table rows & if they have two <td>s, we assume the first on
@@ -59,6 +65,7 @@
         
         // And just for fun, lets grab the lat/lng
         var coords = $('coordinates', $detail).text().split(',');
+
         if(coords.length > 1) {
             var point = {
                 type:"Point",
