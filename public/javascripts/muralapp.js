@@ -210,7 +210,7 @@ var Mural = {};
 
         // Ask for the mural data from muralfarm.org (via our proxy php script)
         $.ajax({
-            url: 'http://muralapp.iriscouch.com/murals/_design/geo/_spatiallist/radius/full?radius=1000&bbox='+
+            url: 'http://x.iriscouch.com/murals/_design/geo/_spatiallist/radius/full?radius=1000&bbox='+
                 bbox.minx+','+bbox.miny+','+bbox.maxx+','+bbox.maxy,
             crossDomain: true,
             dataType: 'jsonp',

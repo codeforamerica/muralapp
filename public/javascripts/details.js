@@ -11,7 +11,7 @@
             $detailTarget = $(_options.detailTarget, $container).html('Loading...');
         
         $.ajax({
-            url: 'http://muralapp.iriscouch.com/murals/_design/assets/_list/asset/assetid?key='+id,
+            url: 'http://x.iriscouch.com/murals/_design/assets/_list/asset/assetid?key='+id,
             crossDomain: true,
             dataType: 'jsonp',
             success: function (mural, textStatus, jqXHR) {
