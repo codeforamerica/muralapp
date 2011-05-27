@@ -278,5 +278,18 @@
     "onError": "set-to-blank",
     "repeat": false,
     "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(trim(toLowercase(value)).indexOf(\"federal home loan bank of san \") != -1, \"Federal Home Loan Bank of San Francisco, 600 California st.\", value)",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(trim(toLowercase(value)).indexOf(\"federal home loan bank of san \") != -1, \"Federal Home Loan Bank of San Francisco, 600 California st.\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
   }
 ]
