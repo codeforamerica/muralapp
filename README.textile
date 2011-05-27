@@ -33,4 +33,4 @@ This project is new and liable to change quickly, but here is the vision for the
 Future versions:
 * Expand upon the types of art mapped
 
-
+[![Code for America Tracker](http://stats.codeforamerica.org/codeforamerica/muralapp.png)](http://stats.codeforamerica.org/projects/muralapp)
