@@ -265,5 +265,18 @@
     "onError": "set-to-blank",
     "repeat": false,
     "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(trim(toLowercase(value)).indexOf(\"portsmouth square\") != -1, \"Portsmouth Square\",value)",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(trim(toLowercase(value)).indexOf(\"portsmouth square\") != -1, \"Portsmouth Square\",value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
   }
 ]
