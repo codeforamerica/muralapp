@@ -1,0 +1,269 @@
+[
+  {
+    "op": "core/column-addition",
+    "description": "Create column Clean Address at index 9 based on column Current Location using expression grel:value",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "newColumnName": "Clean Address",
+    "columnInsertIndex": 9,
+    "baseColumnName": "Current Location",
+    "expression": "grel:value",
+    "onError": "set-to-blank"
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(trim(toLowercase(cells['Current Location'].value)).indexOf(\"airport\") != -1, \"SFO\", value)",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(trim(toLowercase(cells['Current Location'].value)).indexOf(\"airport\") != -1, \"SFO\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:replace(value, 'GGP', 'Golden Gate Park')",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:replace(value, 'GGP', 'Golden Gate Park')",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:replace(value,'Public Display :','')",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:replace(value,'Public Display :','')",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:replace(value, /District \\d :/,'')",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:replace(value, /District \\d :/,'')",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:replace(value, /City Department :/,'')",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:replace(value, /City Department :/,'')",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:replace(value, 'DPH :','')",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:replace(value, 'DPH :','')",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:replace(value, 'DPT :', '')",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:replace(value, 'DPT :', '')",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:replace(value, /District \\d\\d :/,'')",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:replace(value, /District \\d\\d :/,'')",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(trim(toLowercase(value)).indexOf(\"sfgh\") != -1, \"SFGH\", value)",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(trim(toLowercase(value)).indexOf(\"sfgh\") != -1, \"SFGH\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(trim(toLowercase(value)).indexOf(\"laguna honda\") != -1, \"Laguna Honda Hospital\",value)",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(trim(toLowercase(value)).indexOf(\"laguna honda\") != -1, \"Laguna Honda Hospital\",value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:replace(value, \"PUC :\", \"Public Utilities Commission\")",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "Clean Address",
+          "omitBlank": false,
+          "columnName": "Clean Address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": " PUC : Millbrae Facility",
+                "l": " PUC : Millbrae Facility"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:replace(value, \"PUC :\", \"Public Utilities Commission\")",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(trim(toLowercase(value)).indexOf(\"CCSF : Ocean Campus\") != -1, \"50 Phelan Avenue\", value)",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(trim(toLowercase(value)).indexOf(\"CCSF : Ocean Campus\") != -1, \"50 Phelan Avenue\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(trim(toLowercase(value)).indexOf(\"ccsf : ocean campus\") != -1, \"50 Phelan Avenue\", value)",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(trim(toLowercase(value)).indexOf(\"ccsf : ocean campus\") != -1, \"50 Phelan Avenue\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(trim(toLowercase(value)).indexOf(\"ccsf : phelan campus\") != -1, \"50 Phelan Avenue\", value)",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(trim(toLowercase(value)).indexOf(\"ccsf : phelan campus\") != -1, \"50 Phelan Avenue\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:replace(value,\"Museum :\",\"\")",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:replace(value,\"Museum :\",\"\")",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:replace(value, \", east side\", \"\")",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:replace(value, \", east side\", \"\")",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:replace(value, \", west side\", \"\")",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:replace(value, \", west side\", \"\")",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:replace(value, \" fo \", \" of \")",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:replace(value, \" fo \", \" of \")",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  }
+]
