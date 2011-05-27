@@ -293,6 +293,19 @@
     "repeatCount": 10
   },
   {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(trim(toLowercase(value)).indexOf(\"city hall\") != -1, \"City Hall\", value)",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(trim(toLowercase(value)).indexOf(\"city hall\") != -1, \"City Hall\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
     "op": "core/column-addition-by-fetching-urls",
     "description": "Create column geocode at index 10 by fetching URLs based on column Clean Address using expression grel:\"http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=\"+escape(trim(value)+\" near San Francisco, CA\", 'url')",
     "engineConfig": {
