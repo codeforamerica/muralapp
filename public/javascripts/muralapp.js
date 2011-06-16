@@ -271,12 +271,17 @@ $('#list-page').live('pagecreate',function(event){
 // so that our scripts don't blow up down the line.
 function mapMuralProperties(m) {
     m.id = m.assetId || -1;
+    delete m.assetId;
+    
     m.title = m.Title || 'there was no title field';
+    delete m.Title;
+    
     m.imgs = [];
-    m.imgs[0] = 'http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+m.assetId+'&SC=1';
+    m.imgs[0] = 'http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+m.id+'&SC=1';
     if(m.mediaIds) {
         $.each(m.mediaIds, function(i, el) {
            m.imgs.push('http://www.muralfarm.org/MuralFarm/MediaStream.ashx?mediaID='+el+'&.jpg');
         });
+        delete m.mediaIds;
     }
 }

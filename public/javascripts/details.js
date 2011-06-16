@@ -28,7 +28,7 @@
                 // imgs[0] = thumbnail
                 // imgs[1] = large main image
                 // imgs[2-n] = secondary shots
-                if(mural.mediaIds.length > 0) {
+                if(mural.imgs.length > 0) {
                     detailsHtml += '<img src="'+mural.imgs[1]+'" />';
                     if(mural.imgs.length > 1) {
                         for(var i=2; i < mural.imgs.length; i++) {
@@ -40,7 +40,7 @@
                 // Dump everything else onto the page
                 $.each(mural, function(i, n) {
                     // HACK - the following if could be done more gracefully
-                    if(n != '' && i != 'assetId' && i != 'geometry' && i != 'Title' && i != '_id' && i != '_rev' && i != 'mediaIds') {
+                    if(n != '' && i != 'title' && i != 'geometry' && i != 'id' && i != '_id' && i != '_rev' && i != 'imgs') {
                         detailsHtml += '<li><strong>'+i+'</strong>'+n+'</li>';
                     }
                 });
