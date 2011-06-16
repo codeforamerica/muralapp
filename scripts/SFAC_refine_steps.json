@@ -404,31 +404,2992 @@
     "repeat": false,
     "repeatCount": 10
   },
+  
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(trim(toLowercase(value)).indexOf(\"city hall\") != -1, \"City Hall\", value)",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(trim(toLowercase(value)).indexOf(\"city hall\") != -1, \"City Hall\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:replace(value, /District \\d and \\d :/, '')",
+    "engineConfig": {
+      "facets": [
+        {
+          "expression": "value",
+          "invert": false,
+          "selectError": false,
+          "omitError": false,
+          "name": "Formatted Address",
+          "selectBlank": false,
+          "columnName": "Formatted Address",
+          "omitBlank": false,
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:replace(value, /District \\d and \\d :/, '')",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(trim(toLowercase(value)).indexOf(\"douglas playground fieldhouse\") != -1, \"Douglass Playground\", value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "expression": "value",
+          "invert": false,
+          "selectError": false,
+          "omitError": false,
+          "name": "Formatted Address",
+          "selectBlank": false,
+          "columnName": "Formatted Address",
+          "omitBlank": false,
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(trim(toLowercase(value)).indexOf(\"douglas playground fieldhouse\") != -1, \"Douglass Playground\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:replace(value, \", main entrance\",\"\")",
+    "engineConfig": {
+      "facets": [
+        {
+          "expression": "value",
+          "invert": false,
+          "selectError": false,
+          "omitError": false,
+          "name": "Formatted Address",
+          "selectBlank": false,
+          "columnName": "Formatted Address",
+          "omitBlank": false,
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:replace(value, \", main entrance\",\"\")",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/column-addition",
+    "description": "Create column source at index 1 based on column Accession Number using expression grel:\"San Francisco Arts Commission\"",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "newColumnName": "source",
+    "columnInsertIndex": 1,
+    "baseColumnName": "Accession Number",
+    "expression": "grel:\"San Francisco Arts Commission\"",
+    "onError": "set-to-blank"
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('city hall'), 'Dr Carlton B Goodlett Pl, San Francisco, CA 94102, USA', value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "Formatted Address",
+          "omitBlank": false,
+          "columnName": "Formatted Address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('city hall'), 'Dr Carlton B Goodlett Pl, San Francisco, CA 94102, USA', value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/column-removal",
+    "description": "Remove column geocode",
+    "columnName": "geocode"
+  },
+  {
+    "op": "core/column-removal",
+    "description": "Remove column Formatted Address",
+    "columnName": "Formatted Address"
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('city hall'), \"Dr Carlton B Goodlett Pl\",value)",
+    "engineConfig": {
+      "facets": [],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('city hall'), \"Dr Carlton B Goodlett Pl\",value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('embarcadero : justin herman plaza'), \"Justin Herman Plaza, Market Street\", value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "Clean Address",
+          "omitBlank": false,
+          "columnName": "Clean Address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "  Embarcadero : Justin Herman Plaza",
+                "l": "  Embarcadero : Justin Herman Plaza"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('embarcadero : justin herman plaza'), \"Justin Herman Plaza, Market Street\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('west portal clubhouse'), 'West Portal Playground',value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "expression": "value",
+          "invert": false,
+          "selectError": false,
+          "omitError": false,
+          "name": "Clean Address",
+          "selectBlank": false,
+          "columnName": "Clean Address",
+          "omitBlank": false,
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "  West Portal Clubhouse : exterior",
+                "l": "  West Portal Clubhouse : exterior"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('west portal clubhouse'), 'West Portal Playground',value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('bayview police station'), \"SF Police Department Bayview\", value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "expression": "value",
+          "invert": false,
+          "selectError": false,
+          "omitError": false,
+          "name": "Clean Address",
+          "selectBlank": false,
+          "columnName": "Clean Address",
+          "omitBlank": false,
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": " Bayview Police Station : 345 Williams",
+                "l": " Bayview Police Station : 345 Williams"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('bayview police station'), \"SF Police Department Bayview\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('father boeddekker park'),\"Father Alfred E. Boeddeker Park\", value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "expression": "value",
+          "invert": false,
+          "selectError": false,
+          "omitError": false,
+          "name": "Clean Address",
+          "selectBlank": false,
+          "columnName": "Clean Address",
+          "omitBlank": false,
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "  Father Boeddekker Park, Jones and Eddy",
+                "l": "  Father Boeddekker Park, Jones and Eddy"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('father boeddekker park'),\"Father Alfred E. Boeddeker Park\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
   {
     "op": "core/column-addition-by-fetching-urls",
-    "description": "Create column geocode at index 10 by fetching URLs based on column Clean Address using expression grel:\"http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=\"+escape(trim(value)+\" near San Francisco, CA\", 'url')",
+    "description": "Create column geocode at index 11 by fetching URLs based on column Clean Address using expression grel:\"http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=\"+escape(trim(value) +\" near San Francisco, CA\", 'url')",
     "engineConfig": {
       "facets": [],
       "mode": "record-based"
     },
     "newColumnName": "geocode",
-    "columnInsertIndex": 10,
+    "columnInsertIndex": 11,
     "baseColumnName": "Clean Address",
-    "urlExpression": "grel:\"http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=\"+escape(trim(value)+\" near San Francisco, CA\", 'url')",
-    "onError": "set-to-blank",
-    "delay": 1000
+    "urlExpression": "grel:\"http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=\"+escape(trim(value) +\" near San Francisco, CA\", 'url')",
+    "onError": "store-error",
+    "delay": 500
   },
   {
     "op": "core/column-addition",
-    "description": "Create column Formatted Address at index 11 based on column geocode using expression grel:value.parseJson().results[0].formatted_address",
+    "description": "Create column formatted_address at index 12 based on column geocode using expression grel:parseJson(value).results[0].formatted_address",
     "engineConfig": {
       "facets": [],
       "mode": "record-based"
     },
-    "newColumnName": "Formatted Address",
-    "columnInsertIndex": 11,
+    "newColumnName": "formatted_address",
+    "columnInsertIndex": 12,
     "baseColumnName": "geocode",
-    "expression": "grel:value.parseJson().results[0].formatted_address",
+    "expression": "grel:parseJson(value).results[0].formatted_address",
     "onError": "set-to-blank"
-  }
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('washington square'), \"600 Columbus Ave\", value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "expression": "value",
+          "invert": false,
+          "selectError": false,
+          "omitError": false,
+          "name": "formatted_address",
+          "selectBlank": false,
+          "columnName": "formatted_address",
+          "omitBlank": false,
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('washington square'), \"600 Columbus Ave\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('valencia street : between 16th and 19th stre'), 'Valencia and 16th', value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "expression": "value",
+          "invert": false,
+          "selectError": false,
+          "omitError": false,
+          "name": "formatted_address",
+          "selectBlank": false,
+          "columnName": "formatted_address",
+          "omitBlank": false,
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('valencia street : between 16th and 19th stre'), 'Valencia and 16th', value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('japan town, post st.'), \"Webster St and Post St\" ,value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "expression": "value",
+          "invert": false,
+          "selectError": false,
+          "omitError": false,
+          "name": "formatted_address",
+          "selectBlank": false,
+          "columnName": "formatted_address",
+          "omitBlank": false,
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('japan town, post st.'), \"Webster St and Post St\" ,value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('health center #3'),\"1525 Silver Avenue\", value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "expression": "value",
+          "invert": false,
+          "selectError": false,
+          "omitError": false,
+          "name": "formatted_address",
+          "selectBlank": false,
+          "columnName": "formatted_address",
+          "omitBlank": false,
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('health center #3'),\"1525 Silver Avenue\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('entrance to panhandle'), \"501 Stanyan Street\", value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "formatted_address",
+          "omitBlank": false,
+          "columnName": "formatted_address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('entrance to panhandle'), \"501 Stanyan Street\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('father boeddeker park'), \"Eddy and Jones\", value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "formatted_address",
+          "omitBlank": false,
+          "columnName": "formatted_address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('father boeddeker park'), \"Eddy and Jones\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('sfpl, main'), 'SFPL', value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value.split(' ')",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "Clean Address",
+          "omitBlank": false,
+          "columnName": "Clean Address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "SFPL,",
+                "l": "SFPL,"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('sfpl, main'), 'SFPL', value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(or(value.toLowercase().contains('sfpl, oceanview'), value.toLowercase().contains('sfpl: ocean view')), \"345 Randolph St.\",value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value.split(' ')",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "Clean Address",
+          "omitBlank": false,
+          "columnName": "Clean Address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "SFPL",
+                "l": "SFPL"
+              }
+            },
+            {
+              "v": {
+                "v": "SFPL,",
+                "l": "SFPL,"
+              }
+            },
+            {
+              "v": {
+                "v": "SFPL:",
+                "l": "SFPL:"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(or(value.toLowercase().contains('sfpl, oceanview'), value.toLowercase().contains('sfpl: ocean view')), \"345 Randolph St.\",value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('sfpl, chinatown'), '1135 Powell St.', value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value.split(' ')",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "Clean Address",
+          "omitBlank": false,
+          "columnName": "Clean Address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "SFPL",
+                "l": "SFPL"
+              }
+            },
+            {
+              "v": {
+                "v": "SFPL,",
+                "l": "SFPL,"
+              }
+            },
+            {
+              "v": {
+                "v": "SFPL:",
+                "l": "SFPL:"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('sfpl, chinatown'), '1135 Powell St.', value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('sfpl : history center'),\"SFPL\",value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value.split(' ')",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "Clean Address",
+          "omitBlank": false,
+          "columnName": "Clean Address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "SFPL",
+                "l": "SFPL"
+              }
+            },
+            {
+              "v": {
+                "v": "SFPL,",
+                "l": "SFPL,"
+              }
+            },
+            {
+              "v": {
+                "v": "SFPL:",
+                "l": "SFPL:"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('sfpl : history center'),\"SFPL\",value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('sfpl : bayview branch'), \"1601 Lane St.\", value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value.split(' ')",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "Clean Address",
+          "omitBlank": false,
+          "columnName": "Clean Address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "SFPL",
+                "l": "SFPL"
+              }
+            },
+            {
+              "v": {
+                "v": "SFPL,",
+                "l": "SFPL,"
+              }
+            },
+            {
+              "v": {
+                "v": "SFPL:",
+                "l": "SFPL:"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('sfpl : bayview branch'), \"1601 Lane St.\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('mta : curtis e. green metro center '), 'San Jose Ave. and Ocean Ave.', value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "formatted_address",
+          "omitBlank": false,
+          "columnName": "formatted_address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('mta : curtis e. green metro center '), 'San Jose Ave. and Ocean Ave.', value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('west portal clubhouse'), \"West Portal Playground\",value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "formatted_address",
+          "omitBlank": false,
+          "columnName": "formatted_address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('west portal clubhouse'), \"West Portal Playground\",value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('herbst theater'), '401 Van Ness Ave.', value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "formatted_address",
+          "omitBlank": false,
+          "columnName": "formatted_address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('herbst theater'), '401 Van Ness Ave.', value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains(\"waterfront, between piers 35 and 39\"), \"Pier 39\", value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "formatted_address",
+          "omitBlank": false,
+          "columnName": "formatted_address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains(\"waterfront, between piers 35 and 39\"), \"Pier 39\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('fire station #34'), \"Geary St. and 41st Ave\", value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "formatted_address",
+          "omitBlank": false,
+          "columnName": "formatted_address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('fire station #34'), \"Geary St. and 41st Ave\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('tenderloin police station'), '301 Eddy St', value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "formatted_address",
+          "omitBlank": false,
+          "columnName": "formatted_address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('tenderloin police station'), '301 Eddy St', value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('moscone park and rec center'), \"George R. Moscone Recreation Center\", value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "formatted_address",
+          "omitBlank": false,
+          "columnName": "formatted_address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('moscone park and rec center'), \"George R. Moscone Recreation Center\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('north beach parking garage'), '735 Vallejo', value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "formatted_address",
+          "omitBlank": false,
+          "columnName": "formatted_address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        },
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "Clean Address",
+          "omitBlank": false,
+          "columnName": "Clean Address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "  North Beach Parking Garage, 735 Vallejo",
+                "l": "  North Beach Parking Garage, 735 Vallejo"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('north beach parking garage'), '735 Vallejo', value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('palace of fine arts'), '3301 Lyon Street',value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "formatted_address",
+          "omitBlank": false,
+          "columnName": "formatted_address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        },
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "Clean Address",
+          "omitBlank": false,
+          "columnName": "Clean Address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "  Palace of Fine Arts",
+                "l": "  Palace of Fine Arts"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('palace of fine arts'), '3301 Lyon Street',value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('entrance to pier 7'), '500 The Embarcadero', value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "formatted_address",
+          "omitBlank": false,
+          "columnName": "formatted_address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        },
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "Clean Address",
+          "omitBlank": false,
+          "columnName": "Clean Address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "  Embarcadero : Entrance to Pier 7",
+                "l": "  Embarcadero : Entrance to Pier 7"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('entrance to pier 7'), '500 The Embarcadero', value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('mission and 22nd st.'), \"Mission St. and 22nd St.\", value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "formatted_address",
+          "omitBlank": false,
+          "columnName": "formatted_address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        },
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "Clean Address",
+          "omitBlank": false,
+          "columnName": "Clean Address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "  Mission and 22nd St. : NE and SW Corners",
+                "l": "  Mission and 22nd St. : NE and SW Corners"
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('mission and 22nd st.'), \"Mission St. and 22nd St.\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+    "op": "core/text-transform",
+    "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('federal home loan bank'), \"600 California St.\", value)",
+    "engineConfig": {
+      "facets": [
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "formatted_address",
+          "omitBlank": false,
+          "columnName": "formatted_address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "San Francisco, CA, USA",
+                "l": "San Francisco, CA, USA"
+              }
+            }
+          ]
+        },
+        {
+          "invert": false,
+          "expression": "value",
+          "selectError": false,
+          "omitError": false,
+          "selectBlank": false,
+          "name": "Clean Address",
+          "omitBlank": false,
+          "columnName": "Clean Address",
+          "type": "list",
+          "selection": [
+            {
+              "v": {
+                "v": "Federal Home Loan Bank of San Francisco, 600 California st.",
+                "l": "Federal Home Loan Bank of San Francisco, 600 California st."
+              }
+            }
+          ]
+        }
+      ],
+      "mode": "record-based"
+    },
+    "columnName": "Clean Address",
+    "expression": "grel:if(value.toLowercase().contains('federal home loan bank'), \"600 California St.\", value)",
+    "onError": "set-to-blank",
+    "repeat": false,
+    "repeatCount": 10
+  },
+  {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('muni turnaround : la playa and cabrillo'), 'La Playa St. and Cabrillo St.', value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "expression": "value",
+            "invert": false,
+            "selectError": false,
+            "omitError": false,
+            "name": "formatted_address",
+            "selectBlank": false,
+            "columnName": "formatted_address",
+            "omitBlank": false,
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('muni turnaround : la playa and cabrillo'), 'La Playa St. and Cabrillo St.', value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('hoff street playground'), 'Hoff St.', value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "expression": "value",
+            "invert": false,
+            "selectError": false,
+            "omitError": false,
+            "name": "formatted_address",
+            "selectBlank": false,
+            "columnName": "formatted_address",
+            "omitBlank": false,
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('hoff street playground'), 'Hoff St.', value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('richmond police station'), '461 6th Avenue', value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "expression": "value",
+            "invert": false,
+            "selectError": false,
+            "omitError": false,
+            "name": "formatted_address",
+            "selectBlank": false,
+            "columnName": "formatted_address",
+            "omitBlank": false,
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('richmond police station'), '461 6th Avenue', value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('fire station #24'), \"100 Hoffman Ave\", value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "expression": "value",
+            "invert": false,
+            "selectError": false,
+            "omitError": false,
+            "name": "formatted_address",
+            "selectBlank": false,
+            "columnName": "formatted_address",
+            "omitBlank": false,
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('fire station #24'), \"100 Hoffman Ave\", value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('mission rec. center'), \"2450 Harrison St.\", value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "expression": "value",
+            "invert": false,
+            "selectError": false,
+            "omitError": false,
+            "name": "formatted_address",
+            "selectBlank": false,
+            "columnName": "formatted_address",
+            "omitBlank": false,
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('mission rec. center'), \"2450 Harrison St.\", value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('performing arts garage'), \"Franklin St & Grove St\", value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "expression": "value",
+            "invert": false,
+            "selectError": false,
+            "omitError": false,
+            "name": "formatted_address",
+            "selectBlank": false,
+            "columnName": "formatted_address",
+            "omitBlank": false,
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('performing arts garage'), \"Franklin St & Grove St\", value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('sfsu, main quad'),'SFSU', value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "expression": "value",
+            "invert": false,
+            "selectError": false,
+            "omitError": false,
+            "name": "formatted_address",
+            "selectBlank": false,
+            "columnName": "formatted_address",
+            "omitBlank": false,
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('sfsu, main quad'),'SFSU', value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('golden gateway, jackson and davis'), \"Jackson St. and Davis St.\", value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "expression": "value",
+            "invert": false,
+            "selectError": false,
+            "omitError": false,
+            "name": "formatted_address",
+            "selectBlank": false,
+            "columnName": "formatted_address",
+            "omitBlank": false,
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('golden gateway, jackson and davis'), \"Jackson St. and Davis St.\", value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('j.p. murphy clubhouse'), \"J.P. Murphy Playground\", value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "expression": "value",
+            "invert": false,
+            "selectError": false,
+            "omitError": false,
+            "name": "formatted_address",
+            "selectBlank": false,
+            "columnName": "formatted_address",
+            "omitBlank": false,
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('j.p. murphy clubhouse'), \"J.P. Murphy Playground\", value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:value.replace('MTA : Muni Structures Facility : ', '')",
+      "engineConfig": {
+        "facets": [
+          {
+            "expression": "value",
+            "invert": false,
+            "selectError": false,
+            "omitError": false,
+            "name": "formatted_address",
+            "selectBlank": false,
+            "columnName": "formatted_address",
+            "omitBlank": false,
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:value.replace('MTA : Muni Structures Facility : ', '')",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:value.replace('Youth Guidance Center : ','')",
+      "engineConfig": {
+        "facets": [
+          {
+            "expression": "value",
+            "invert": false,
+            "selectError": false,
+            "omitError": false,
+            "name": "formatted_address",
+            "selectBlank": false,
+            "columnName": "formatted_address",
+            "omitBlank": false,
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:value.replace('Youth Guidance Center : ','')",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('lombard and fillmore parking garage'), \"Lombard St. and Fillmore St.\", value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "expression": "value",
+            "invert": false,
+            "selectError": false,
+            "omitError": false,
+            "name": "formatted_address",
+            "selectBlank": false,
+            "columnName": "formatted_address",
+            "omitBlank": false,
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('lombard and fillmore parking garage'), \"Lombard St. and Fillmore St.\", value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains(\"sheriff's facility, 7th and bryant\"), \"850 Bryant Street\", value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "invert": false,
+            "expression": "value",
+            "selectError": false,
+            "omitError": false,
+            "selectBlank": false,
+            "name": "formatted_address",
+            "omitBlank": false,
+            "columnName": "formatted_address",
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains(\"sheriff's facility, 7th and bryant\"), \"850 Bryant Street\", value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('ferry park, embarcadero'), 'Ferry Plaza', value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "invert": false,
+            "expression": "value",
+            "selectError": false,
+            "omitError": false,
+            "selectBlank": false,
+            "name": "formatted_address",
+            "omitBlank": false,
+            "columnName": "formatted_address",
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('ferry park, embarcadero'), 'Ferry Plaza', value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('golden gate park, south side of jfk'),'Golden Gate Park', value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "invert": false,
+            "expression": "value",
+            "selectError": false,
+            "omitError": false,
+            "selectBlank": false,
+            "name": "formatted_address",
+            "omitBlank": false,
+            "columnName": "formatted_address",
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('golden gate park, south side of jfk'),'Golden Gate Park', value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('upper noe recreation center : 30th and day streets'), 'Upper Noe Recreation Center', value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "invert": false,
+            "expression": "value",
+            "selectError": false,
+            "omitError": false,
+            "selectBlank": false,
+            "name": "formatted_address",
+            "omitBlank": false,
+            "columnName": "formatted_address",
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('upper noe recreation center : 30th and day streets'), 'Upper Noe Recreation Center', value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('sunset parking lot, sunset and lake merced'), '343 Lake Merced Blvd', value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "invert": false,
+            "expression": "value",
+            "selectError": false,
+            "omitError": false,
+            "selectBlank": false,
+            "name": "formatted_address",
+            "omitBlank": false,
+            "columnName": "formatted_address",
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('sunset parking lot, sunset and lake merced'), '343 Lake Merced Blvd', value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains(\"sf zoo, mother's building\"), 'SF Zoo', value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "invert": false,
+            "expression": "value",
+            "selectError": false,
+            "omitError": false,
+            "selectBlank": false,
+            "name": "formatted_address",
+            "omitBlank": false,
+            "columnName": "formatted_address",
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains(\"sf zoo, mother's building\"), 'SF Zoo', value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('candlestick stadium gates, jamestown ave.'),'Candlestick Park',value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "invert": false,
+            "expression": "value",
+            "selectError": false,
+            "omitError": false,
+            "selectBlank": false,
+            "name": "formatted_address",
+            "omitBlank": false,
+            "columnName": "formatted_address",
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('candlestick stadium gates, jamestown ave.'),'Candlestick Park',value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('golden gate park, music concourse, east of deyoung'),'Golden Gate Park, Music Concourse',value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "invert": false,
+            "expression": "value",
+            "selectError": false,
+            "omitError": false,
+            "selectBlank": false,
+            "name": "formatted_address",
+            "omitBlank": false,
+            "columnName": "formatted_address",
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('golden gate park, music concourse, east of deyoung'),'Golden Gate Park, Music Concourse',value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('golden gate park, jfk near 7th ave.'),'Golden Gate Park',value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "invert": false,
+            "expression": "value",
+            "selectError": false,
+            "omitError": false,
+            "selectBlank": false,
+            "name": "formatted_address",
+            "omitBlank": false,
+            "columnName": "formatted_address",
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('golden gate park, jfk near 7th ave.'),'Golden Gate Park',value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('golden gate park, music concourse, deyoung entrance'),'Golden Gate Park, Music Concourse',value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "invert": false,
+            "expression": "value",
+            "selectError": false,
+            "omitError": false,
+            "selectBlank": false,
+            "name": "formatted_address",
+            "omitBlank": false,
+            "columnName": "formatted_address",
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('golden gate park, music concourse, deyoung entrance'),'Golden Gate Park, Music Concourse',value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('columbus avenue at powell and union'),'Columbus Avenue and Powell St',value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "invert": false,
+            "expression": "value",
+            "selectError": false,
+            "omitError": false,
+            "selectBlank": false,
+            "name": "formatted_address",
+            "omitBlank": false,
+            "columnName": "formatted_address",
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('columbus avenue at powell and union'),'Columbus Avenue and Powell St',value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+      "op": "core/text-transform",
+      "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('harvey milk center for recreational arts'),'50 Scott Street',value)",
+      "engineConfig": {
+        "facets": [
+          {
+            "invert": false,
+            "expression": "value",
+            "selectError": false,
+            "omitError": false,
+            "selectBlank": false,
+            "name": "formatted_address",
+            "omitBlank": false,
+            "columnName": "formatted_address",
+            "type": "list",
+            "selection": [
+              {
+                "v": {
+                  "v": "San Francisco, CA, USA",
+                  "l": "San Francisco, CA, USA"
+                }
+              }
+            ]
+          }
+        ],
+        "mode": "record-based"
+      },
+      "columnName": "Clean Address",
+      "expression": "grel:if(value.toLowercase().contains('harvey milk center for recreational arts'),'50 Scott Street',value)",
+      "onError": "set-to-blank",
+      "repeat": false,
+      "repeatCount": 10
+    },
+    {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('muni turnaround : la playa and cabrillo'), 'La Playa St. and Cabrillo St.', value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "expression": "value",
+              "invert": false,
+              "selectError": false,
+              "omitError": false,
+              "name": "formatted_address",
+              "selectBlank": false,
+              "columnName": "formatted_address",
+              "omitBlank": false,
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('muni turnaround : la playa and cabrillo'), 'La Playa St. and Cabrillo St.', value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('hoff street playground'), 'Hoff St.', value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "expression": "value",
+              "invert": false,
+              "selectError": false,
+              "omitError": false,
+              "name": "formatted_address",
+              "selectBlank": false,
+              "columnName": "formatted_address",
+              "omitBlank": false,
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('hoff street playground'), 'Hoff St.', value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('richmond police station'), '461 6th Avenue', value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "expression": "value",
+              "invert": false,
+              "selectError": false,
+              "omitError": false,
+              "name": "formatted_address",
+              "selectBlank": false,
+              "columnName": "formatted_address",
+              "omitBlank": false,
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('richmond police station'), '461 6th Avenue', value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('fire station #24'), \"100 Hoffman Ave\", value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "expression": "value",
+              "invert": false,
+              "selectError": false,
+              "omitError": false,
+              "name": "formatted_address",
+              "selectBlank": false,
+              "columnName": "formatted_address",
+              "omitBlank": false,
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('fire station #24'), \"100 Hoffman Ave\", value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('mission rec. center'), \"2450 Harrison St.\", value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "expression": "value",
+              "invert": false,
+              "selectError": false,
+              "omitError": false,
+              "name": "formatted_address",
+              "selectBlank": false,
+              "columnName": "formatted_address",
+              "omitBlank": false,
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('mission rec. center'), \"2450 Harrison St.\", value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('performing arts garage'), \"Franklin St & Grove St\", value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "expression": "value",
+              "invert": false,
+              "selectError": false,
+              "omitError": false,
+              "name": "formatted_address",
+              "selectBlank": false,
+              "columnName": "formatted_address",
+              "omitBlank": false,
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('performing arts garage'), \"Franklin St & Grove St\", value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('sfsu, main quad'),'SFSU', value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "expression": "value",
+              "invert": false,
+              "selectError": false,
+              "omitError": false,
+              "name": "formatted_address",
+              "selectBlank": false,
+              "columnName": "formatted_address",
+              "omitBlank": false,
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('sfsu, main quad'),'SFSU', value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('golden gateway, jackson and davis'), \"Jackson St. and Davis St.\", value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "expression": "value",
+              "invert": false,
+              "selectError": false,
+              "omitError": false,
+              "name": "formatted_address",
+              "selectBlank": false,
+              "columnName": "formatted_address",
+              "omitBlank": false,
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('golden gateway, jackson and davis'), \"Jackson St. and Davis St.\", value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('j.p. murphy clubhouse'), \"J.P. Murphy Playground\", value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "expression": "value",
+              "invert": false,
+              "selectError": false,
+              "omitError": false,
+              "name": "formatted_address",
+              "selectBlank": false,
+              "columnName": "formatted_address",
+              "omitBlank": false,
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('j.p. murphy clubhouse'), \"J.P. Murphy Playground\", value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:value.replace('MTA : Muni Structures Facility : ', '')",
+        "engineConfig": {
+          "facets": [
+            {
+              "expression": "value",
+              "invert": false,
+              "selectError": false,
+              "omitError": false,
+              "name": "formatted_address",
+              "selectBlank": false,
+              "columnName": "formatted_address",
+              "omitBlank": false,
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:value.replace('MTA : Muni Structures Facility : ', '')",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:value.replace('Youth Guidance Center : ','')",
+        "engineConfig": {
+          "facets": [
+            {
+              "expression": "value",
+              "invert": false,
+              "selectError": false,
+              "omitError": false,
+              "name": "formatted_address",
+              "selectBlank": false,
+              "columnName": "formatted_address",
+              "omitBlank": false,
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:value.replace('Youth Guidance Center : ','')",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('lombard and fillmore parking garage'), \"Lombard St. and Fillmore St.\", value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "expression": "value",
+              "invert": false,
+              "selectError": false,
+              "omitError": false,
+              "name": "formatted_address",
+              "selectBlank": false,
+              "columnName": "formatted_address",
+              "omitBlank": false,
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('lombard and fillmore parking garage'), \"Lombard St. and Fillmore St.\", value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains(\"sheriff's facility, 7th and bryant\"), \"850 Bryant Street\", value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "invert": false,
+              "expression": "value",
+              "selectError": false,
+              "omitError": false,
+              "selectBlank": false,
+              "name": "formatted_address",
+              "omitBlank": false,
+              "columnName": "formatted_address",
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains(\"sheriff's facility, 7th and bryant\"), \"850 Bryant Street\", value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('ferry park, embarcadero'), 'Ferry Plaza', value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "invert": false,
+              "expression": "value",
+              "selectError": false,
+              "omitError": false,
+              "selectBlank": false,
+              "name": "formatted_address",
+              "omitBlank": false,
+              "columnName": "formatted_address",
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('ferry park, embarcadero'), 'Ferry Plaza', value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('golden gate park, south side of jfk'),'Golden Gate Park', value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "invert": false,
+              "expression": "value",
+              "selectError": false,
+              "omitError": false,
+              "selectBlank": false,
+              "name": "formatted_address",
+              "omitBlank": false,
+              "columnName": "formatted_address",
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('golden gate park, south side of jfk'),'Golden Gate Park', value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('upper noe recreation center : 30th and day streets'), 'Upper Noe Recreation Center', value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "invert": false,
+              "expression": "value",
+              "selectError": false,
+              "omitError": false,
+              "selectBlank": false,
+              "name": "formatted_address",
+              "omitBlank": false,
+              "columnName": "formatted_address",
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('upper noe recreation center : 30th and day streets'), 'Upper Noe Recreation Center', value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('sunset parking lot, sunset and lake merced'), '343 Lake Merced Blvd', value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "invert": false,
+              "expression": "value",
+              "selectError": false,
+              "omitError": false,
+              "selectBlank": false,
+              "name": "formatted_address",
+              "omitBlank": false,
+              "columnName": "formatted_address",
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('sunset parking lot, sunset and lake merced'), '343 Lake Merced Blvd', value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains(\"sf zoo, mother's building\"), 'SF Zoo', value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "invert": false,
+              "expression": "value",
+              "selectError": false,
+              "omitError": false,
+              "selectBlank": false,
+              "name": "formatted_address",
+              "omitBlank": false,
+              "columnName": "formatted_address",
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains(\"sf zoo, mother's building\"), 'SF Zoo', value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('candlestick stadium gates, jamestown ave.'),'Candlestick Park',value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "invert": false,
+              "expression": "value",
+              "selectError": false,
+              "omitError": false,
+              "selectBlank": false,
+              "name": "formatted_address",
+              "omitBlank": false,
+              "columnName": "formatted_address",
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('candlestick stadium gates, jamestown ave.'),'Candlestick Park',value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('golden gate park, music concourse, east of deyoung'),'Golden Gate Park, Music Concourse',value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "invert": false,
+              "expression": "value",
+              "selectError": false,
+              "omitError": false,
+              "selectBlank": false,
+              "name": "formatted_address",
+              "omitBlank": false,
+              "columnName": "formatted_address",
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('golden gate park, music concourse, east of deyoung'),'Golden Gate Park, Music Concourse',value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('golden gate park, jfk near 7th ave.'),'Golden Gate Park',value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "invert": false,
+              "expression": "value",
+              "selectError": false,
+              "omitError": false,
+              "selectBlank": false,
+              "name": "formatted_address",
+              "omitBlank": false,
+              "columnName": "formatted_address",
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('golden gate park, jfk near 7th ave.'),'Golden Gate Park',value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('golden gate park, music concourse, deyoung entrance'),'Golden Gate Park, Music Concourse',value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "invert": false,
+              "expression": "value",
+              "selectError": false,
+              "omitError": false,
+              "selectBlank": false,
+              "name": "formatted_address",
+              "omitBlank": false,
+              "columnName": "formatted_address",
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('golden gate park, music concourse, deyoung entrance'),'Golden Gate Park, Music Concourse',value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('columbus avenue at powell and union'),'Columbus Avenue and Powell St',value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "invert": false,
+              "expression": "value",
+              "selectError": false,
+              "omitError": false,
+              "selectBlank": false,
+              "name": "formatted_address",
+              "omitBlank": false,
+              "columnName": "formatted_address",
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('columbus avenue at powell and union'),'Columbus Avenue and Powell St',value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+        "op": "core/text-transform",
+        "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('harvey milk center for recreational arts'),'50 Scott Street',value)",
+        "engineConfig": {
+          "facets": [
+            {
+              "invert": false,
+              "expression": "value",
+              "selectError": false,
+              "omitError": false,
+              "selectBlank": false,
+              "name": "formatted_address",
+              "omitBlank": false,
+              "columnName": "formatted_address",
+              "type": "list",
+              "selection": [
+                {
+                  "v": {
+                    "v": "San Francisco, CA, USA",
+                    "l": "San Francisco, CA, USA"
+                  }
+                }
+              ]
+            }
+          ],
+          "mode": "record-based"
+        },
+        "columnName": "Clean Address",
+        "expression": "grel:if(value.toLowercase().contains('harvey milk center for recreational arts'),'50 Scott Street',value)",
+        "onError": "set-to-blank",
+        "repeat": false,
+        "repeatCount": 10
+      },
+      {
+          "op": "core/text-transform",
+          "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('sfpd : richmond'), \"461 6th Avenue\", value)",
+          "engineConfig": {
+            "facets": [
+              {
+                "invert": false,
+                "expression": "value",
+                "selectError": false,
+                "omitError": false,
+                "selectBlank": false,
+                "name": "formatted_address",
+                "omitBlank": false,
+                "columnName": "formatted_address",
+                "type": "list",
+                "selection": [
+                  {
+                    "v": {
+                      "v": "San Francisco, CA, USA",
+                      "l": "San Francisco, CA, USA"
+                    }
+                  }
+                ]
+              }
+            ],
+            "mode": "record-based"
+          },
+          "columnName": "Clean Address",
+          "expression": "grel:if(value.toLowercase().contains('sfpd : richmond'), \"461 6th Avenue\", value)",
+          "onError": "set-to-blank",
+          "repeat": false,
+          "repeatCount": 10
+        },
+        {
+          "op": "core/text-transform",
+          "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('civic center courthouse'), '400 McAllister', value)",
+          "engineConfig": {
+            "facets": [
+              {
+                "invert": false,
+                "expression": "value",
+                "selectError": false,
+                "omitError": false,
+                "selectBlank": false,
+                "name": "formatted_address",
+                "omitBlank": false,
+                "columnName": "formatted_address",
+                "type": "list",
+                "selection": [
+                  {
+                    "v": {
+                      "v": "San Francisco, CA, USA",
+                      "l": "San Francisco, CA, USA"
+                    }
+                  }
+                ]
+              }
+            ],
+            "mode": "record-based"
+          },
+          "columnName": "Clean Address",
+          "expression": "grel:if(value.toLowercase().contains('civic center courthouse'), '400 McAllister', value)",
+          "onError": "set-to-blank",
+          "repeat": false,
+          "repeatCount": 10
+        },
+        {
+          "op": "core/text-transform",
+          "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('ccsf, student union'), '50 Phelan Avenue', value)",
+          "engineConfig": {
+            "facets": [
+              {
+                "invert": false,
+                "expression": "value",
+                "selectError": false,
+                "omitError": false,
+                "selectBlank": false,
+                "name": "formatted_address",
+                "omitBlank": false,
+                "columnName": "formatted_address",
+                "type": "list",
+                "selection": [
+                  {
+                    "v": {
+                      "v": "San Francisco, CA, USA",
+                      "l": "San Francisco, CA, USA"
+                    }
+                  }
+                ]
+              }
+            ],
+            "mode": "record-based"
+          },
+          "columnName": "Clean Address",
+          "expression": "grel:if(value.toLowercase().contains('ccsf, student union'), '50 Phelan Avenue', value)",
+          "onError": "set-to-blank",
+          "repeat": false,
+          "repeatCount": 10
+        },
+        {
+          "op": "core/text-transform",
+          "description": "Text transform on cells in column Clean Address using expression grel:if(value.toLowercase().contains('moscone parking garage'), '255 3rd Street',value)",
+          "engineConfig": {
+            "facets": [
+              {
+                "invert": false,
+                "expression": "value",
+                "selectError": false,
+                "omitError": false,
+                "selectBlank": false,
+                "name": "formatted_address",
+                "omitBlank": false,
+                "columnName": "formatted_address",
+                "type": "list",
+                "selection": [
+                  {
+                    "v": {
+                      "v": "San Francisco, CA, USA",
+                      "l": "San Francisco, CA, USA"
+                    }
+                  }
+                ]
+              }
+            ],
+            "mode": "record-based"
+          },
+          "columnName": "Clean Address",
+          "expression": "grel:if(value.toLowercase().contains('moscone parking garage'), '255 3rd Street',value)",
+          "onError": "set-to-blank",
+          "repeat": false,
+          "repeatCount": 10
+        },
+  
+  
+      {
+        "op": "core/column-addition-by-fetching-urls",
+        "description": "Create column geocode at index 10 by fetching URLs based on column Clean Address using expression grel:\"http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=\"+escape(trim(value)+\" near San Francisco, CA\", 'url')",
+        "engineConfig": {
+          "facets": [],
+          "mode": "record-based"
+        },
+        "newColumnName": "geocode",
+        "columnInsertIndex": 10,
+        "baseColumnName": "Clean Address",
+        "urlExpression": "grel:\"http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=\"+escape(trim(value)+\" near San Francisco, CA\", 'url')",
+        "onError": "set-to-blank",
+        "delay": 1000
+      },
+      {
+        "op": "core/column-addition",
+        "description": "Create column Formatted Address at index 11 based on column geocode using expression grel:value.parseJson().results[0].formatted_address",
+        "engineConfig": {
+          "facets": [],
+          "mode": "record-based"
+        },
+        "newColumnName": "Formatted Address",
+        "columnInsertIndex": 11,
+        "baseColumnName": "geocode",
+        "expression": "grel:value.parseJson().results[0].formatted_address",
+        "onError": "set-to-blank"
+      }
 ]
