@@ -1,20 +1,20 @@
-h1. Philly Mural Finder
+# Philly Mural Finder
 
-h2. Description
+## Description
 
 The Philly Mural Finder is a mobile application which ads an interaction layer to the thousands of murals from the City of Philadelphia Mural Arts Program.
 
-h2. Data
+## Data
 
-The base mural data comes from "http://www.muralfarm.org":http://www.muralfarm.org
+The base mural data comes from [http://www.muralfarm.org](http://www.muralfarm.org)
 
-h2. Getting up and running locally
+## Getting up and running locally
 
-# Setup a local webserver ("MAMP":http://www.mamp.info/en/index.html, "XAMPP":http://www.apachefriends.org/en/xampp.html, etc.)
+# Setup a local webserver ([MAMP](http://www.mamp.info/en/index.html), [XAMPP](http://www.apachefriends.org/en/xampp.html), etc.)
 # Fork this repository into a folder that is accessible by your webserver (i.e. /Applications/MAMP/htdocs/)
 # View the app in a webkit broswer by going to http://localhost/{path to muralapp}/public/index.html
 
-h2. Roadmap
+## Roadmap
 
 This project is new and liable to change quickly, but here is the vision for the first few iterations.
 * A map loads in a mobile browser showing murals near them.
@@ -28,9 +28,10 @@ This project is new and liable to change quickly, but here is the vision for the
 * Make separate native app versions of web app
 -> iPhone platform
 -> Android platform
--> Use "PhoneGap":http://www.phonegap.com/ for conversion
+-> Use [PhoneGap](http://www.phonegap.com/) for conversion to native app
 
 Future versions:
 * Expand upon the types of art mapped
+
 
 [![Code for America Tracker](http://stats.codeforamerica.org/codeforamerica/muralapp.png)](http://stats.codeforamerica.org/projects/muralapp)
