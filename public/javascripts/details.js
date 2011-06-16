@@ -11,26 +11,33 @@
             $detailTarget = $(_options.detailTarget, $container).html('Loading...');
         
         $.ajax({
-            url: 'http://x.iriscouch.com/murals/_design/assets/_list/asset/assetid?key='+id,
+            url: Muralapp.db.path+'/_design/assets/_list/asset/assetid?key='+id,
             crossDomain: true,
             dataType: 'jsonp',
             success: function (mural, textStatus, jqXHR) {
+                // Structure the data a bit
+                mapMuralProperties(mural);
+
                 // Set the page title
-                $(_options.detailHeader, $container).html(mural.Title);
+                $(_options.detailHeader, $container).html(mural.title);
                 
                 var detailsHtml = imageHtml = '';
-                detailsHtml += '<div class="details_title">'+mural.Title+'</div>';
+                detailsHtml += '<div class="details_title">'+mural.title+'</div>';
                 
                 // This whole image handling code seems clunky
+                // imgs[0] = thumbnail
+                // imgs[1] = large main image
+                // imgs[2-n] = secondary shots
                 if(mural.mediaIds.length > 0) {
-                    detailsHtml += '<img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?mediaID='+mural.mediaIds[0]+'&.jpg" />';
-                    if(mural.mediaIds.length > 1) {
-                        for(var i=1; i < mural.mediaIds.length; i++) {
-                            imageHtml += '<img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?mediaID='+mural.mediaIds[i]+'&.jpg" />';
+                    detailsHtml += '<img src="'+mural.imgs[1]+'" />';
+                    if(mural.imgs.length > 1) {
+                        for(var i=2; i < mural.imgs.length; i++) {
+                            imageHtml += '<img src="'+mural.imgs[i]+'" />';
                         }
                     }
                 }
                 detailsHtml += '<ul>';
+                // Dump everything else onto the page
                 $.each(mural, function(i, n) {
                     // HACK - the following if could be done more gracefully
                     if(n != '' && i != 'assetId' && i != 'geometry' && i != 'Title' && i != '_id' && i != '_rev' && i != 'mediaIds') {

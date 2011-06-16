@@ -53,9 +53,9 @@ var Mural = {};
         google.maps.event.addListener(marker, "click", function() {
             // Build the html for our GMaps infoWindow
             var bubbleHtml = '';
-            bubbleHtml += '<strong>'+mural.properties.Title+'</strong><br />';
-            bubbleHtml += '<img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+mural.properties.assetId+'&SC=1" />';            
-            bubbleHtml = '<div id="mid-'+mural.properties.assetId+'" class="infoBubbs">'+bubbleHtml+'</div><br style="clear:both" />';
+            bubbleHtml += '<strong>'+mural.properties.title+'</strong><br />';
+            bubbleHtml += '<img src="'+mural.properties.imgs[0]+'" />';            
+            bubbleHtml = '<div id="mid-'+mural.properties.id+'" class="infoBubbs">'+bubbleHtml+'</div><br style="clear:both" />';
 
             // Evidently we need to create the div the old fashioned way
             // for the infoWindow.
@@ -75,10 +75,9 @@ var Mural = {};
             });
             
             var winContent = '<div class="win-content">' + 
-              '<div class="win-title">'+mural.properties.Title+'</div>' +
-              '<img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+
-                  mural.properties.assetId+'&SC=1" />' + 
-              '<a href="javascript:void(0);" data-assetid="'+mural.properties.assetId+
+              '<div class="win-title">'+mural.properties.title+'</div>' +
+              '<img src="'+mural.properties.imgs[0]+'" />' + 
+              '<a href="javascript:void(0);" data-assetid="'+mural.properties.id+
                   '" class="win-details-link">More details...</a>' +  
             '</div>';
             
@@ -125,7 +124,7 @@ var Mural = {};
       
       _directionsService.route(request, function(result, status) {        
         if (status == google.maps.DirectionsStatus.OK) {
-          $('.mural-dist-'+mural.properties.assetId).text('You are ' + result.routes[0].legs[0].distance.text + ' away.');
+          $('.mural-dist-'+mural.properties.id).text('You are ' + result.routes[0].legs[0].distance.text + ' away.');
         }
       });
     };
@@ -135,12 +134,11 @@ var Mural = {};
         html = '<ul data-role="listview" data-inset="true" data-theme="d">';
       
       $.each(_murals, function(i, mural){
-          html += '<li><img src="http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId=' +
-              mural.properties.assetId+'&SC=1" alt="'+mural.properties.Title + '" class="ul-li-icon">' +
-              '<a href="details.html?id='+ mural.properties.assetId +'">' + mural.properties.Title + '</a>';
+          html += '<li><img src="'+mural.properties.imgs[0]+'" alt="'+mural.properties.title + '" class="ul-li-icon">' +
+              '<a href="details.html?id='+ mural.properties.id +'">' + mural.properties.title + '</a>';
 
           if (_myLocationLatLng) {
-            html += '<div class="mural-dist-'+mural.properties.assetId + ' distance"></div>';
+            html += '<div class="mural-dist-'+mural.properties.id + ' distance"></div>';
           }
           html += '</li>';
       });
@@ -210,11 +208,19 @@ var Mural = {};
             dataType: 'jsonp',
             success: function (data, textStatus, jqXHR) {
                 _murals = data.features;
+                // Structure the data a bit
+                $.each(_murals, function(i, mural){
+                    mapMuralProperties(mural.properties);
+                });
+console.log(_murals);
                 // Sort the murals from closest to farthest
                 function compareDist(a, b) { return  a.properties.distance - b.properties.distance; }
                 _murals.sort(compareDist);
+                
+                // Only keep the closest 10
                 _murals = _murals.slice(0,10);
                 
+                // Update the map markers and the listing page
                 _refreshMarkers();
                 _refreshDetailList();
             }
@@ -260,3 +266,17 @@ $('#list-page').live('pagecreate',function(event){
     app = app || Mural.App();
     app.refresh();
 });
+
+// This function exists to try to wrangle unstructured data into line
+// so that our scripts don't blow up down the line.
+function mapMuralProperties(m) {
+    m.id = m.assetId || -1;
+    m.title = m.Title || 'there was no title field';
+    m.imgs = [];
+    m.imgs[0] = 'http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+m.assetId+'&SC=1';
+    if(m.mediaIds) {
+        $.each(m.mediaIds, function(i, el) {
+           m.imgs.push('http://www.muralfarm.org/MuralFarm/MediaStream.ashx?mediaID='+el+'&.jpg');
+        });
+    }
+}
