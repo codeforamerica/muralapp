@@ -55,7 +55,7 @@ var Mural = {};
             var bubbleHtml = '';
             bubbleHtml += '<strong>'+mural.properties.title+'</strong><br />';
             bubbleHtml += '<img src="'+mural.properties.imgs[0]+'" />';            
-            bubbleHtml = '<div id="mid-'+mural.properties.id+'" class="infoBubbs">'+bubbleHtml+'</div><br style="clear:both" />';
+            bubbleHtml = '<div id="mid-'+mural.properties.internalId+'" class="infoBubbs">'+bubbleHtml+'</div><br style="clear:both" />';
 
             // Evidently we need to create the div the old fashioned way
             // for the infoWindow.
@@ -77,7 +77,7 @@ var Mural = {};
             var winContent = '<div class="win-content">' + 
               '<div class="win-title">'+mural.properties.title+'</div>' +
               '<img src="'+mural.properties.imgs[0]+'" />' + 
-              '<a href="javascript:void(0);" data-assetid="'+mural.properties.id+
+              '<a href="javascript:void(0);" data-assetid="'+mural.properties.internalId+
                   '" class="win-details-link">More details...</a>' +  
             '</div>';
             
@@ -124,7 +124,7 @@ var Mural = {};
       
       _directionsService.route(request, function(result, status) {        
         if (status == google.maps.DirectionsStatus.OK) {
-          $('.mural-dist-'+mural.properties.id).text('You are ' + result.routes[0].legs[0].distance.text + ' away.');
+          $('.mural-dist-'+mural.properties.internalId).text('You are ' + result.routes[0].legs[0].distance.text + ' away.');
         }
       });
     };
@@ -135,10 +135,10 @@ var Mural = {};
       
       $.each(_murals, function(i, mural){
           html += '<li><img src="'+mural.properties.imgs[0]+'" alt="'+mural.properties.title + '" class="ul-li-icon">' +
-              '<a href="details.html?id='+ mural.properties.id +'">' + mural.properties.title + '</a>';
+              '<a href="details.html?id='+ mural.properties.internalId +'">' + mural.properties.title + '</a>';
 
           if (_myLocationLatLng) {
-            html += '<div class="mural-dist-'+mural.properties.id + ' distance"></div>';
+            html += '<div class="mural-dist-'+mural.properties.internalId + ' distance"></div>';
           }
           html += '</li>';
       });
@@ -202,7 +202,7 @@ var Mural = {};
 
         // "Where da art at?" she ajaxed the couch.
         $.ajax({
-            url: Muralapp.db.path+'/_design/geo/_spatiallist/radius/full?radius=1000&bbox='+
+            url: Muralapp.db.path+'/_design/geo/_spatiallist/geojson/full?bbox=1000&bbox='+
                 bbox.minx+','+bbox.miny+','+bbox.maxx+','+bbox.maxy,
             crossDomain: true,
             dataType: 'jsonp',
@@ -270,14 +270,14 @@ $('#list-page').live('pagecreate',function(event){
 // This function exists to try to wrangle unstructured data into line
 // so that our scripts don't blow up down the line.
 function mapMuralProperties(m) {
-    m.id = m.assetId || -1;
+    m.interalId = m.assetId || m.accession_id;
     delete m.assetId;
     
-    m.title = m.Title || 'there was no title field';
+    m.title = m.Title || m.title;
     delete m.Title;
     
     m.imgs = [];
-    m.imgs[0] = 'http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+m.id+'&SC=1';
+    m.imgs[0] = 'http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+m.interalId+'&SC=1';
     if(m.mediaIds) {
         $.each(m.mediaIds, function(i, el) {
            m.imgs.push('http://www.muralfarm.org/MuralFarm/MediaStream.ashx?mediaID='+el+'&.jpg');
