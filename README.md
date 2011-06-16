@@ -10,9 +10,9 @@ The base mural data comes from [http://www.muralfarm.org](http://www.muralfarm.o
 
 ## Getting up and running locally
 
-# Setup a local webserver ([MAMP](http://www.mamp.info/en/index.html), [XAMPP](http://www.apachefriends.org/en/xampp.html), etc.)
-# Fork this repository into a folder that is accessible by your webserver (i.e. /Applications/MAMP/htdocs/)
-# View the app in a webkit broswer by going to http://localhost/{path to muralapp}/public/index.html
+* Setup a local webserver ([MAMP](http://www.mamp.info/en/index.html), [XAMPP](http://www.apachefriends.org/en/xampp.html), etc.)
+* Fork this repository into a folder that is accessible by your webserver (i.e. /Applications/MAMP/htdocs/)
+* View the app in a webkit broswer by going to http://localhost/{path to muralapp}/public/index.html
 
 ## Roadmap
 
