@@ -23,16 +23,17 @@ This project is new and liable to change quickly, but here is the vision for the
 * A user can favorite a mural.
 * A user can comment on a mural.
 * A user can 'share' a mural. (e.g. facebook/twitter)
+* Expand upon the types of art mapped
 * Data collection capabilities 
+
 ** Research and understand needs of mural art community
 ** Research public wall spaces in Philadelphia
+
 * Make separate native app versions of web app
+
 ** iPhone platform
 ** Android platform
 ** Use [PhoneGap](http://www.phonegap.com/) for conversion to native app
-
-Future versions:
-* Expand upon the types of art mapped
 
 
 [![Code for America Tracker](http://stats.codeforamerica.org/codeforamerica/muralapp.png)](http://stats.codeforamerica.org/projects/muralapp)
