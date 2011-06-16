@@ -17,18 +17,19 @@ The base mural data comes from [http://www.muralfarm.org](http://www.muralfarm.o
 ## Roadmap
 
 This project is new and liable to change quickly, but here is the vision for the first few iterations.
+
 * A map loads in a mobile browser showing murals near them.
 * A user can select a mural and find out more information on it (photo, description, etc.).
 * A user can favorite a mural.
 * A user can comment on a mural.
 * A user can 'share' a mural. (e.g. facebook/twitter)
 * Data collection capabilities 
--> Research and understand needs of mural art community
--> Research public wall spaces in Philadelphia
+** Research and understand needs of mural art community
+** Research public wall spaces in Philadelphia
 * Make separate native app versions of web app
--> iPhone platform
--> Android platform
--> Use [PhoneGap](http://www.phonegap.com/) for conversion to native app
+** iPhone platform
+** Android platform
+** Use [PhoneGap](http://www.phonegap.com/) for conversion to native app
 
 Future versions:
 * Expand upon the types of art mapped
