@@ -190,6 +190,7 @@ var Mural = {};
     };    
     
     _self.refresh = function(latLng) {
+        var ajaxUrl;
         // Figure out the bounding box for the query
         var f = 0.015;
         latLng = latLng || _lastSearchLatLng || _map.getCenter();
@@ -201,9 +202,9 @@ var Mural = {};
 
         _lastSearchLatLng = latLng;
 
-        // Ask for the mural data from muralfarm.org (via our proxy php script)
+        // "Where da art at?" she ajaxed the couch.
         $.ajax({
-            url: 'http://x.iriscouch.com/murals/_design/geo/_spatiallist/radius/full?radius=1000&bbox='+
+            url: Muralapp.db.path+'/_design/geo/_spatiallist/radius/full?radius=1000&bbox='+
                 bbox.minx+','+bbox.miny+','+bbox.maxx+','+bbox.maxy,
             crossDomain: true,
             dataType: 'jsonp',
