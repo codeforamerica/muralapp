@@ -24,10 +24,6 @@ var Mural = {};
     },
     //Map objects
     _map,
-    _maxExtent = new google.maps.LatLngBounds(
-        new google.maps.LatLng(39.8723, -75.2803), //-75.6396, 39.5959), 
-        new google.maps.LatLng(40.1379, -74.9557) //-74.5964, 40.4121)
-    ),
     _markers = [],
     _lastSearchLatLng,
     _myLocationLatLng,
@@ -172,22 +168,19 @@ var Mural = {};
                   _myLocationMarker.setMap(null);
                 }
                 
-                //If I'm in Philly, go to that location
-                if (_maxExtent.contains(latLng)) {
-                    _myLocationLatLng = latLng;
-                    
-                    //Add a marker on my current location
-                    _myLocationMarker = new google.maps.Marker({
-                        map: _map,
-                        position: _myLocationLatLng,
-                        icon: _options.locationIcon
-                    });
+                
+                _myLocationLatLng = latLng;
+                
+                //Add a marker on my current location
+                _myLocationMarker = new google.maps.Marker({
+                    map: _map,
+                    position: _myLocationLatLng,
+                    icon: _options.locationIcon
+                });
 
-                    _map.setCenter(_myLocationLatLng); 
-                    _self.refresh(_myLocationLatLng);                   
-                } else {
-                  alert('We couldn\'t locate you inside of Philly.');
-                }
+                _map.setCenter(_myLocationLatLng); 
+                _self.refresh(_myLocationLatLng);                   
+           
             }, 
             function(msg){
               alert('We couldn\'t locate your position.');
