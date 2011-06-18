@@ -15,7 +15,7 @@ var Mural = {};
     _mapTypeDef = [{featureType: "road",elementType: "all",stylers: [{ saturation: -99 },{ hue: "#0000ff" }]},{featureType: "all",elementType: "labels",stylers: [{ visibility: "simplified" }]},{featureType: "road",elementType: "geometry",stylers: [{ visibility: "simplified" }]},{featureType: "road.local",elementType: "labels",stylers: [{ visibility: "on" }]},{featureType: "all",elementType: "geometry",stylers: [{ saturation: -20 }]}],
     _mapOptions = {
       zoom: 16,
-      minZoom: 12,
+
       center: new google.maps.LatLng(39.95185, -75.16382),
       mapTypeId: _mapTypeName,
       mapTypeControlOptions: {
@@ -218,7 +218,7 @@ console.log(_murals);
                 _murals.sort(compareDist);
                 
                 // Only keep the closest 10
-                _murals = _murals.slice(0,10);
+                _murals = _murals.slice(0,50);
                 
                 // Update the map markers and the listing page
                 _refreshMarkers();
