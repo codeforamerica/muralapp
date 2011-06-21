@@ -16,7 +16,7 @@ var Mural = {};
     _mapOptions = {
       zoom: 16,
 
-      center: new google.maps.LatLng(39.95185, -75.16382),
+      center: new google.maps.LatLng(37.7749295, -122.4194155),     // PHL 39.95185, -75.16382
       mapTypeId: _mapTypeName,
       mapTypeControlOptions: {
          mapTypeIds: [_mapTypeName, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID]
@@ -55,7 +55,7 @@ var Mural = {};
             var bubbleHtml = '';
             bubbleHtml += '<strong>'+mural.properties.title+'</strong><br />';
             bubbleHtml += '<img src="'+mural.properties.imgs[0]+'" />';            
-            bubbleHtml = '<div id="mid-'+mural.properties.internalId+'" class="infoBubbs">'+bubbleHtml+'</div><br style="clear:both" />';
+            bubbleHtml = '<div id="mid-'+mural.properties._id+'" class="infoBubbs">'+bubbleHtml+'</div><br style="clear:both" />';
 
             // Evidently we need to create the div the old fashioned way
             // for the infoWindow.
@@ -212,7 +212,7 @@ var Mural = {};
                 $.each(_murals, function(i, mural){
                     mapMuralProperties(mural.properties);
                 });
-console.log(_murals);
+//console.log(_murals);
                 // Sort the murals from closest to farthest
                 function compareDist(a, b) { return  a.properties.distance - b.properties.distance; }
                 _murals.sort(compareDist);
@@ -277,11 +277,27 @@ function mapMuralProperties(m) {
     delete m.Title;
     
     m.imgs = [];
-    m.imgs[0] = 'http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+m.interalId+'&SC=1';
-    if(m.mediaIds) {
-        $.each(m.mediaIds, function(i, el) {
-           m.imgs.push('http://www.muralfarm.org/MuralFarm/MediaStream.ashx?mediaID='+el+'&.jpg');
-        });
-        delete m.mediaIds;
+    // Special case for Philly Murals
+    if(m.source == "Philadelphia Mural Arts Program") {
+        m.imgs[0] = 'http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+m.interalId+'&SC=1';
+        
+        if(m.mediaIds) {
+            $.each(m.mediaIds, function(i, el) {
+               m.imgs.push('http://www.muralfarm.org/MuralFarm/MediaStream.ashx?mediaID='+el+'&.jpg');
+            });
+            delete m.mediaIds;
+        }
+    } else {
+        if(m._attachments) {
+            var att_keys = Object.keys(m._attachments);
+//console.log(att_keys);            
+            $.each(att_keys, function(i, att){
+               console.log(att);
+                m.imgs.push(Muralapp.db.path + '/' + m._id + '/' + att);
+            });
+
+            delete m._attachments;
+        }
     }
+//console.log(m);
 }

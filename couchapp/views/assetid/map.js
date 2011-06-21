@@ -1,5 +1,3 @@
 function(doc) {
-    if(doc.assetId) {
-        emit(doc.assetId, doc);
-    }
+    emit(doc._id, doc);
 }

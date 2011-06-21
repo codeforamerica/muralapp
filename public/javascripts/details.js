@@ -11,10 +11,10 @@
             $detailTarget = $(_options.detailTarget, $container).html('Loading...');
         
         $.ajax({
-            url: Muralapp.db.path+'/_design/assets/_list/asset/assetid?key='+id,
+            url: Muralapp.db.path+'/_design/assets/_list/jsonp/assetid?key="'+id+'"',
             crossDomain: true,
             dataType: 'jsonp',
-            success: function (mural, textStatus, jqXHR) {
+            success: function (mural, textStatus, jqXHR) {            
                 // Structure the data a bit
                 mapMuralProperties(mural);
 
@@ -23,13 +23,13 @@
                 
                 var detailsHtml = imageHtml = '';
                 detailsHtml += '<div class="details_title">'+mural.title+'</div>';
-                
+        
                 // This whole image handling code seems clunky
                 // imgs[0] = thumbnail
                 // imgs[1] = large main image
                 // imgs[2-n] = secondary shots
                 if(mural.imgs.length > 0) {
-                    detailsHtml += '<img src="'+mural.imgs[1]+'" />';
+                    detailsHtml += '<img src="'+mural.imgs[0]+'" />';
                     if(mural.imgs.length > 1) {
                         for(var i=2; i < mural.imgs.length; i++) {
                             imageHtml += '<img src="'+mural.imgs[i]+'" />';
