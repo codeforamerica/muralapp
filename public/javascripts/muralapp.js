@@ -202,7 +202,7 @@ var Mural = {};
 
         // "Where da art at?" she ajaxed the couch.
         $.ajax({
-            url: Muralapp.db.path+'/_design/geo/_spatiallist/geojson/full?bbox='+
+            url: Muralapp.db.path+'/_design/geo/_spatial/_list/geojson/full?bbox='+
                 bbox.minx+','+bbox.miny+','+bbox.maxx+','+bbox.maxy,
             crossDomain: true,
             dataType: 'jsonp',
