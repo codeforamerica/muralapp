@@ -77,7 +77,7 @@ var Mural = {};
             var winContent = '<div class="win-content">' + 
               '<div class="win-title">'+mural.properties.title+'</div>' +
               '<img src="'+mural.properties.imgs[0]+'" />' + 
-              '<a href="javascript:void(0);" data-assetid="'+mural.properties.internalId+
+              '<a href="javascript:void(0);" data-assetid="'+mural.properties._id+
                   '" class="win-details-link">More details...</a>' +  
             '</div>';
             
@@ -124,7 +124,7 @@ var Mural = {};
       
       _directionsService.route(request, function(result, status) {        
         if (status == google.maps.DirectionsStatus.OK) {
-          $('.mural-dist-'+mural.properties.internalId).text('You are ' + result.routes[0].legs[0].distance.text + ' away.');
+          $('.mural-dist-'+mural.properties._id).text('You are ' + result.routes[0].legs[0].distance.text + ' away.');
         }
       });
     };
@@ -135,10 +135,10 @@ var Mural = {};
       
       $.each(_murals, function(i, mural){
           html += '<li><img src="'+mural.properties.imgs[0]+'" alt="'+mural.properties.title + '" class="ul-li-icon">' +
-              '<a href="details.html?id='+ mural.properties.internalId +'">' + mural.properties.title + '</a>';
+              '<a href="details.html?id='+ mural.properties._id +'">' + mural.properties.title + '</a>';
 
           if (_myLocationLatLng) {
-            html += '<div class="mural-dist-'+mural.properties.internalId + ' distance"></div>';
+            html += '<div class="mural-dist-'+mural.properties._id + ' distance"></div>';
           }
           html += '</li>';
       });
