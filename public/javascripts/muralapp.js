@@ -54,7 +54,7 @@ var Mural = {};
             // Build the html for our GMaps infoWindow
             var bubbleHtml = '';
             bubbleHtml += '<strong>'+mural.properties.title+'</strong><br />';
-            bubbleHtml += '<img src="'+mural.properties.imgs[0]+'" />';            
+            bubbleHtml += '<img class="thumbnail" src="'+mural.properties.imgs[0]+'" />';            
             bubbleHtml = '<div id="mid-'+mural.properties._id+'" class="infoBubbs">'+bubbleHtml+'</div><br style="clear:both" />';
 
             // Evidently we need to create the div the old fashioned way
@@ -134,7 +134,7 @@ var Mural = {};
         html = '<ul data-role="listview" data-inset="true" data-theme="d">';
       
       $.each(_murals, function(i, mural){
-          html += '<li><img src="'+mural.properties.imgs[0]+'" alt="'+mural.properties.title + '" class="ul-li-icon">' +
+          html += '<li><img class="thumbnail" src="'+mural.properties.imgs[0]+'" alt="'+mural.properties.title + '" class="ul-li-icon">' +
               '<a href="details.html?id='+ mural.properties._id +'">' + mural.properties.title + '</a>';
 
           if (_myLocationLatLng) {
