@@ -292,12 +292,14 @@ function mapMuralProperties(m) {
             var att_keys = Object.keys(m._attachments);
 //console.log(att_keys);            
             $.each(att_keys, function(i, att){
-               console.log(att);
+               //console.log(att);
                 m.imgs.push(Muralapp.db.path + '/' + m._id + '/' + att);
             });
 
             delete m._attachments;
+        } else {
+            m.imgs.push('noimage.png');
         }
     }
-//console.log(m);
+console.log(m);
 }
