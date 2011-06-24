@@ -29,7 +29,7 @@
                 // imgs[1] = large main image
                 // imgs[2-n] = secondary shots
                 if(mural.imgs.length > 0) {
-                    detailsHtml += '<img src="'+mural.imgs[0]+'" />';
+                    detailsHtml += (mural.imgs[0] != "noimage.png") ? '<img src="'+mural.imgs[0]+'" />' : '';
                     if(mural.imgs.length > 1) {
                         for(var i=2; i < mural.imgs.length; i++) {
                             imageHtml += '<img src="'+mural.imgs[i]+'" />';
