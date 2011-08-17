@@ -212,17 +212,7 @@ var Mural = {};
                 
                 // Normalize our images
                 $.each(_murals, function(idx, mural) {
-                    mural.properties.imgs = [];
-                    if(mural.properties.image_urls) {               // Using image_urls
-                        mural.properties.imgs = mural.properties.image_urls;
-                    } else if(mural.properties._attachments) {      // Using attachments
-                        imgArray = getKeys(mural.properties._attachments);
-                        for(i=0; i < imgArray.length; i+=1) {       
-                            mural.properties.imgs.push(Muralapp.db.path+'/'+mural.properties._id+'/'+imgArray[i]);
-                        }
-                    } else {                                        // No image :(
-                        mural.properties.imgs.push('noimage.png');
-                    }
+                    setImages(mural.properties);
                 });
 
                 // Sort the murals from closest to farthest
@@ -231,7 +221,7 @@ var Mural = {};
                 _murals.sort(compareDist);
                 
                 // Only keep the closest 20
-                //_murals = _murals.slice(0,20);
+                _murals = _murals.slice(0,40);
                 
                 // Update the map markers and the listing page
                 _refreshMarkers();
@@ -239,17 +229,6 @@ var Mural = {};
             }
         });
     };
-    
-    // Helper function that returns all the keys for a given object
-    var getKeys = function(obj){
-        var keys = [];
-        for(var key in obj){
-            if (obj.hasOwnProperty(key)) {
-                keys.push(key);
-            }
-        }
-        return keys;
-    }
 
     var _initMap = function() {
         _map = new google.maps.Map($(_options.mapTarget).get(0), _mapOptions);
@@ -290,3 +269,30 @@ $('#list-page').live('pagecreate',function(event){
     app = app || Mural.App();
     app.refresh();
 });
+
+// Setup the images for a given piece of art
+var setImages = function (mural) {
+    mural.imgs = [];
+    if(mural.image_urls) {               // Using image_urls
+        mural.imgs = mural.image_urls;
+    } else if(mural._attachments) {      // Using attachments
+        imgArray = getKeys(mural._attachments);
+        for(i=0; i < imgArray.length; i+=1) {       
+            mural.imgs.push(Muralapp.db.path+'/'+mural._id+'/'+imgArray[i]);
+        }
+    } else {                                        // No image :(
+        mural.imgs.push('noimage.png');
+    }
+    return mural;
+}
+
+// Helper function that returns all the keys for a given object
+var getKeys = function(obj){
+    var keys = [];
+    for(var key in obj){
+        if (obj.hasOwnProperty(key)) {
+            keys.push(key);
+        }
+    }
+    return keys;
+}
