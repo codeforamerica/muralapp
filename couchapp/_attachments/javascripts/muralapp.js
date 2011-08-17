@@ -207,18 +207,31 @@ var Mural = {};
             crossDomain: true,
             dataType: 'jsonp',
             success: function (data, textStatus, jqXHR) {
+                var imgArray, i;
                 _murals = data.features;
-                // Structure the data a bit
-                $.each(_murals, function(i, mural){
-                    mapMuralProperties(mural.properties);
+                
+                // Normalize our images
+                $.each(_murals, function(idx, mural) {
+                    mural.properties.imgs = [];
+                    if(mural.properties.image_urls) {               // Using image_urls
+                        mural.properties.imgs = mural.properties.image_urls;
+                    } else if(mural.properties._attachments) {      // Using attachments
+                        imgArray = getKeys(mural.properties._attachments);
+                        for(i=0; i < imgArray.length; i+=1) {       
+                            mural.properties.imgs.push(Muralapp.db.path+'/'+mural.properties._id+'/'+imgArray[i]);
+                        }
+                    } else {                                        // No image :(
+                        mural.properties.imgs.push('noimage.png');
+                    }
                 });
-//console.log(_murals);
+
                 // Sort the murals from closest to farthest
+                // TODO: make this work... (there is no distance property on 'properties')
                 function compareDist(a, b) { return  a.properties.distance - b.properties.distance; }
                 _murals.sort(compareDist);
                 
-                // Only keep the closest 10
-                _murals = _murals.slice(0,50);
+                // Only keep the closest 20
+                //_murals = _murals.slice(0,20);
                 
                 // Update the map markers and the listing page
                 _refreshMarkers();
@@ -226,6 +239,17 @@ var Mural = {};
             }
         });
     };
+    
+    // Helper function that returns all the keys for a given object
+    var getKeys = function(obj){
+        var keys = [];
+        for(var key in obj){
+            if (obj.hasOwnProperty(key)) {
+                keys.push(key);
+            }
+        }
+        return keys;
+    }
 
     var _initMap = function() {
         _map = new google.maps.Map($(_options.mapTarget).get(0), _mapOptions);
@@ -266,40 +290,3 @@ $('#list-page').live('pagecreate',function(event){
     app = app || Mural.App();
     app.refresh();
 });
-
-// This function exists to try to wrangle unstructured data into line
-// so that our scripts don't blow up down the line.
-function mapMuralProperties(m) {
-    m.interalId = m.assetId || m.accession_id;
-    delete m.assetId;
-    
-    m.title = m.Title || m.title;
-    delete m.Title;
-    
-    m.imgs = [];
-    // Special case for Philly Murals
-    if(m.source == "Philadelphia Mural Arts Program") {
-        m.imgs[0] = 'http://www.muralfarm.org/MuralFarm/MediaStream.ashx?AssetId='+m.interalId+'&SC=1';
-        
-        if(m.mediaIds) {
-            $.each(m.mediaIds, function(i, el) {
-               m.imgs.push('http://www.muralfarm.org/MuralFarm/MediaStream.ashx?mediaID='+el+'&.jpg');
-            });
-            delete m.mediaIds;
-        }
-    } else {
-        if(m._attachments) {
-            var att_keys = Object.keys(m._attachments);
-//console.log(att_keys);            
-            $.each(att_keys, function(i, att){
-               //console.log(att);
-                m.imgs.push(Muralapp.db.path + '/' + m._id + '/' + att);
-            });
-
-            delete m._attachments;
-        } else {
-            m.imgs.push('noimage.png');
-        }
-    }
-console.log(m);
-}
