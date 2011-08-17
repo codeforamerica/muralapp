@@ -36,7 +36,8 @@
                 // Dump everything else onto the page
                 $.each(mural, function(i, n) {
                     // HACK - the following if could be done more gracefully
-                    if(n != '' && i != 'title' && i != 'geometry' && i != 'id' && i != '_id' && i != '_rev' && i != 'imgs') {
+                    var hideFields = ['_id','_rev','_attachments','geometry','title','id','imgs','doc_type'];
+                    if(n != '' && hideFields.indexOf(i) == -1) {
                         detailsHtml += '<li><strong>'+i+'</strong>'+n+'</li>';
                     }
                 });
